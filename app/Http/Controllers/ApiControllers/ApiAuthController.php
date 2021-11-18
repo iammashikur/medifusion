@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Laravel\Passport\HasApiTokens;
 
-
-class ApiController extends Controller
+class ApiAuthController extends Controller
 {
 
     /**
@@ -115,12 +114,9 @@ class ApiController extends Controller
         $user->gender = $request->gender;
         $user->save();
 
-
-
-
         return response()->json([
             'success' => true,
-            'message' => 'User Registered Successfully',
+            'message' => 'Successfully registered ',
             'token' => $user->createToken('tokens')->plainTextToken
         ], 200);
     }
@@ -128,23 +124,25 @@ class ApiController extends Controller
 
     public function login(Request $request)
     {
-        if (!Auth::attempt($request->only('phone', 'password'))) {
+
+
+        $user = Patient::where('phone', $request->phone)->first();
+        if (Hash::check($request->password, $user->password)) {
+
+            $user->tokens()->where('tokenable_id', $user->id)->delete();
             return response()->json([
-                'message' => 'Invalid login details'
-            ], 401);
+                'success' => true,
+                'message' => 'Successfully logged in!',
+                'token' => $user->createToken('tokens')->plainTextToken
+            ], 200);
         }
 
-        $user = User::where('email', $request['email'])->firstOrFail();
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+            'message' => 'Invalid login details'
+        ], 401);
     }
 
-    public static function index()
+    public static function profile()
     {
         return 'hello world';
     }
