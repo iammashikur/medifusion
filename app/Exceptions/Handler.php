@@ -34,8 +34,18 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+
+        $this->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
+
+            // Custom AuthenticationMessage
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Authentication Error! (Invalid or expired token)'
+                ], 401);
+            }
         });
     }
+
+
 }

@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ApiController;
 
+use App\Http\Controllers\Controller;
 use App\Models\Patient;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
-use Laravel\Passport\HasApiTokens;
 
-class ApiAuthController extends Controller
+class AuthController extends Controller
 {
-
     /**
      * @OA\Post(
      *      path="/api/register",
@@ -142,8 +138,20 @@ class ApiAuthController extends Controller
         ], 401);
     }
 
-    public static function profile()
+    public function logout(Request $request)
     {
-        return 'hello world';
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully logged out!',
+        ], 200);
+    }
+
+    public static function fallback()
+    {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid Request!'
+        ], 404);
     }
 }
