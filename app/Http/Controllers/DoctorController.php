@@ -31,7 +31,7 @@ class DoctorController extends Controller
     {
         $specialization = DoctorSpecialization::get();
         $gender = Gender::get();
-        return view('admin.doctor_create', compact('specialization','gender'));
+        return view('admin.doctor_create', compact('specialization', 'gender'));
     }
 
     /**
@@ -44,19 +44,20 @@ class DoctorController extends Controller
     {
 
         $doctor = new Doctor();
-         /** Save image on dir */
-         $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
-         /** Save request data to db */
-         $doctor->avatar      = $imagePath;
-         $doctor->name      = $request->name;
-         $doctor->registration      = $request->registration;
-         $doctor->gender      = $request->gender;
-         $doctor->specialization      = $request->specialization;
-         $doctor->qualification      = $request->qualification;
-         $doctor->phone      = $request->phone;
-         $doctor->save();
-         toast('Doctor Added!','success')->width('300px')->padding('10px');
-         return redirect()->route('doctor.index');
+        /** Save image on dir */
+        $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
+        /** Save request data to db */
+        $doctor->avatar      = $imagePath;
+        $doctor->name      = $request->name;
+        $doctor->registration      = $request->registration;
+        $doctor->gender      = $request->gender;
+        $doctor->specialization      = $request->specialization;
+        $doctor->qualification      = $request->qualification;
+        $doctor->phone      = $request->phone;
+        $doctor->consultationfee      = $request->consultationfee;
+        $doctor->save();
+        toast('Doctor Added!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('doctor.index');
     }
 
     /**
@@ -76,9 +77,11 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Doctor $doctor)
     {
-        //
+        $specialization = DoctorSpecialization::get();
+        $gender = Gender::get();
+        return view('admin.doctor_edit', compact('specialization', 'gender', 'doctor'));
     }
 
     /**
@@ -88,9 +91,29 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Doctor $doctor, Request $request)
     {
-        //
+        $doctor = Doctor::findOrFail($doctor->id);
+        /** Save image on dir */
+
+        if ($request->hasFile('avatar')) {
+
+            $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $doctor->avatar      = $imagePath;
+        }
+
+
+        $doctor->name      = $request->name;
+        $doctor->registration      = $request->registration;
+        $doctor->gender      = $request->gender;
+        $doctor->specialization      = $request->specialization;
+        $doctor->qualification      = $request->qualification;
+        $doctor->phone      = $request->phone;
+        $doctor->consultationfee      = $request->consultationfee;
+        $doctor->save();
+        toast('Doctor Updated!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('doctor.index');
     }
 
     /**

@@ -80,16 +80,17 @@ class DoctorsDataTable extends DataTable
     {
         return [
 
-            Column::make('id')->width('20'),
+            Column::make('id')->width('10'),
 
-            Column::make('name')->width('100'),
+            Column::make('name')->width('70'),
             Column::make('specialization')->width('20'),
             Column::make('qualification')->width('20'),
-            Column::make('image')->width('50'),
+            Column::make('consultationfee')->title('Consultation Fee')->width('25'),
+            Column::make('image')->title('Photo')->width('30'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
-            ->width(30)
+            ->width(50)
             ->addClass('text-center'),
 
         ];
