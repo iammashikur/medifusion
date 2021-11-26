@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [AdminController::class, 'index']);
+    Route::resource('doctor', DoctorController::class);
+});
+
+
+
+
+Auth::routes();
+Route::get('/login', [AdminController::class, 'login'])->name('login');
+Route::get('/register', [AdminController::class, 'register'])->name('register');
+
+

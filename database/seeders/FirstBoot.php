@@ -6,6 +6,7 @@ use App\Models\AppointmentStatus;
 use App\Models\DoctorSpecialization;
 use App\Models\Gender;
 use App\Models\TransactionType;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class FirstBoot extends Seeder
@@ -17,6 +18,13 @@ class FirstBoot extends Seeder
      */
     public function run()
     {
+        //Admin
+        User::insert([
+            'name' => 'Super Admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('password'),
+        ]);
+
         // Gengers
         Gender::insert(
             [

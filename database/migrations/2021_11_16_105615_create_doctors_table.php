@@ -19,6 +19,7 @@ class CreateDoctorsTable extends Migration
             $table->string('gender');
             $table->string('specialization');
             $table->string('qualification');
+            $table->string('registration');
             $table->string('phone');
             $table->string('avatar');
             $table->timestamps();
