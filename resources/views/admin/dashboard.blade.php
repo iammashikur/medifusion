@@ -15,25 +15,25 @@
       <!-- Main Content -->
       <div class="main-content">
 
-        @hasanyrole('admin|manager|librarian')
+
         {{-- Library section --}}
         <section class="section">
             <div class="row ">
               <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <a href="{{ route('admin.book.index') }}">
+                  <a href="">
                       <div class="card">
                           <div class="card-statistic-4">
                             <div class="align-items-center justify-content-between">
                               <div class="row ">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
-                                    <h5 class="font-15">Book published</h5>
-                                    <h2 class="mb-3 font-18">{{ $allBooks }}</h2>
+                                    <h5 class="font-15">Doctors</h5>
+                                    <h2 class="mb-3 font-18">{{ $doctor->count() }}</h2>
                                   </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
                                   <div class="banner-img">
-                                    <img style="max-width: 55px" class="" src="{{ asset('uploads/icons/book-stack.png') }}" alt="">
+                                    <img style="max-width: 55px" class="" src="{{ asset('uploads/icons/stethoscope.png') }}" alt="">
                                   </div>
                                 </div>
                               </div>
@@ -44,20 +44,71 @@
               </div>
 
               <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <a href="{{ route('admin.order.index') }}">
+                  <a href="">
                       <div class="card">
                           <div class="card-statistic-4">
                             <div class="align-items-center justify-content-between">
                               <div class="row ">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
-                                    <h5 class="font-15">Order Complited</h5>
-                                    <h2 class="mb-3 font-18">{{ $ordersCompleted }}</h2>
+                                    <h5 class="font-15">Patients</h5>
+                                    <h2 class="mb-3 font-18">{{ $patient->count() }}</h2>
                                   </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
                                   <div class="banner-img">
-                                    <img style="max-width: 65px" class="" src="{{ asset('uploads/icons/box.png') }}" alt="">
+                                    <img style="max-width: 65px" class="" src="{{ asset('uploads/icons/patient.png') }}" alt="">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </a>
+              </div>
+
+
+
+              <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <a href="">
+                      <div class="card">
+                          <div class="card-statistic-4">
+                            <div class="align-items-center justify-content-between">
+                              <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                  <div class="card-content">
+                                    <h5 class="font-15">Appointment</h5>
+                                    <h2 class="mb-3 font-18">{{ $appointments->count() }}</h2>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
+                                  <div class="banner-img">
+                                    <img style="max-width: 65px" class="" src="{{ asset('uploads/icons/date.png') }}" alt="">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                  </a>
+              </div>
+
+
+              <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <a href="">
+                      <div class="card">
+                          <div class="card-statistic-4">
+                            <div class="align-items-center justify-content-between">
+                              <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                  <div class="card-content">
+                                    <h5 class="font-15">User Tests</h5>
+                                    <h2 class="mb-3 font-18">{{ $usertest->count() }}</h2>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
+                                  <div class="banner-img">
+                                    <img style="max-width: 55px" class="" src="{{ asset('uploads/icons/check-list.png') }}" alt="">
                                   </div>
                                 </div>
                               </div>
@@ -68,55 +119,31 @@
               </div>
 
               <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <a href="{{ route('admin.order.index') }}">
-                      <div class="card">
-                          <div class="card-statistic-4">
-                            <div class="align-items-center justify-content-between">
-                              <div class="row ">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                                  <div class="card-content">
-                                    <h5 class="font-15">Order Pending</h5>
-                                    <h2 class="mb-3 font-18">{{ $ordersPending }}</h2>
-                                  </div>
+                <a href="">
+                    <div class="card">
+                        <div class="card-statistic-4">
+                          <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                <div class="card-content">
+                                  <h5 class="font-15">Revenue</h5>
+                                  <h2 class="mb-3 font-18">{{ $usertest->count() }} ৳</h2>
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
-                                  <div class="banner-img">
-                                    <img style="max-width: 65px" class="" src="{{ asset('uploads/icons/pending.png') }}" alt="">
-                                  </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
+                                <div class="banner-img">
+                                  <img style="max-width: 55px" class="" src="{{ asset('uploads/icons/revenue.png') }}" alt="">
                                 </div>
                               </div>
                             </div>
                           </div>
-                      </div>
-                  </a>
-              </div>
-
-              <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                  <a href="{{ route('admin.order-report.index') }}">
-                      <div class="card">
-                          <div class="card-statistic-4">
-                            <div class="align-items-center justify-content-between">
-                              <div class="row ">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
-                                  <div class="card-content">
-                                    <h5 class="font-15">Total Earnings</h5>
-                                    <h2 class="mb-3 font-18">{{ $totalEarning }} ৳</h2>
-                                  </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
-                                  <div class="banner-img">
-                                    <img style="max-width: 55px" class="" src="{{ asset('uploads/icons/money.png') }}" alt="">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-                  </a>
-              </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
             </div>
         </section>
-        @endhasanyrole
+
 
         @hasanyrole('admin')
         {{-- Admin section --}}

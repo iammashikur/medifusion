@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
+use App\Models\Doctor;
+use App\Models\Patient;
+use App\Models\PatientTest;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -20,6 +24,10 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard');
+        $doctor = Doctor::all();
+        $patient = Patient::all();
+        $appointments = Appointment::all();
+        $usertest = PatientTest::all();
+        return view('admin.dashboard', compact('doctor','patient','appointments','usertest'));
     }
 }

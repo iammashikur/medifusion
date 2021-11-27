@@ -23,11 +23,19 @@
             </li>
             @endhasanyrole
 
+            <li class="dropdown {{ MenuActive('specializations', 1) }}">
+                <a href="{{ route('doctor.index') }}" class="nav-link">
+                    <i data-feather="grid"></i>
+                    <span>Specializations</span></a>
+            </li>
+
             <li class="dropdown {{ MenuActive('doctor', 1) }}">
                 <a href="{{ route('doctor.index') }}" class="nav-link">
                     <i class="fa fa-stethoscope"></i>
                     <span>Doctors</span></a>
             </li>
+
+
 
             <li class="dropdown {{ MenuActive('patient', 1) }}">
                 <a href="{{ route('doctor.index') }}" class="nav-link">
@@ -40,6 +48,44 @@
                     <i
                     data-feather="list"></i>
                     <span>Tests</span></a>
+            </li>
+
+            <li class="dropdown {{ MenuActive('tests', 1) }}">
+                <a href="{{ route('doctor.index') }}" class="nav-link">
+                    <i
+                    data-feather="calendar"></i>
+                    <span>Appointments</span></a>
+            </li>
+
+            <li class="dropdown {{ MenuActive('tests', 1) }}">
+                <a href="{{ route('doctor.index') }}" class="nav-link">
+                    <i
+                    data-feather="check-square"></i>
+                    <span>Patient Tests</span></a>
+            </li>
+
+
+
+
+            <li class="dropdown {{ MenuActive('tests', 1) }}">
+                <a href="{{ route('doctor.index') }}" class="nav-link">
+                    <i
+                    data-feather="dollar-sign"></i>
+                    <span>Transactions</span></a>
+            </li>
+
+            <li class="dropdown {{ MenuActive('tests', 1) }}">
+                <a href="{{ route('doctor.index') }}" class="nav-link">
+                    <i
+                    data-feather="bar-chart-2"></i>
+                    <span>Report</span></a>
+            </li>
+
+            <li class="dropdown {{ MenuActive('tests', 1) }}">
+                <a href="{{ route('doctor.index') }}" class="nav-link">
+                    <i
+                    data-feather="settings"></i>
+                    <span>Settings</span></a>
             </li>
 
 
