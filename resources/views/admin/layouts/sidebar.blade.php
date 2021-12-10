@@ -50,8 +50,8 @@
                     <span>Tests</span></a>
             </li>
 
-            <li class="dropdown {{ MenuActive('tests', 1) }}">
-                <a href="{{ route('doctor.index') }}" class="nav-link">
+            <li class="dropdown {{ MenuActive('appointment', 1) }}">
+                <a href="{{ route('appointment.index') }}" class="nav-link">
                     <i
                     data-feather="calendar"></i>
                     <span>Appointments</span></a>

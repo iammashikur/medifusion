@@ -8,6 +8,7 @@ use App\Models\Doctor;
 use App\Models\DoctorSpecialization;
 use App\Models\Gender;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
@@ -55,6 +56,7 @@ class DoctorController extends Controller
         $doctor->qualification      = $request->qualification;
         $doctor->phone      = $request->phone;
         $doctor->consultationfee      = $request->consultationfee;
+        $doctor->hospital_id      = Auth::user()->hospital_id;
         $doctor->save();
         toast('Doctor Added!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor.index');

@@ -22,6 +22,8 @@ class FirstBoot extends Seeder
         User::insert([
             'name' => 'Super Admin',
             'email' => 'admin@admin.com',
+            'hospital_id' => 1,
+            'is_admin' => 1,
             'password' => bcrypt('password'),
         ]);
 
@@ -37,12 +39,12 @@ class FirstBoot extends Seeder
         // Specialization of doctors
         DoctorSpecialization::insert(
             [
-                ['id' => 1, 'specialization' => 'General practitioner'],
-                ['id' => 2, 'specialization' => 'OB/GYN – obstetrician and gynaecologist'],
-                ['id' => 3, 'specialization' => 'Psychiatrist'],
-                ['id' => 4, 'specialization' => 'Dentist'],
-                ['id' => 5, 'specialization' => 'General surgeon'],
-                ['id' => 6, 'specialization' => 'Dermatologist']
+                ['id' => 1, 'hospital_id' => 1, 'specialization' => 'General practitioner'],
+                ['id' => 2, 'hospital_id' => 1, 'specialization' => 'OB/GYN – obstetrician and gynaecologist'],
+                ['id' => 3, 'hospital_id' => 1, 'specialization' => 'Psychiatrist'],
+                ['id' => 4, 'hospital_id' => 1, 'specialization' => 'Dentist'],
+                ['id' => 5, 'hospital_id' => 1, 'specialization' => 'General surgeon'],
+                ['id' => 6, 'hospital_id' => 1, 'specialization' => 'Dermatologist']
             ]
         );
 
