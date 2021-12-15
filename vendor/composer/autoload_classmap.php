@@ -6,11 +6,17 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\MakeViewCommand' => $baseDir . '/app/Console/Commands/MakeViewCommand.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\DataTables\\AppointmentsDataTable' => $baseDir . '/app/DataTables/AppointmentsDataTable.php',
     'App\\DataTables\\DoctorsDataTable' => $baseDir . '/app/DataTables/DoctorsDataTable.php',
+    'App\\DataTables\\HospitalsDataTable' => $baseDir . '/app/DataTables/HospitalsDataTable.php',
+    'App\\DataTables\\TestCategoriesDataTable' => $baseDir . '/app/DataTables/TestCategoriesDataTable.php',
+    'App\\DataTables\\TestsDataTable' => $baseDir . '/app/DataTables/TestsDataTable.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AdminController' => $baseDir . '/app/Http/Controllers/AdminController.php',
     'App\\Http\\Controllers\\ApiController\\AuthController' => $baseDir . '/app/Http/Controllers/ApiController/AuthController.php',
+    'App\\Http\\Controllers\\AppointmentController' => $baseDir . '/app/Http/Controllers/AppointmentController.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -19,6 +25,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DoctorController' => $baseDir . '/app/Http/Controllers/DoctorController.php',
+    'App\\Http\\Controllers\\HospitalController' => $baseDir . '/app/Http/Controllers/HospitalController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -38,6 +45,7 @@ return array(
     'App\\Models\\PatientTest' => $baseDir . '/app/Models/PatientTest.php',
     'App\\Models\\PatientTestStatus' => $baseDir . '/app/Models/PatientTestStatus.php',
     'App\\Models\\Test' => $baseDir . '/app/Models/Test.php',
+    'App\\Models\\TestCategory' => $baseDir . '/app/Models/TestCategory.php',
     'App\\Models\\Transaction' => $baseDir . '/app/Models/Transaction.php',
     'App\\Models\\TransactionType' => $baseDir . '/app/Models/TransactionType.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

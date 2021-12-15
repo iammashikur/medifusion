@@ -43,18 +43,17 @@
                     <span>Patients</span></a>
             </li>
 
-            <li class="dropdown {{ MenuActive('tests', 1) }}">
-                <a href="{{ route('doctor.index') }}" class="nav-link">
-                    <i
-                    data-feather="list"></i>
-                    <span>Tests</span></a>
-            </li>
 
-            <li class="dropdown {{ MenuActive('appointment', 1) }}">
-                <a href="{{ route('appointment.index') }}" class="nav-link">
-                    <i
-                    data-feather="calendar"></i>
-                    <span>Appointments</span></a>
+            <li class="dropdown {{ MenuActive('test', 1) }} {{ MenuActive('test-category', 1) }} {{ MenuActive('test-subcategory', 1) }}">
+                <a href="#" class=" nav-link has-dropdown "><i
+                    data-feather="list"></i><span>Tests</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link {{ MenuActive('test', 1) }}" href="{{ route('test-category.index') }}">Test Category</a></li>
+
+                    <li><a class="nav-link" href="{{ route('test-subcategory.index') }}">Test Subcategory</a></li>
+                    <li><a class="nav-link" href="{{ route('test.index') }}">Test</a></li>
+
+                </ul>
             </li>
 
             <li class="dropdown {{ MenuActive('tests', 1) }}">
@@ -65,6 +64,21 @@
             </li>
 
 
+            <li class="dropdown {{ MenuActive('appointment', 1) }}">
+                <a href="{{ route('appointment.index') }}" class="nav-link">
+                    <i
+                    data-feather="calendar"></i>
+                    <span>Appointments</span></a>
+            </li>
+
+
+
+            <li class="dropdown {{ MenuActive('tests', 1) }}">
+                <a href="{{ route('hospital.index') }}" class="nav-link">
+                    <i
+                    data-feather="hexagon"></i>
+                    <span>Hospitals</span></a>
+            </li>
 
 
             <li class="dropdown {{ MenuActive('tests', 1) }}">

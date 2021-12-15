@@ -641,11 +641,17 @@ class ComposerStaticInit9a3c50ef4f3fda77c2b38d8e762e200c
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\MakeViewCommand' => __DIR__ . '/../..' . '/app/Console/Commands/MakeViewCommand.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\DataTables\\AppointmentsDataTable' => __DIR__ . '/../..' . '/app/DataTables/AppointmentsDataTable.php',
         'App\\DataTables\\DoctorsDataTable' => __DIR__ . '/../..' . '/app/DataTables/DoctorsDataTable.php',
+        'App\\DataTables\\HospitalsDataTable' => __DIR__ . '/../..' . '/app/DataTables/HospitalsDataTable.php',
+        'App\\DataTables\\TestCategoriesDataTable' => __DIR__ . '/../..' . '/app/DataTables/TestCategoriesDataTable.php',
+        'App\\DataTables\\TestsDataTable' => __DIR__ . '/../..' . '/app/DataTables/TestsDataTable.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\ApiController\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApiController/AuthController.php',
+        'App\\Http\\Controllers\\AppointmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/AppointmentController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -654,6 +660,7 @@ class ComposerStaticInit9a3c50ef4f3fda77c2b38d8e762e200c
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DoctorController' => __DIR__ . '/../..' . '/app/Http/Controllers/DoctorController.php',
+        'App\\Http\\Controllers\\HospitalController' => __DIR__ . '/../..' . '/app/Http/Controllers/HospitalController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -673,6 +680,7 @@ class ComposerStaticInit9a3c50ef4f3fda77c2b38d8e762e200c
         'App\\Models\\PatientTest' => __DIR__ . '/../..' . '/app/Models/PatientTest.php',
         'App\\Models\\PatientTestStatus' => __DIR__ . '/../..' . '/app/Models/PatientTestStatus.php',
         'App\\Models\\Test' => __DIR__ . '/../..' . '/app/Models/Test.php',
+        'App\\Models\\TestCategory' => __DIR__ . '/../..' . '/app/Models/TestCategory.php',
         'App\\Models\\Transaction' => __DIR__ . '/../..' . '/app/Models/Transaction.php',
         'App\\Models\\TransactionType' => __DIR__ . '/../..' . '/app/Models/TransactionType.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
