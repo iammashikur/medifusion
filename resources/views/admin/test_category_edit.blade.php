@@ -25,7 +25,7 @@ $page_type = 'Admin';
 
             <div class="card card-primary">
                 <div class="card-header" style="border-bottom-color: #d0d0d0">
-                    <h4>Add Doctor</h4>
+                    <h4>Edit Test Category</h4>
                     <div class="card-header-action">
                         <a href="{{ route('test-category.index') }}" class="btn btn-warning">Go Back</a>
                     </div>

@@ -23,8 +23,8 @@ class HospitalsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('action', function ($action) {
-                return '<a class="btn-sm btn-primary" href="' . route('doctor.edit', $action->id) . '"><i class="far fa-edit"></i></a>
-                        <a class="btn-sm btn-danger delete" href="' . route('doctor.destroy', $action->id) . '"><i class="far fa-trash-alt"></i></a>';
+                return '<a class="btn-sm btn-primary" href="' . route('hospital.edit', $action->id) . '"><i class="far fa-edit"></i></a>
+                        <a class="btn-sm btn-danger delete" href="' . route('hospital.destroy', $action->id) . '"><i class="far fa-trash-alt"></i></a>';
             })
 
             ->addColumn('created_at', function ($created_at) {

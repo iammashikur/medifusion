@@ -27,8 +27,8 @@ class TestSubcategoriesDataTable extends DataTable
             })
 
             ->addColumn('action', function($action){
-                return '<a class="btn-sm btn-primary" href="'.route('test-category.edit', $action->id).'"><i class="far fa-edit"></i></a>
-                        <a class="btn-sm btn-danger delete" href="'.route('test-category.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
+                return '<a class="btn-sm btn-primary" href="'.route('test-subcategory.edit', $action->id).'"><i class="far fa-edit"></i></a>
+                        <a class="btn-sm btn-danger delete" href="'.route('test-subcategory.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
             })
 
            ->rawColumns(['action']);
