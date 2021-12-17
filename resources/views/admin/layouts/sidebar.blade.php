@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand mb-4">
-            <a href="index.html"> <img style="
+            <a href="{{ url('/') }}"> <img style="
                 width: 155px;
                 height: 75px;
             " alt="image" src="{{url('/')}}/assets/admin/img/logo.png" class="header-logo" />
@@ -23,8 +23,8 @@
             </li>
             @endhasanyrole
 
-            <li class="dropdown {{ MenuActive('specializations', 1) }}">
-                <a href="{{ route('doctor.index') }}" class="nav-link">
+            <li class="dropdown {{ MenuActive('specialization', 1) }}">
+                <a href="{{ route('specialization.index') }}" class="nav-link">
                     <i data-feather="grid"></i>
                     <span>Specializations</span></a>
             </li>
@@ -38,7 +38,7 @@
 
 
             <li class="dropdown {{ MenuActive('patient', 1) }}">
-                <a href="{{ route('doctor.index') }}" class="nav-link">
+                <a href="{{ route('patient.index') }}" class="nav-link">
                     <i class="fa fa-diagnoses"></i>
                     <span>Patients</span></a>
             </li>
@@ -51,13 +51,12 @@
                     <li><a class="nav-link {{ MenuActive('test', 1) }}" href="{{ route('test-category.index') }}">Test Category</a></li>
 
                     <li><a class="nav-link" href="{{ route('test-subcategory.index') }}">Test Subcategory</a></li>
-                    <li><a class="nav-link" href="{{ route('test.index') }}">Test</a></li>
-
+                    {{-- <li><a class="nav-link" href="{{ route('test.index') }}">Test</a></li> --}}
                 </ul>
             </li>
 
-            <li class="dropdown {{ MenuActive('tests', 1) }}">
-                <a href="{{ route('doctor.index') }}" class="nav-link">
+            <li class="dropdown {{ MenuActive('patient-test', 1) }}">
+                <a href="{{ route('patient-test.index') }}" class="nav-link">
                     <i
                     data-feather="check-square"></i>
                     <span>Patient Tests</span></a>
@@ -73,30 +72,37 @@
 
 
 
-            <li class="dropdown {{ MenuActive('tests', 1) }}">
+            <li class="dropdown {{ MenuActive('hospital', 1) }}">
                 <a href="{{ route('hospital.index') }}" class="nav-link">
                     <i
                     data-feather="hexagon"></i>
                     <span>Hospitals</span></a>
             </li>
 
+            <li class="dropdown {{ MenuActive('admin-and-role', 1) }}">
+                <a href="" class="nav-link">
+                    <i
+                    data-feather="key"></i>
+                    <span>Admin & Roles</span></a>
+            </li>
 
-            <li class="dropdown {{ MenuActive('tests', 1) }}">
+
+            {{-- <li class="dropdown {{ MenuActive('tests', 1) }}">
                 <a href="{{ route('doctor.index') }}" class="nav-link">
                     <i
                     data-feather="dollar-sign"></i>
                     <span>Transactions</span></a>
-            </li>
+            </li> --}}
 
-            <li class="dropdown {{ MenuActive('tests', 1) }}">
+            {{-- <li class="dropdown {{ MenuActive('tests', 1) }}">
                 <a href="{{ route('doctor.index') }}" class="nav-link">
                     <i
                     data-feather="bar-chart-2"></i>
                     <span>Report</span></a>
-            </li>
+            </li> --}}
 
-            <li class="dropdown {{ MenuActive('tests', 1) }}">
-                <a href="{{ route('doctor.index') }}" class="nav-link">
+            <li class="dropdown">
+                <a href="" class="nav-link">
                     <i
                     data-feather="settings"></i>
                     <span>Settings</span></a>

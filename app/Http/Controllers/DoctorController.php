@@ -56,7 +56,7 @@ class DoctorController extends Controller
         $doctor->qualification      = $request->qualification;
         $doctor->phone      = $request->phone;
         $doctor->consultationfee      = $request->consultationfee;
-        $doctor->hospital_id      = Auth::user()->hospital_id;
+        $doctor->hospital_id = auth()->user()->hospital_id;
         $doctor->save();
         toast('Doctor Added!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor.index');

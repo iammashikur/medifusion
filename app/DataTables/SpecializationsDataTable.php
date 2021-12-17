@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Models\Doctor;
 use App\Models\DoctorSpecialization;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -10,7 +9,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class DoctorsDataTable extends DataTable
+class SpecializationsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,32 +21,20 @@ class DoctorsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('image', function($image){
-
-                $url=asset("/uploads/images/$image->avatar");
-                return '<img src='.$url.' border="0" width="100" class="img-rounded" align="center" />';
-
-
-            })
-            ->addColumn('specialization', function(Doctor $doctor){
-                return $doctor->getSpecialization->specialization;
-            })
-
             ->addColumn('action', function($action){
-                return '<a class="btn-sm btn-primary" href="'.route('doctor.edit', $action->id).'"><i class="far fa-edit"></i></a>
-                        <a class="btn-sm btn-danger delete" href="'.route('doctor.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
+                return '<a class="btn-sm btn-primary" href="'.route('specialization.edit', $action->id).'"><i class="far fa-edit"></i></a>
+                        <a class="btn-sm btn-danger delete" href="'.route('specialization.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
             })
-
-           ->rawColumns(['image', 'specialization', 'action']);
+            ->rawColumns(['action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Doctor $model
+     * @param \App\Models\Specialization $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Doctor $model)
+    public function query(DoctorSpecialization $model)
     {
         return $model->newQuery();
     }
@@ -60,13 +47,14 @@ class DoctorsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('doctors-table')
+                    ->setTableId('specializations-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
-                        Button::make('print'),
+                        Button::make('create'),
+                        Button::make('reload')
                     );
     }
 
@@ -79,19 +67,14 @@ class DoctorsDataTable extends DataTable
     {
         return [
 
-            Column::make('id')->width('10'),
+            Column::make('id'),
+            Column::make('specialization'),
 
-            Column::make('name')->width('70'),
-            Column::make('specialization')->width('20'),
-            Column::make('qualification')->width('20'),
-            Column::make('consultationfee')->title('Consultation Fee')->width('25'),
-            Column::make('image')->title('Photo')->width('30'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
-            ->width(50)
+            ->width(100)
             ->addClass('text-center'),
-
         ];
     }
 
@@ -102,6 +85,6 @@ class DoctorsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Doctors_' . date('YmdHis');
+        return 'Specializations_' . date('YmdHis');
     }
 }

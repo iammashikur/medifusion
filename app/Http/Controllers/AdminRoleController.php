@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\TestsDataTable;
+use App\DataTables\AdminRolesDataTable;
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class AdminRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TestsDataTable $dataTables)
+    public function index(AdminRolesDataTable $dataTables)
     {
-        return $dataTables->render('admin.test_category_all');
+        return $dataTables->render('admin.admin_role_all');
     }
 
     /**
@@ -24,7 +24,7 @@ class TestController extends Controller
      */
     public function create()
     {
-        return view('admin.test_subcategory_create');
+        //
     }
 
     /**

@@ -21,7 +21,17 @@ class TestSubcategoriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'testsubcategories.action');
+
+            ->addColumn('category', function ($category) {
+                return $category->getParent->name;
+            })
+
+            ->addColumn('action', function($action){
+                return '<a class="btn-sm btn-primary" href="'.route('test-category.edit', $action->id).'"><i class="far fa-edit"></i></a>
+                        <a class="btn-sm btn-danger delete" href="'.route('test-category.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
+            })
+
+           ->rawColumns(['action']);
     }
 
     /**
@@ -32,7 +42,7 @@ class TestSubcategoriesDataTable extends DataTable
      */
     public function query(TestSubcategory $model)
     {
-        return $model->newQuery();
+        return $model->where(['hospital_id' => auth()->user()->hospital_id])->newQuery();
     }
 
     /**
@@ -43,16 +53,13 @@ class TestSubcategoriesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('testsubcategories-table')
+                    ->setTableId('testcategories-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
-                        Button::make('export'),
-                        Button::make('print'),
-                        Button::make('reset'),
                         Button::make('reload')
                     );
     }
@@ -65,15 +72,16 @@ class TestSubcategoriesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+
+            Column::make('id'),
+            Column::make('name'),
+            Column::make('category'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(100)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+
         ];
     }
 
@@ -84,6 +92,6 @@ class TestSubcategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'TestSubcategories_' . date('YmdHis');
+        return 'TestCategories_' . date('YmdHis');
     }
 }

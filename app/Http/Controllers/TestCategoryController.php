@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\TestCategoriesDataTable;
+use App\Models\TestCategory;
 use Illuminate\Http\Request;
 
 class TestCategoryController   extends Controller
@@ -24,7 +25,7 @@ class TestCategoryController   extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.test_category_create');
     }
 
     /**
@@ -35,7 +36,15 @@ class TestCategoryController   extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new TestCategory();
+        $category->name = $request->name;
+
+
+
+        $category->hospital_id = auth()->user()->hospital_id;
+        $category->save();
+        toast('Specialization Created!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('test-category.index');
     }
 
     /**
@@ -57,7 +66,8 @@ class TestCategoryController   extends Controller
      */
     public function edit($id)
     {
-        //
+        $test_category = TestCategory::findOrFail($id);
+        return view('admin.test_category_edit',compact('test_category'));
     }
 
     /**
@@ -69,7 +79,13 @@ class TestCategoryController   extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category =  TestCategory::findOrFail($id);
+        $category->name = $request->name;
+
+        $category->hospital_id = auth()->user()->hospital_id;
+        $category->save();
+        toast('Test Category Updated!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('test-category.index');
     }
 
     /**
@@ -78,8 +94,8 @@ class TestCategoryController   extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TestCategory $test_category)
     {
-        //
+        $test_category->delete();
     }
 }

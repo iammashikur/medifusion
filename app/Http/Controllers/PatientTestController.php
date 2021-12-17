@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\TestsDataTable;
 use Illuminate\Http\Request;
 
-class TestController extends Controller
+class PatientTestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(TestsDataTable $dataTables)
+    public function index()
     {
-        return $dataTables->render('admin.test_category_all');
+        //
     }
 
     /**
@@ -24,7 +23,7 @@ class TestController extends Controller
      */
     public function create()
     {
-        return view('admin.test_subcategory_create');
+        //
     }
 
     /**

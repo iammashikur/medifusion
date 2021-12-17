@@ -24,48 +24,44 @@
 
         <div class="card card-primary">
             <div class="card-header" style="border-bottom-color: #d0d0d0">
-                <h4>Add Hospital</h4>
+                <h4>Add Doctor</h4>
                 <div class="card-header-action">
-                    <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
+                    <a href="{{ route('test-subcategory.index') }}" class="btn btn-warning">Go Back</a>
                 </div>
             </div>
 
             <div class="card-body">
 
-             <form action="{{ route('hospital.store') }}" method="POST" enctype="multipart/form-data">
+             <form action="{{ route('test-subcategory.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
 
 
-
                 <div class="form-group row mb-4">
-                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospital Name</label>
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
                   <div class="col-sm-12 col-md-7">
                     <input type="text" name="name" class="form-control" required>
                   </div>
                 </div>
 
-
                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Address</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">CAtegory</label>
                     <div class="col-sm-12 col-md-7">
-                      <input type="text" name="address" class="form-control" required>
+                      <select class="form-control selectric" name="category_id" required>
+                        <option value="">select category</option>
+                        @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                      </select>
                     </div>
                   </div>
 
 
-
-                  <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Phone Number</label>
-                    <div class="col-sm-12 col-md-7">
-                      <input type="text" name="phone" class="form-control" required>
-                    </div>
-                  </div>
 
 
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                   <div class="col-sm-12 col-md-7">
-                    <button class="btn btn-primary">Add Hospital</button>
+                    <button class="btn btn-primary">Add Test Category</button>
                   </div>
                 </div>
              </form>

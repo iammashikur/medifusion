@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SpecializationsDataTable;
+use App\Models\DoctorSpecialization;
 use Illuminate\Http\Request;
 
 class SpecializationController extends Controller
@@ -11,9 +13,9 @@ class SpecializationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(SpecializationsDataTable $dataTables)
     {
-        //
+        return $dataTables->render('admin.specialization_all');
     }
 
     /**
@@ -23,7 +25,7 @@ class SpecializationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.specialization_create');
     }
 
     /**
@@ -34,7 +36,12 @@ class SpecializationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $specialization = new DoctorSpecialization();
+        $specialization->specialization = $request->specialization;
+        $specialization->hospital_id = auth()->user()->hospital_id;
+        $specialization->save();
+        toast('Specialization Created!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('specialization.index');
     }
 
     /**
@@ -56,7 +63,9 @@ class SpecializationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $specialization = DoctorSpecialization::findOrFail($id);
+        return view('admin.specialization_edit',compact('specialization'));
+
     }
 
     /**
@@ -68,7 +77,18 @@ class SpecializationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+
+
+        $specialization = DoctorSpecialization::findOrFail($id);
+        $specialization->specialization = $request->specialization;
+        $specialization->hospital_id = auth()->user()->hospital_id;
+
+        $specialization->save();
+
+        toast('Specialization Updated!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('specialization.index');
     }
 
     /**
@@ -77,8 +97,9 @@ class SpecializationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DoctorSpecialization $specialization)
     {
-        //
+
+        $specialization->delete();
     }
 }

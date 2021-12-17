@@ -2,14 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\TestCategory;
+use App\Models\Patient;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class TestCategoriesDataTable extends DataTable
+class PatientsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,23 +21,18 @@ class TestCategoriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function($action){
-                return '<a class="btn-sm btn-primary" href="'.route('test-category.edit', $action->id).'"><i class="far fa-edit"></i></a>
-                        <a class="btn-sm btn-danger delete" href="'.route('test-category.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
-            })
-
-           ->rawColumns(['action']);
+            ->addColumn('action', 'patients.action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\TestCategory $model
+     * @param \App\Models\Patient $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(TestCategory $model)
+    public function query(Patient $model)
     {
-        return $model->where(['hospital_id' => auth()->user()->hospital_id])->newQuery();
+        return $model->newQuery();
     }
 
     /**
@@ -48,13 +43,12 @@ class TestCategoriesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('testcategories-table')
+                    ->setTableId('patients-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
-                        Button::make('create'),
 
                         Button::make('reload')
                     );
@@ -68,14 +62,10 @@ class TestCategoriesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-
             Column::make('id'),
             Column::make('name'),
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(100)
-                  ->addClass('text-center'),
+            Column::make('phone'),
+            Column::make('updated_at')->title('Registration Date'),
         ];
     }
 
@@ -86,6 +76,6 @@ class TestCategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'TestCategories_' . date('YmdHis');
+        return 'Patients_' . date('YmdHis');
     }
 }
