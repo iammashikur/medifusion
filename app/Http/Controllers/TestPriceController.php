@@ -14,7 +14,7 @@ class TestPriceController extends Controller
      */
     public function index(TestPricesDataTable $dataTables)
     {
-        return $dataTables->render('admin.test_prices_all');
+        return $dataTables->render('admin.test_price_all');
     }
 
     /**

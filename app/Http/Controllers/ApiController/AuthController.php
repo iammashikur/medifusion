@@ -5,90 +5,11 @@ namespace App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * @OA\Post(
-     *      path="/api/register",
-     *      operationId="getProjectById",
-     *      tags={"Register"},
-     *      summary="Get project information",
-     *      description="Returns project data",
-     *
-     *  @OA\Parameter(
-     *          name="name",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *      ),
-     *
-     *    @OA\Parameter(
-     *          name="birth_date",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *      ),
-     *
-     *  @OA\Parameter(
-     *          name="gender",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *      ),
-     *
-     *  @OA\Parameter(
-     *          name="avatar",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *      ),
-     *
-     *  @OA\Parameter(
-     *          name="email",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *
-     *
-     *  @OA\Parameter(
-     *          name="password",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *      ),
-     *
-     *
-     *
-     *      @OA\Response(
-     *          response=200,
-     *          description="successful operation"
-     *       ),
-     *      @OA\Response(response=400, description="Bad request"),
-     *      @OA\Response(response=404, description="Resource Not Found"),
-     *      security={
-     *         {
-     *             "oauth2_security_example": {"write:projects", "read:projects"}
-     *         }
-     *     },
-     * )
-     */
-
-
 
     public function register(Request $request)
     {
@@ -100,6 +21,13 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'User Already Registered',
+            ], 200);
+        }
+
+        if (!$request->hasFile('avatar')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Profile Picture Required!',
             ], 200);
         }
 
@@ -117,7 +45,8 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Successfully registered ',
-            'token' => $user->createToken('tokens')->plainTextToken
+            'token' => $user->createToken('tokens')->plainTextToken,
+            'user_data' => $user,
         ], 200);
     }
 
@@ -128,28 +57,18 @@ class AuthController extends Controller
 
         $user = Patient::where('phone', $request->phone)->first();
 
-        if ($user) {
 
-            if (Hash::check($request->password, $user->password)) {
 
-                $user->tokens()->where('tokenable_id', $user->id)->delete();
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Successfully logged in!',
-                    'token' => $user->createToken('tokens')->plainTextToken
-                ], 200);
-            }
-            if (Hash::check($request->password, $user->password)) {
+        if (@Hash::check($request->password, $user->password)) {
 
-                $user->tokens()->where('tokenable_id', $user->id)->delete();
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Successfully logged in!',
-                    'token' => $user->createToken('tokens')->plainTextToken
-                ], 200);
-            }
+            $user->tokens()->where('tokenable_id', $user->id)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully logged in!',
+                'token' => $user->createToken('tokens')->plainTextToken,
+                'user_data' => $user,
+            ], 200);
         }
-
 
         return response()->json([
             'message' => 'Invalid login details'
