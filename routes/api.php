@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,13 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::fallback([AuthController::class, 'fallback']);
 
+Route::fallback([AuthController::class, 'fallback']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
-
 
