@@ -58,6 +58,7 @@ return array(
     'App\\Models\\PatientTestStatus' => $baseDir . '/app/Models/PatientTestStatus.php',
     'App\\Models\\Test' => $baseDir . '/app/Models/Test.php',
     'App\\Models\\TestCategory' => $baseDir . '/app/Models/TestCategory.php',
+    'App\\Models\\TestPrice' => $baseDir . '/app/Models/TestPrice.php',
     'App\\Models\\TestSubcategory' => $baseDir . '/app/Models/TestSubcategory.php',
     'App\\Models\\Transaction' => $baseDir . '/app/Models/Transaction.php',
     'App\\Models\\TransactionType' => $baseDir . '/app/Models/TransactionType.php',

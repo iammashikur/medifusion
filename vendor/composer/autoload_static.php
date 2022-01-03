@@ -693,6 +693,7 @@ class ComposerStaticInit9a3c50ef4f3fda77c2b38d8e762e200c
         'App\\Models\\PatientTestStatus' => __DIR__ . '/../..' . '/app/Models/PatientTestStatus.php',
         'App\\Models\\Test' => __DIR__ . '/../..' . '/app/Models/Test.php',
         'App\\Models\\TestCategory' => __DIR__ . '/../..' . '/app/Models/TestCategory.php',
+        'App\\Models\\TestPrice' => __DIR__ . '/../..' . '/app/Models/TestPrice.php',
         'App\\Models\\TestSubcategory' => __DIR__ . '/../..' . '/app/Models/TestSubcategory.php',
         'App\\Models\\Transaction' => __DIR__ . '/../..' . '/app/Models/Transaction.php',
         'App\\Models\\TransactionType' => __DIR__ . '/../..' . '/app/Models/TransactionType.php',

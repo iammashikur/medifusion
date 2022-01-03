@@ -93,6 +93,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
+
+
         if (Patient::where('phone', $request->phone)->exists()) {
 
             return response()->json([
@@ -106,7 +108,9 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->phone = $request->phone;
         $user->birth_date = $request->birth_date;
-        $user->avatar = $request->avatar;
+        $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
+        /** Save request data to db */
+        $user->avatar      = $imagePath;
         $user->gender = $request->gender;
         $user->save();
 

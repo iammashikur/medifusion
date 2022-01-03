@@ -9,6 +9,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\TestCategoryController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestPriceController;
 use App\Http\Controllers\TestSubCategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('test', TestController::class);
     Route::resource('test-category', TestCategoryController::class);
     Route::resource('test-subcategory', TestSubCategoryController::class);
+    Route::resource('test-price', TestPriceController::class);
     Route::resource('admin-and-role', AdminRoleController::class);
 
 });
