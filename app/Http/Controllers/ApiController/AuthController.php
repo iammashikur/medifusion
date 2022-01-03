@@ -127,15 +127,29 @@ class AuthController extends Controller
 
 
         $user = Patient::where('phone', $request->phone)->first();
-        if (Hash::check($request->password, $user->password)) {
 
-            $user->tokens()->where('tokenable_id', $user->id)->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Successfully logged in!',
-                'token' => $user->createToken('tokens')->plainTextToken
-            ], 200);
+        if ($user) {
+
+            if (Hash::check($request->password, $user->password)) {
+
+                $user->tokens()->where('tokenable_id', $user->id)->delete();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successfully logged in!',
+                    'token' => $user->createToken('tokens')->plainTextToken
+                ], 200);
+            }
+            if (Hash::check($request->password, $user->password)) {
+
+                $user->tokens()->where('tokenable_id', $user->id)->delete();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Successfully logged in!',
+                    'token' => $user->createToken('tokens')->plainTextToken
+                ], 200);
+            }
         }
+
 
         return response()->json([
             'message' => 'Invalid login details'
