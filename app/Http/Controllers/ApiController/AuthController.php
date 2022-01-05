@@ -14,8 +14,6 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
-
-
         if (Patient::where('phone', $request->phone)->exists()) {
 
             return response()->json([
@@ -54,11 +52,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
 
-
         $user = Patient::where('phone', $request->phone)->first();
-
-
-
         if (@Hash::check($request->password, $user->password)) {
 
             $user->tokens()->where('tokenable_id', $user->id)->delete();
