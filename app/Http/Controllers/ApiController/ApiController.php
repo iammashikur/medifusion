@@ -55,6 +55,14 @@ class ApiController extends Controller
             'success' => true,
             'message' => 'Appointment Requested !',
         ], 200);
+    }
 
+    public function my_appointments(Request $request)
+    {
+        $appointments = Appointment::where('patient_id', $request->user()->id)->with('getDoctor','getHospital', 'getStatus')->get();
+        return response()->json([
+            'success' => true,
+            'appointments' => $appointments,
+        ], 200);
     }
 }

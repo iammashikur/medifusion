@@ -17,6 +17,11 @@ class Appointment extends Model
         return $this->hasOne(Patient::class, 'id', 'patient_id');
     }
 
+    public function getHospital(){
+        return $this->hasOne(Hospital::class, 'id', 'hospital_id');
+    }
+
+
     public function getStatus(){
         return $this->hasOne(AppointmentStatus::class, 'id', 'status_id');
     }
