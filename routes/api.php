@@ -25,6 +25,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/doctors', [ApiController::class, 'doctors']);
+    Route::post('/fix-appointment', [ApiController::class, 'fix_appointment']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
 

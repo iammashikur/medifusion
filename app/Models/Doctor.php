@@ -16,6 +16,10 @@ class Doctor extends Model
         return $this->hasOne(DoctorSpecialization::class, 'id', 'specialization');
     }
 
+    public function getGender(){
+        return $this->hasOne(Gender::class, 'id', 'gender');
+    }
+
 
 
 }
