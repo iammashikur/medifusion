@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/test-categories', [ApiController::class, 'test_category']);
     Route::get('/test-by-cat/{id}', [ApiController::class, 'test_by_cat']);
 
-
 });
+
+
 

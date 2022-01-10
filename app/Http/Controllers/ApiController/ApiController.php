@@ -108,7 +108,10 @@ class ApiController extends Controller
 
 
     public function test_category(){
+
+
         $category = TestCategory::all();
+
         return response()->json([
             'success' => true,
             'test_categories' => @$category,
@@ -117,11 +120,39 @@ class ApiController extends Controller
 
     public function test_by_cat($id){
 
-        $category = TestSubcategory::where(['category_id' => $id])->get();
+        $tests = TestSubcategory::where(['category_id' => $id])->get();
+
+
+        foreach( $tests as $test){
+
+            $test->category = $test->getParent->name;
+
+            foreach($test->getPrice as $it){
+
+
+                 $it->get_hospital =  $it->getHospital;
+
+
+                 unset($it->id);
+                 unset($it->created_at);
+                 unset($it->updated_at);
+                 unset($it->get_hospital->created_at);
+                 unset($it->get_hospital->updated_at);
+            }
+
+            $test->prices = $test->getPrice;
+
+            unset($test->hospital_id);
+            unset($test->category_id);
+            unset($test->created_at);
+            unset($test->updated_at);
+
+           // unset($test->hospitals->get_hospital);
+        }
 
         return response()->json([
             'success' => true,
-            'tests' => @$category,
+            'tests' => @$tests,
         ], 200);
 
     }
