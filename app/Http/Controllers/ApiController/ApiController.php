@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -64,5 +65,43 @@ class ApiController extends Controller
             'success' => true,
             'appointments' => $appointments,
         ], 200);
+    }
+
+    public function tests(){
+
+        $tests = TestSubcategory::all();
+
+        foreach( $tests as $test){
+
+            $test->category = $test->getParent->name;
+
+            foreach($test->getPrice as $it){
+
+
+                 $it->get_hospital =  $it->getHospital;
+
+
+                 unset($it->id);
+                 unset($it->created_at);
+                 unset($it->updated_at);
+                 unset($it->get_hospital->created_at);
+                 unset($it->get_hospital->updated_at);
+            }
+
+            $test->prices = $test->getPrice;
+
+            unset($test->hospital_id);
+            unset($test->category_id);
+            unset($test->created_at);
+            unset($test->updated_at);
+
+           // unset($test->hospitals->get_hospital);
+        }
+
+        return response()->json([
+            'success' => true,
+            'tests' => @$tests,
+        ], 200);
+
     }
 }

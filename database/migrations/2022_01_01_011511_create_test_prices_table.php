@@ -18,6 +18,7 @@ class CreateTestPricesTable extends Migration
             $table->integer('price');
             $table->integer('discount_price');
             $table->integer('hospital_id');
+            $table->integer('test_id');
             $table->timestamps();
         });
     }

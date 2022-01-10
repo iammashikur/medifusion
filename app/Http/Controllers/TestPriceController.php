@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\TestPricesDataTable;
+use App\Models\TestPrice;
 use Illuminate\Http\Request;
 
 class TestPriceController extends Controller
@@ -24,7 +25,7 @@ class TestPriceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.test_price_create');
     }
 
     /**
@@ -35,7 +36,21 @@ class TestPriceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if (TestPrice::where(['hospital_id' => $request->hospital, 'test_id' => $request->test_id,])->count()) {
+            toast('Already Exist!', 'error')->width('300px')->padding('10px');
+            return redirect()->route('test-price.index');
+        }
+
+        $price = new TestPrice();
+        $price->hospital_id = $request->hospital;
+        $price->test_id = $request->test_id;
+        $price->price = $request->price;
+        $price->discount_price = $request->discount_price;
+        $price->save();
+
+        toast('Test Created!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('test-price.index');
     }
 
     /**
@@ -57,7 +72,8 @@ class TestPriceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $testPrice = TestPrice::findOrFail($id);
+        return view('admin.test_price_edit', compact('testPrice'));
     }
 
     /**
@@ -69,7 +85,13 @@ class TestPriceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $testPrice = TestPrice::findOrFail($id);
+        $testPrice->price = $request->price;
+        $testPrice->discount_price = $request->discount_price;
+        $testPrice->save();
+
+        toast('Test Created!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('test-price.index');
     }
 
     /**
@@ -78,8 +100,8 @@ class TestPriceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TestPrice $testPrice)
     {
-        //
+        $testPrice->delete();
     }
 }

@@ -21,7 +21,20 @@ class TestPricesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'testprices.action');
+            ->addColumn('hospital', function($testPrice){
+                return @$testPrice->getHospital->name;
+              })
+            ->addColumn('category', function($testPrice){
+                return $testPrice->getParent->getParent->name;
+            })
+            ->addColumn('test', function($testPrice){
+                return $testPrice->getParent->name;
+            })
+            ->addColumn('action', function($action){
+                return '<a class="btn-sm btn-primary" href="'.route('test-price.edit', $action->id).'"><i class="far fa-edit"></i></a>
+                        <a class="btn-sm btn-danger delete" href="'.route('test-price.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
+            })
+            ->rawColumns(['action', 'category', 'hospital', 'test']);
     }
 
     /**
@@ -65,15 +78,17 @@ class TestPricesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('hospital'),
+            Column::make('category'),
+            Column::make('test'),
+            Column::make('price'),
+            Column::make('discount_price'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 
