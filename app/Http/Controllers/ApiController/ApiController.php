@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\TestCategory;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
 
@@ -104,4 +105,27 @@ class ApiController extends Controller
         ], 200);
 
     }
+
+
+    public function test_category(){
+        $category = TestCategory::all();
+        return response()->json([
+            'success' => true,
+            'test_categories' => @$category,
+        ], 200);
+    }
+
+    public function test_by_cat($id){
+
+        $category = TestSubcategory::where(['category_id' => $id])->get();
+
+        return response()->json([
+            'success' => true,
+            'tests' => @$category,
+        ], 200);
+
+    }
+
+
+
 }
