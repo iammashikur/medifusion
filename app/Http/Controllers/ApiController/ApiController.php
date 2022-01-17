@@ -17,8 +17,24 @@ class ApiController extends Controller
         $doctors = Doctor::all();
 
         foreach ($doctors as $doctor) {
+
+
+            foreach($doctor->getLocations as $loc){
+                $loc->location = $loc->getLocation->location;
+                unset($loc->id);
+                unset($loc->doctor_id);
+                unset($loc->location_id);
+                unset($loc->created_at);
+                unset($loc->updated_at);
+                unset($loc->getLocation);
+            }
+
             $doctor->specialization = $doctor->getSpecialization->specialization;
             $doctor->gender = $doctor->getGender;
+            $doctor->locations = $doctor->getLocations;
+            unset($doctor->getLocations);
+            unset($doctor->getGender);
+            unset($doctor->getSpecialization);
         }
 
         return response()->json([

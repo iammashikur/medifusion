@@ -20,6 +20,10 @@ class Doctor extends Model
         return $this->hasOne(Gender::class, 'id', 'gender');
     }
 
+    public function getLocations(){
+        return $this->hasMany(DoctorLocation::class, 'doctor_id', 'id');
+    }
+
 
 
 }

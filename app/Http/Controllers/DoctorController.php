@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 
 use App\DataTables\DoctorsDataTable;
 use App\Models\Doctor;
+use App\Models\DoctorLocation;
 use App\Models\DoctorSpecialization;
 use App\Models\Gender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpOffice\PhpSpreadsheet\Reader\Xls\Color\BIFF5;
 
 class DoctorController extends Controller
 {
@@ -58,6 +60,19 @@ class DoctorController extends Controller
         $doctor->consultationfee      = $request->consultationfee;
         $doctor->hospital_id = auth()->user()->hospital_id;
         $doctor->save();
+
+        foreach($request->location as $location){
+            $store = new DoctorLocation();
+            $store->location_id = $location;
+            $store->doctor_id = $doctor->id;
+            $store->save();
+        }
+
+
+
+
+
+
         toast('Doctor Added!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor.index');
     }
@@ -95,6 +110,9 @@ class DoctorController extends Controller
      */
     public function update(Doctor $doctor, Request $request)
     {
+
+
+
         $doctor = Doctor::findOrFail($doctor->id);
         /** Save image on dir */
 
@@ -114,6 +132,16 @@ class DoctorController extends Controller
         $doctor->phone      = $request->phone;
         $doctor->consultationfee      = $request->consultationfee;
         $doctor->save();
+
+        DoctorLocation::where(['doctor_id' =>  $doctor->id])->delete();
+
+        foreach($request->location as $location){
+            $store = new DoctorLocation();
+            $store->location_id = $location;
+            $store->doctor_id = $doctor->id;
+            $store->save();
+        }
+
         toast('Doctor Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor.index');
     }

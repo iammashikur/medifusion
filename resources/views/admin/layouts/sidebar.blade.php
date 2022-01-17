@@ -29,6 +29,13 @@
                     <span>Specializations</span></a>
             </li>
 
+
+            <li class="dropdown {{ MenuActive('location', 1) }}">
+                <a href="{{ route('location.index') }}" class="nav-link">
+                   <i data-feather="map"></i>
+                    <span>Location</span></a>
+            </li>
+
             <li class="dropdown {{ MenuActive('doctor', 1) }}">
                 <a href="{{ route('doctor.index') }}" class="nav-link">
                     <i class="fa fa-stethoscope"></i>

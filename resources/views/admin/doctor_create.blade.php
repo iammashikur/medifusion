@@ -4,7 +4,7 @@
 @extends('admin.layouts.master')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ url('assets/admin/bundles/jquery-selectric/selectric.css') }}">
+
     <link rel="stylesheet" href="{{ url('assets/admin/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
     <link rel="stylesheet" href="{{ url('assets/admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ url('assets/admin/css/components.css') }}">
@@ -13,6 +13,9 @@
         font-size: 15px;
       }
     </style>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 @endpush
 
 @section('content')
@@ -106,6 +109,18 @@
                   </div>
 
 
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Locatin</label>
+                    <div class="col-sm-12 col-md-7">
+                      <select class="form-control location" name="location[]" multiple="multiple" required>
+
+                        @foreach (App\Models\Location::all() as $location)
+                        <option value="{{ $location->id }}">{{ $location->location }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+
 
 
                 <div class="form-group row mb-4">
@@ -122,11 +137,23 @@
 @endsection
 
 @push('scripts')
-<script src="{{ url('assets/admin/bundles/jquery-selectric/jquery.selectric.min.js') }}"></script>
+
 <script src="{{ url('assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
 <script src="{{ url('assets/admin/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ url('assets/admin/bundles/ckeditor/ckeditor.js') }}"></script>
 <!-- Page Specific JS File -->
 <script src="{{ url('assets/admin/js/page/create-post.js') }}"></script>
 <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+<script>
+
+    // In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.location').select2();
+});
+
+</script>
+
 @endpush
