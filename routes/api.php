@@ -24,6 +24,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
+
+    Route::get('/doctor-categories', [ApiController::class, 'doc_cat']);
+    Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
     Route::get('/doctors', [ApiController::class, 'doctors']);
     Route::post('/fix-appointment', [ApiController::class, 'fix_appointment']);
     Route::get('/my-appointments', [ApiController::class, 'my_appointments']);

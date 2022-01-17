@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\DoctorSpecialization;
 use App\Models\TestCategory;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
@@ -170,6 +171,59 @@ class ApiController extends Controller
             'success' => true,
             'tests' => @$tests,
         ], 200);
+
+    }
+
+    public function doc_cat(){
+
+
+        $spec = DoctorSpecialization::all();
+
+        return response()->json([
+            'success' => true,
+            'categories' => @$spec,
+        ], 200);
+
+
+    }
+
+    public function doc_by_cat($id){
+
+        $cat = DoctorSpecialization::find($id);
+
+
+        foreach ($cat->getDoctors as $doctor) {
+
+
+            foreach($doctor->getLocations as $loc){
+                $loc->location = $loc->getLocation->location;
+                unset($loc->id);
+                unset($loc->doctor_id);
+                unset($loc->location_id);
+                unset($loc->created_at);
+                unset($loc->updated_at);
+                unset($loc->getLocation);
+            }
+
+            $doctor->specialization = $doctor->getSpecialization->specialization;
+            $doctor->gender = $doctor->getGender;
+            $doctor->locations = $doctor->getLocations;
+            unset($doctor->getLocations);
+            unset($doctor->getGender);
+            unset($doctor->getSpecialization);
+        }
+
+
+        if ($cat->count() > 0) {
+
+            return response()->json([
+                'success' => true,
+                'doctors' => @$cat->getDoctors,
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+        ], 404);
 
     }
 
