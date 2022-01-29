@@ -47,11 +47,17 @@ class ApiController extends Controller
     public function fix_appointment(Request $request)
     {
 
-
         if (!$request->filled('doctor_id')) {
             return response()->json([
                 'success' => false,
                 'message' => 'doctor_id required !',
+            ], 200);
+        }
+
+        if (!$request->filled('location')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'location required !',
             ], 200);
         }
 
@@ -68,6 +74,7 @@ class ApiController extends Controller
         $appointment->hospital_id = Doctor::find($request->doctor_id)->hospital_id;
         $appointment->appointment_fee = Doctor::find($request->doctor_id)->consultationfee;
         $appointment->status_id = 1;
+        $appointment->location = $request->location;
         $appointment->save();
 
         return response()->json([
