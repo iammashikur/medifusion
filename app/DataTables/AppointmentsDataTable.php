@@ -98,7 +98,7 @@ class AppointmentsDataTable extends DataTable
             Column::make('id')->width('70'),
             Column::make('doctor')->width('70'),
             Column::make('patient')->width('70'),
-            Column::make('location'),
+            Column::make('location')->width('100'),
             Column::make('appointment_date')->width('70'),
             Column::make('status')->width('70'),
             Column::computed('action')
