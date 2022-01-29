@@ -234,6 +234,10 @@ class ApiController extends Controller
 
     }
 
-
+    public function patient_tests(){
+        return response()->json([
+            'success' => true,
+        ], 200);
+    }
 
 }

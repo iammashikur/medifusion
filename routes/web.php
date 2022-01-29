@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('admin-and-role', AdminRoleController::class);
     Route::resource('location', LocationController::class);
 
+
 });
 
 
