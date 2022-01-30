@@ -242,10 +242,12 @@ class ApiController extends Controller
 
 
 
-        Storage::disk('public')->put('data.json', $data);
+
+    file_put_contents(public_path('data.json'), $data);
 
         return response()->json([
             'success' => true,
+            'data' =>  $data,
         ], 200);
     }
 }
