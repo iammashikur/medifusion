@@ -9,6 +9,7 @@ use App\Models\DoctorSpecialization;
 use App\Models\TestCategory;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApiController extends Controller
 {
@@ -20,7 +21,7 @@ class ApiController extends Controller
         foreach ($doctors as $doctor) {
 
 
-            foreach($doctor->getLocations as $loc){
+            foreach ($doctor->getLocations as $loc) {
                 $loc->location = $loc->getLocation->location;
                 unset($loc->id);
                 unset($loc->doctor_id);
@@ -85,32 +86,33 @@ class ApiController extends Controller
 
     public function my_appointments(Request $request)
     {
-        $appointments = Appointment::where('patient_id', $request->user()->id)->with('getDoctor','getHospital', 'getStatus')->get();
+        $appointments = Appointment::where('patient_id', $request->user()->id)->with('getDoctor', 'getHospital', 'getStatus')->get();
         return response()->json([
             'success' => true,
             'appointments' => $appointments,
         ], 200);
     }
 
-    public function tests(){
+    public function tests()
+    {
 
         $tests = TestSubcategory::all();
 
-        foreach( $tests as $test){
+        foreach ($tests as $test) {
 
             $test->category = $test->getParent->name;
 
-            foreach($test->getPrice as $it){
+            foreach ($test->getPrice as $it) {
 
 
-                 $it->get_hospital =  $it->getHospital;
+                $it->get_hospital =  $it->getHospital;
 
 
-                 unset($it->id);
-                 unset($it->created_at);
-                 unset($it->updated_at);
-                 unset($it->get_hospital->created_at);
-                 unset($it->get_hospital->updated_at);
+                unset($it->id);
+                unset($it->created_at);
+                unset($it->updated_at);
+                unset($it->get_hospital->created_at);
+                unset($it->get_hospital->updated_at);
             }
 
             $test->prices = $test->getPrice;
@@ -120,18 +122,18 @@ class ApiController extends Controller
             unset($test->created_at);
             unset($test->updated_at);
 
-           // unset($test->hospitals->get_hospital);
+            // unset($test->hospitals->get_hospital);
         }
 
         return response()->json([
             'success' => true,
             'tests' => @$tests,
         ], 200);
-
     }
 
 
-    public function test_category(){
+    public function test_category()
+    {
 
 
         $category = TestCategory::all();
@@ -142,26 +144,27 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function test_by_cat($id){
+    public function test_by_cat($id)
+    {
 
         $tests = TestSubcategory::where(['category_id' => $id])->get();
 
 
-        foreach( $tests as $test){
+        foreach ($tests as $test) {
 
             $test->category = $test->getParent->name;
 
-            foreach($test->getPrice as $it){
+            foreach ($test->getPrice as $it) {
 
 
-                 $it->get_hospital =  $it->getHospital;
+                $it->get_hospital =  $it->getHospital;
 
 
-                 unset($it->id);
-                 unset($it->created_at);
-                 unset($it->updated_at);
-                 unset($it->get_hospital->created_at);
-                 unset($it->get_hospital->updated_at);
+                unset($it->id);
+                unset($it->created_at);
+                unset($it->updated_at);
+                unset($it->get_hospital->created_at);
+                unset($it->get_hospital->updated_at);
             }
 
             $test->prices = $test->getPrice;
@@ -171,17 +174,17 @@ class ApiController extends Controller
             unset($test->created_at);
             unset($test->updated_at);
 
-           // unset($test->hospitals->get_hospital);
+            // unset($test->hospitals->get_hospital);
         }
 
         return response()->json([
             'success' => true,
             'tests' => @$tests,
         ], 200);
-
     }
 
-    public function doc_cat(){
+    public function doc_cat()
+    {
 
 
         $spec = DoctorSpecialization::all();
@@ -190,11 +193,10 @@ class ApiController extends Controller
             'success' => true,
             'categories' => @$spec,
         ], 200);
-
-
     }
 
-    public function doc_by_cat($id){
+    public function doc_by_cat($id)
+    {
 
         $cat = DoctorSpecialization::find($id);
 
@@ -202,7 +204,7 @@ class ApiController extends Controller
         foreach ($cat->getDoctors as $doctor) {
 
 
-            foreach($doctor->getLocations as $loc){
+            foreach ($doctor->getLocations as $loc) {
                 $loc->location = $loc->getLocation->location;
                 unset($loc->id);
                 unset($loc->doctor_id);
@@ -231,13 +233,19 @@ class ApiController extends Controller
         return response()->json([
             'success' => false,
         ], 404);
-
     }
 
-    public function patient_tests(){
+    public function patient_tests(Request $request)
+    {
+
+        $data = json_encode($request->all(), JSON_PRETTY_PRINT);
+
+
+
+        Storage::disk('public')->put('data.json', $data);
+
         return response()->json([
             'success' => true,
         ], 200);
     }
-
 }
