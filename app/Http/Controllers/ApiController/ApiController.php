@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorSpecialization;
+use App\Models\Patient;
 use App\Models\PatientTest;
 use App\Models\PatientTestItem;
 use App\Models\TestCategory;
@@ -243,27 +244,22 @@ class ApiController extends Controller
 
         function random($len)
         {
-
             $char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
             $total = strlen($char) - 1;
             $text = "";
-
             for ($i = 0; $i < $len; $i++) {
                 $text = $text . $char[rand(0, $total)];
             }
             return $text;
         }
 
-
-
-
         $test = new PatientTest();
-        $test->patient_id = $request->userId;
+        $test->patient_id = $request->user()->id;
         $test->test_uid = round(time() / 1000).random(5);
         $test->status_id = 0;
         $test->hospital_id = 0;
         $test->save();
+
 
         foreach ($request->orderItems as $data) {
 
@@ -278,9 +274,6 @@ class ApiController extends Controller
             $item->save();
         }
 
-
-
-
         // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
         // file_put_contents(public_path('data.json'), $data);
 
@@ -288,5 +281,21 @@ class ApiController extends Controller
             'success' => true,
             'test_uid' =>  $test->test_uid,
         ], 200);
+    }
+
+    public function my_tests(Request $request){
+
+
+        $tests = PatientTest::where('patient_id', $request->user()->id)->get();
+
+        foreach($tests as $test){
+
+            $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
+
+
+            $test->test_items = $test_items;
+        }
+
+        return $tests;
     }
 }
