@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorSpecialization;
+use App\Models\PatientTest;
+use App\Models\PatientTestItem;
 use App\Models\TestCategory;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
@@ -41,7 +43,7 @@ class ApiController extends Controller
 
         return response()->json([
             'success' => true,
-            'doctors_list' => $doctors,
+            'doctors' => $doctors,
         ], 200);
     }
 
@@ -238,12 +240,31 @@ class ApiController extends Controller
     public function patient_tests(Request $request)
     {
 
-        $data = json_encode($request->all(), JSON_PRETTY_PRINT);
+
+
+        $test = new PatientTest();
+        $test->patient_id = $request->userId;
+        $test->test_uid = time()/1000 . $test->id;
+        $test->status_id = 0;
+        $test->hospital_id = 0;
+        $test->save();
+
+        foreach($request->orderItems as $data){
+            $item = new PatientTestItem();
+            $item->test_name = $data->testName;
+            $item->test_id = $data->test_id;
+            $item->patient_test_id = $test->id;
+            $item->hospital_id = $data->hospitalID;
+            $item->hospital_name = $data->hospitalName;
+            $item->price = $data->price;
+            $item->save();
+        }
 
 
 
 
-    file_put_contents(public_path('data.json'), $data);
+    // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
+    // file_put_contents(public_path('data.json'), $data);
 
         return response()->json([
             'success' => true,

@@ -57,7 +57,7 @@
                 <ul class="dropdown-menu">
 
                     <li><a class="nav-link {{ MenuActive('test', 1) }}" href="{{ route('test-category.index') }}">Category</a></li>
-                    <li><a class="nav-link" href="{{ route('test-subcategory.index') }}">Tests</a></li>
+                    <li><a class="nav-link" href="{{ route('test-subcategory.index') }}">Test</a></li>
                     <li><a class="nav-link" href="{{ route('test-price.index') }}">Price</a></li>
 
                 </ul>
