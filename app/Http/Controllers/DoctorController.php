@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\DataTables\DoctorsDataTable;
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
 use App\Models\DoctorSpecialization;
@@ -155,6 +156,7 @@ class DoctorController extends Controller
     public function destroy(Doctor $doctor)
     {
 
+        Appointment::where('doctor_id',$doctor->id)->delete();
         $doctor->delete();
     }
 }
