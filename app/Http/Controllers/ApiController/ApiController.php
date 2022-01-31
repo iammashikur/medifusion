@@ -241,15 +241,33 @@ class ApiController extends Controller
     {
 
 
+        function random($len)
+        {
+
+            $char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            $total = strlen($char) - 1;
+            $text = "";
+
+            for ($i = 0; $i < $len; $i++) {
+                $text = $text . $char[rand(0, $total)];
+            }
+            return $text;
+        }
+
+
+
 
         $test = new PatientTest();
         $test->patient_id = $request->userId;
-        $test->test_uid = time()/1000 . $test->id;
+        $test->test_uid = round(time() / 1000).random(5);
         $test->status_id = 0;
         $test->hospital_id = 0;
         $test->save();
 
-        foreach($request->orderItems as $data){
+        foreach ($request->orderItems as $data) {
+
+            $data = (object) $data;
             $item = new PatientTestItem();
             $item->test_name = $data->testName;
             $item->test_id = $data->test_id;
@@ -263,12 +281,12 @@ class ApiController extends Controller
 
 
 
-    // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
-    // file_put_contents(public_path('data.json'), $data);
+        // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
+        // file_put_contents(public_path('data.json'), $data);
 
         return response()->json([
             'success' => true,
-            'data' =>  $data,
+            'test_uid' =>  $test->test_uid,
         ], 200);
     }
 }
