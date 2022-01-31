@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\LocationsDataTable;
+use App\Models\DoctorLocation;
 use App\Models\Location;
 use Illuminate\Http\Request;
 
@@ -91,6 +92,8 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
+        DoctorLocation::where('location_id', $location->id)->delete();
         $location->delete();
+
     }
 }
