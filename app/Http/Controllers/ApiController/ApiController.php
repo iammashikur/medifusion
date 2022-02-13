@@ -79,7 +79,9 @@ class ApiController extends Controller
         $appointment->appointment_fee = Doctor::find($request->doctor_id)->consultationfee;
         $appointment->status_id = 1;
         $appointment->location = $request->location;
+        $appointment->appointment_date = $request->appointment_date;
         $appointment->save();
+
 
         return response()->json([
             'success' => true,
