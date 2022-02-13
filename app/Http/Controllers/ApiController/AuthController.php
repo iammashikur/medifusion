@@ -19,8 +19,8 @@ class AuthController extends Controller
             ], 200);
         }
 
-
         $user = new Patient();
+
         if ($request->hasFile('avatar')) {
             $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
             $user->avatar      = $imagePath;
@@ -32,9 +32,11 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->phone = $request->phone;
         $user->birth_date = $request->birth_date;
-
-        $user->gender = $request->gender;
+        $user->gender = $request->gender ? $request->gender : '1';
         $user->save();
+
+
+
         return response()->json([
             'success' => true,
             'message' => 'Successfully registered ',

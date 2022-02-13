@@ -285,14 +285,9 @@ class ApiController extends Controller
 
     public function my_tests(Request $request){
 
-
         $tests = PatientTest::where('patient_id', $request->user()->id)->get();
-
         foreach($tests as $test){
-
             $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
-
-
             $test->test_items = $test_items;
         }
 
