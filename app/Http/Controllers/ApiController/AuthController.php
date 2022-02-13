@@ -35,8 +35,6 @@ class AuthController extends Controller
         $user->gender = $request->gender ? $request->gender : '1';
         $user->save();
 
-
-
         return response()->json([
             'success' => true,
             'message' => 'Successfully registered ',
@@ -44,6 +42,7 @@ class AuthController extends Controller
             'user_data' => $user,
         ], 200);
     }
+
     public function login(Request $request)
     {
         $user = Patient::where('phone', $request->phone)->first();
