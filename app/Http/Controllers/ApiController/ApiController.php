@@ -295,4 +295,38 @@ class ApiController extends Controller
 
         return $tests;
     }
+    public function update_profile(Request $request)
+    {
+
+
+        $user =  Patient::find($request->user()->id);
+
+        if ($request->hasFile('avatar')) {
+            $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
+            $user->avatar      = $imagePath;
+        }
+        if ($request->has('name')) {
+            $user->name = $request->name;
+        }
+        if ($request->has('password')) {
+            $user->password = bcrypt($request->password);
+        }
+        if ($request->has('phone')) {
+            $user->phone = $request->phone;
+        }
+        if ($request->has('birth_date')) {
+            $user->birth_date = $request->birth_date;
+        }
+        if ($request->has('gender')) {
+            $user->gender = $request->gender;
+        }
+
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User Successfully Updated ',
+            'user_data' => $user,
+        ], 200);
+    }
 }

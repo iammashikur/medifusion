@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/test-by-cat/{id}', [ApiController::class, 'test_by_cat']);
     Route::post('/patient-tests', [ApiController::class, 'patient_tests']);
     Route::get('/my-tests', [ApiController::class, 'my_tests']);
+    Route::post('/update-profile', [ApiController::class, 'update_profile']);
 
 });
 
