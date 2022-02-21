@@ -23,6 +23,7 @@ Route::fallback([AuthController::class, 'fallback']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/doctor-categories', [ApiController::class, 'doc_cat']);
@@ -36,6 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/patient-tests', [ApiController::class, 'patient_tests']);
     Route::get('/my-tests', [ApiController::class, 'my_tests']);
     Route::post('/update-profile', [ApiController::class, 'update_profile']);
+
+
 
 });
 
@@ -62,6 +65,8 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
     //Route::post('/patient-tests', [ApiController::class, 'patient_tests']);
     //Route::get('/my-tests', [ApiController::class, 'my_tests']);
     //Route::post('/update-profile', [ApiController::class, 'update_profile']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
 
 });
 
