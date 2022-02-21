@@ -25,7 +25,7 @@ $page_type = 'Admin';
 
             <div class="card card-primary">
                 <div class="card-header" style="border-bottom-color: #d0d0d0">
-                    <h4>Add Doctor</h4>
+                    <h4>Edit Test Price</h4>
                     <div class="card-header-action">
                         <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
                     </div>
@@ -93,14 +93,10 @@ $page_type = 'Admin';
                         </div>
 
 
-
-
-
-
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                             <div class="col-sm-12 col-md-7">
-                                <button class="btn btn-primary">Add Test Price</button>
+                                <button class="btn btn-primary">Update Test Price</button>
                             </div>
                         </div>
                     </form>

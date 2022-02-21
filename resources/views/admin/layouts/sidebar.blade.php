@@ -16,12 +16,6 @@
                         data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
 
-            @hasanyrole('admin')
-            <li class="dropdown {{ MenuActive('doctor', 1) }}">
-                <a href="{{ route('doctor.index') }}" class="nav-link"><i
-                        data-feather="feather"></i><span>Doctors</span></a>
-            </li>
-            @endhasanyrole
 
             <li class="dropdown {{ MenuActive('specialization', 1) }}">
                 <a href="{{ route('specialization.index') }}" class="nav-link">
@@ -30,10 +24,11 @@
             </li>
 
 
+
             <li class="dropdown {{ MenuActive('location', 1) }}">
                 <a href="{{ route('location.index') }}" class="nav-link">
                    <i data-feather="map"></i>
-                    <span>Location</span></a>
+                    <span>Locations</span></a>
             </li>
 
             <li class="dropdown {{ MenuActive('doctor', 1) }}">
@@ -43,11 +38,27 @@
             </li>
 
 
+            <li class="dropdown {{ MenuActive('appointment', 1) }}">
+                <a href="{{ route('appointment.index') }}" class="nav-link">
+                    <i
+                    data-feather="calendar"></i>
+                    <span>Appointments</span></a>
+            </li>
+
+
+
 
             <li class="dropdown {{ MenuActive('patient', 1) }}">
                 <a href="{{ route('patient.index') }}" class="nav-link">
                     <i class="fa fa-diagnoses"></i>
                     <span>Patients</span></a>
+            </li>
+
+            <li class="dropdown {{ MenuActive('hospital', 1) }}">
+                <a href="{{ route('hospital.index') }}" class="nav-link">
+                    <i
+                    data-feather="hexagon"></i>
+                    <span>Hospitals</span></a>
             </li>
 
 
@@ -71,21 +82,16 @@
             </li>
 
 
-            <li class="dropdown {{ MenuActive('appointment', 1) }}">
-                <a href="{{ route('appointment.index') }}" class="nav-link">
+
+
+
+            <li class="dropdown {{ MenuActive('agent', 1) }}">
+                <a href="{{ route('agent.index') }}" class="nav-link">
                     <i
-                    data-feather="calendar"></i>
-                    <span>Appointments</span></a>
+                    data-feather="users"></i>
+                    <span>Agents</span></a>
             </li>
 
-
-
-            <li class="dropdown {{ MenuActive('hospital', 1) }}">
-                <a href="{{ route('hospital.index') }}" class="nav-link">
-                    <i
-                    data-feather="hexagon"></i>
-                    <span>Hospitals</span></a>
-            </li>
 
             <li class="dropdown {{ MenuActive('admin-and-role', 1) }}">
                 <a href="" class="nav-link">

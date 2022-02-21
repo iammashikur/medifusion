@@ -24,18 +24,17 @@
     <div class="section">
       @include('admin.partials.error')
 
-
         <div class="card card-primary">
             <div class="card-header" style="border-bottom-color: #d0d0d0">
-                <h4>Add Doctor</h4>
+                <h4>Add Agent</h4>
                 <div class="card-header-action">
-                    <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
+                    <a href="{{ route('agent.index') }}" class="btn btn-warning">Go Back</a>
                 </div>
             </div>
 
             <div class="card-body">
 
-             <form action="{{ route('doctor.store') }}" method="POST" enctype="multipart/form-data">
+             <form action="{{ route('agent.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
 
                 <div class="form-group row mb-4">
@@ -43,7 +42,7 @@
                   <div class="col-sm-12 col-md-7">
                     <div id="image-preview" class="image-preview" style="background-image: url(); background-size: cover; background-position: center center;">
                       <label for="image-upload" id="image-label">Choose File</label>
-                      <input type="file" name="avatar" id="image-upload" required/>
+                      <input type="file" name="avatar" id="image-upload"/>
                     </div>
                   </div>
                 </div>
@@ -54,6 +53,7 @@
                     <input type="text" name="name" class="form-control" required>
                   </div>
                 </div>
+
 
                 <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gender</label>
@@ -68,65 +68,65 @@
                   </div>
 
                 <div class="form-group row mb-4">
-                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Specialization</label>
-                  <div class="col-sm-12 col-md-7">
-                    <select class="form-control selectric" name="specialization" required>
-                      <option value="">select specialization</option>
-                      @foreach ($specialization as $category)
-                      <option value="{{ $category->id }}">{{ $category->specialization }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-
-                 <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Qualification</label>
-                    <div class="col-sm-12 col-md-7">
-                      <input type="text" name="qualification" class="form-control" required>
-                    </div>
-                  </div>
-
-                  <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">BMDC Registration Number</label>
-                    <div class="col-sm-12 col-md-7">
-                      <input type="text" name="registration" class="form-control" required>
-                    </div>
-                  </div>
-
-                  <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Phone Number</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mobile</label>
                     <div class="col-sm-12 col-md-7">
                       <input type="text" name="phone" class="form-control" required>
                     </div>
                   </div>
 
-
                   <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Consultation Fee</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
                     <div class="col-sm-12 col-md-7">
-                      <input type="text" name="consultationfee" class="form-control" required>
+                      <input type="text" name="password" class="form-control" required>
                     </div>
                   </div>
 
-
                   <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location</label>
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Billing Address</label>
                     <div class="col-sm-12 col-md-7">
-                      <select class="form-control location" name="location[]" multiple="multiple" required>
-
-                        @foreach (App\Models\Location::all() as $location)
-                        <option value="{{ $location->id }}">{{ $location->location }}</option>
-                        @endforeach
-                      </select>
+                      <input type="text" name="billing_address" class="form-control" required>
                     </div>
                   </div>
 
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Zilla</label>
+                    <div class="col-sm-12 col-md-7">
+                      <input type="text" name="zilla" class="form-control" required>
+                    </div>
+                  </div>
 
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Upazilla</label>
+                    <div class="col-sm-12 col-md-7">
+                      <input type="text" name="upazilla" class="form-control" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Bkash</label>
+                    <div class="col-sm-12 col-md-7">
+                      <input type="text" name="bkash" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nagad</label>
+                    <div class="col-sm-12 col-md-7">
+                      <input type="text" name="nagad" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Bank Details</label>
+                    <div class="col-sm-12 col-md-7">
+                        <textarea class="form-control h-100" name="bank_details" cols="3" rows="10"></textarea>
+                    </div>
+                  </div>
 
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                   <div class="col-sm-12 col-md-7">
-                    <button class="btn btn-primary">Add Docotor</button>
+                    <button class="btn btn-primary">Add Agent</button>
                   </div>
                 </div>
              </form>

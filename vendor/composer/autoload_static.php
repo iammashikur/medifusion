@@ -641,9 +641,11 @@ class ComposerStaticInit9a3c50ef4f3fda77c2b38d8e762e200c
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\MakeCrudCommand' => __DIR__ . '/../..' . '/app/Console/Commands/MakeCrudCommand.php',
         'App\\Console\\Commands\\MakeViewCommand' => __DIR__ . '/../..' . '/app/Console/Commands/MakeViewCommand.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\DataTables\\AdminRolesDataTable' => __DIR__ . '/../..' . '/app/DataTables/AdminRolesDataTable.php',
+        'App\\DataTables\\AgentDataTable' => __DIR__ . '/../..' . '/app/DataTables/AgentDataTable.php',
         'App\\DataTables\\AppointmentsDataTable' => __DIR__ . '/../..' . '/app/DataTables/AppointmentsDataTable.php',
         'App\\DataTables\\DoctorsDataTable' => __DIR__ . '/../..' . '/app/DataTables/DoctorsDataTable.php',
         'App\\DataTables\\HospitalsDataTable' => __DIR__ . '/../..' . '/app/DataTables/HospitalsDataTable.php',
@@ -687,6 +689,7 @@ class ComposerStaticInit9a3c50ef4f3fda77c2b38d8e762e200c
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\Agent' => __DIR__ . '/../..' . '/app/Models/Agent.php',
         'App\\Models\\Appointment' => __DIR__ . '/../..' . '/app/Models/Appointment.php',
         'App\\Models\\AppointmentStatus' => __DIR__ . '/../..' . '/app/Models/AppointmentStatus.php',
         'App\\Models\\Doctor' => __DIR__ . '/../..' . '/app/Models/Doctor.php',

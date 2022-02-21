@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\AppointmentController;
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('test-price', TestPriceController::class);
     Route::resource('admin-and-role', AdminRoleController::class);
     Route::resource('location', LocationController::class);
+    Route::resource('agent', AgentController::class);
 
 
 });

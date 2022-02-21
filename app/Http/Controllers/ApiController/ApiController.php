@@ -329,4 +329,8 @@ class ApiController extends Controller
             'user_data' => $user,
         ], 200);
     }
+
+    public function test(Request $request){
+        return $request->user()->name;
+    }
 }

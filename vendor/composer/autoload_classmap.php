@@ -6,9 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\MakeCrudCommand' => $baseDir . '/app/Console/Commands/MakeCrudCommand.php',
     'App\\Console\\Commands\\MakeViewCommand' => $baseDir . '/app/Console/Commands/MakeViewCommand.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\DataTables\\AdminRolesDataTable' => $baseDir . '/app/DataTables/AdminRolesDataTable.php',
+    'App\\DataTables\\AgentDataTable' => $baseDir . '/app/DataTables/AgentDataTable.php',
     'App\\DataTables\\AppointmentsDataTable' => $baseDir . '/app/DataTables/AppointmentsDataTable.php',
     'App\\DataTables\\DoctorsDataTable' => $baseDir . '/app/DataTables/DoctorsDataTable.php',
     'App\\DataTables\\HospitalsDataTable' => $baseDir . '/app/DataTables/HospitalsDataTable.php',
@@ -52,6 +54,7 @@ return array(
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Models\\Agent' => $baseDir . '/app/Models/Agent.php',
     'App\\Models\\Appointment' => $baseDir . '/app/Models/Appointment.php',
     'App\\Models\\AppointmentStatus' => $baseDir . '/app/Models/AppointmentStatus.php',
     'App\\Models\\Doctor' => $baseDir . '/app/Models/Doctor.php',
