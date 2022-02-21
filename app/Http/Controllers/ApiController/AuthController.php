@@ -89,6 +89,7 @@ class AuthController extends Controller
             'message' => 'Successfully logged out!',
         ], 200);
     }
+
     public static function fallback()
     {
         return response()->json([
