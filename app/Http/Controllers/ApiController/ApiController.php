@@ -308,6 +308,15 @@ class ApiController extends Controller
         if ($request->has('name')) {
             $user->name = $request->name;
         }
+
+        if ($request->has('zilla')) {
+            $user->zilla = $request->zilla;
+        }
+
+        if ($request->has('upazilla')) {
+            $user->upazilla = $request->upazilla;
+        }
+
         if ($request->has('password')) {
             $user->password = bcrypt($request->password);
         }

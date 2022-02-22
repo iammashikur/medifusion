@@ -31,6 +31,8 @@ class AuthController extends Controller
 
         $user->name = $request->name;
         $user->password = bcrypt($request->password);
+        $user->zilla = $request->zilla;
+        $user->upazilla = $request->upazilla;
         $user->phone = $request->phone;
         $user->birth_date = $request->birth_date;
         $user->gender = $request->gender ? $request->gender : '1';

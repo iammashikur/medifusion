@@ -19,6 +19,8 @@ class CreatePatientsTable extends Migration
             $table->timestamp('birth_date');
             $table->string('gender');
             $table->string('avatar')->nullable();
+            $table->string('zilla')->nullable();
+            $table->string('upazilla')->nullable();
             $table->string('phone');
             $table->string('password');
             $table->timestamps();
