@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
+use App\Models\AgentAppointment;
+use App\Models\AgentTest;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorSpecialization;
@@ -45,6 +47,64 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'doctors' => $doctors,
+        ], 200);
+    }
+
+    public function agent_fix_appointment(Request $request)
+    {
+
+
+
+
+        if (!$request->filled('doctor_id')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'doctor_id required !',
+            ], 200);
+        }
+
+        if (!$request->filled('location')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'location required !',
+            ], 200);
+        }
+
+        if (!Doctor::find($request->doctor_id)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Doctor not found !',
+            ], 200);
+        }
+
+        $patient = Patient::where(['phone' => $request->phone])
+            ->firstOrCreate();
+        $patient->name = $request->name;
+        $patient->birth_date = $request->name;
+        $patient->gender = $request->gender;
+        $patient->zilla = $request->zilla;
+        $patient->upazilla = $request->upazilla;
+        $patient->save;
+
+        $agentAppointment = new AgentAppointment();
+        $agentAppointment->patient_id = $patient->id;
+        $agentAppointment->agent_id   = $request->user()->id;
+        $agentAppointment->save();
+
+        $appointment = new Appointment();
+        $appointment->patient_id = $patient;
+        $appointment->doctor_id = $request->doctor_id;
+        $appointment->hospital_id = Doctor::find($request->doctor_id)->hospital_id;
+        $appointment->appointment_fee = Doctor::find($request->doctor_id)->consultationfee;
+        $appointment->status_id = 1;
+        $appointment->location = $request->location;
+        $appointment->appointment_date = $request->appointment_date;
+        $appointment->save();
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Appointment Requested !',
         ], 200);
     }
 
@@ -240,6 +300,71 @@ class ApiController extends Controller
         ], 404);
     }
 
+
+
+
+
+public function agent_patient_tests(Request $request)
+{
+
+
+
+    $patient = Patient::where(['phone' => $request->phone])
+        ->firstOrCreate();
+    $patient->name = $request->name;
+    $patient->birth_date = $request->name;
+    $patient->gender = $request->gender;
+    $patient->zilla = $request->zilla;
+    $patient->upazilla = $request->upazilla;
+    $patient->save;
+
+    $agentAppointment = new AgentTest();
+    $agentAppointment->patient_id = $patient->id;
+    $agentAppointment->agent_id   = $request->user()->id;
+    $agentAppointment->save();
+
+
+    function random($len)
+    {
+        $char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $total = strlen($char) - 1;
+        $text = "";
+        for ($i = 0; $i < $len; $i++) {
+            $text = $text . $char[rand(0, $total)];
+        }
+        return $text;
+    }
+
+    $test = new PatientTest();
+    $test->patient_id = $request->user()->id;
+    $test->test_uid = round(time() / 1000) . random(5);
+    $test->status_id = 0;
+    $test->hospital_id = 0;
+    $test->save();
+
+
+    foreach ($request->orderItems as $data) {
+
+        $data = (object) $data;
+        $item = new PatientTestItem();
+        $item->test_name = $data->testName;
+        $item->test_id = $data->test_id;
+        $item->patient_test_id = $test->id;
+        $item->hospital_id = $data->hospitalID;
+        $item->hospital_name = $data->hospitalName;
+        $item->price = $data->price;
+        $item->save();
+    }
+
+    // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
+    // file_put_contents(public_path('data.json'), $data);
+
+    return response()->json([
+        'success' => true,
+        'test_uid' =>  $test->test_uid,
+    ], 200);
+}
+
     public function patient_tests(Request $request)
     {
 
@@ -257,7 +382,7 @@ class ApiController extends Controller
 
         $test = new PatientTest();
         $test->patient_id = $request->user()->id;
-        $test->test_uid = round(time() / 1000).random(5);
+        $test->test_uid = round(time() / 1000) . random(5);
         $test->status_id = 0;
         $test->hospital_id = 0;
         $test->save();
@@ -285,10 +410,11 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function my_tests(Request $request){
+    public function my_tests(Request $request)
+    {
 
         $tests = PatientTest::where('patient_id', $request->user()->id)->get();
-        foreach($tests as $test){
+        foreach ($tests as $test) {
             $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
             $test->test_items = $test_items;
         }
@@ -339,7 +465,8 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function test(Request $request){
+    public function test(Request $request)
+    {
         return $request->user()->name;
     }
 }

@@ -25,6 +25,7 @@ class CreatePatientsTable extends Migration
             $table->string('password');
             $table->timestamps();
         });
+
     }
 
     /**
