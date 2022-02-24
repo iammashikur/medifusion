@@ -165,6 +165,21 @@ class ApiController extends Controller
         ], 200);
     }
 
+    public function agent_appointments(Request $request)
+    {
+
+        $appointments = AgentAppointment::where('agent_id', $request->user()->id)->get();
+        foreach($appointments as $appointment){
+            $appointment->details = Appointment::where('patient_id', $appointment->patient_id)->with('getDoctor', 'getPatient', 'getHospital', 'getStatus')->get();
+        }
+
+        return response()->json([
+            'success' => true,
+            'appointments' => $appointments,
+        ], 200);
+
+    }
+
     public function tests()
     {
 
@@ -320,7 +335,6 @@ public function agent_patient_tests(Request $request)
     if (!$patient) {
         $patient = new Patient();
     }
-
 
     $patient->name = $request->name;
     $patient->birth_date = $request->birth_date;
