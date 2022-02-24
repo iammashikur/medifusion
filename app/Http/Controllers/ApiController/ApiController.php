@@ -459,11 +459,11 @@ public function agent_patient_tests(Request $request)
                 $tests = PatientTest::where('id', $atest->test_id)->get();
 
                 foreach ($tests as $test) {
-                    $test_items = PatientTestItem::where('patient_test_id', $test->test_id)->get();
-                    $test->details = $test_items;
+                    $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
+                    $test->test_items = $test_items;
                 }
 
-                $atest->test_items = $tests;
+                $atest->details = $tests;
        }
 
        return $agentTest;
