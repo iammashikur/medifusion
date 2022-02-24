@@ -457,7 +457,6 @@ public function agent_patient_tests(Request $request)
        foreach ($agentTest as $atest) {
 
                 $tests = PatientTest::where('id', $atest->test_id)->get();
-                //$patient = User::find($atest->patient_id);
 
                 foreach ($tests as $test) {
                     $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
@@ -465,7 +464,6 @@ public function agent_patient_tests(Request $request)
                 }
 
                 $atest->details = $tests;
-                //$atest->patient = $patient;
        }
 
        return $agentTest;
