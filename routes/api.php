@@ -65,7 +65,7 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
     Route::get('/test-by-cat/{id}', [ApiController::class, 'test_by_cat']);
 
     Route::post('/patient-tests', [ApiController::class, 'agent_patient_tests']);
-    //Route::get('/my-tests', [ApiController::class, 'my_tests']);
+    Route::get('/agent-tests', [ApiController::class, 'agent_tests']);
     //Route::post('/update-profile', [ApiController::class, 'update_profile']);
 
     Route::post('/logout', [AuthController::class, 'logout']);

@@ -17,6 +17,7 @@ class CreateAgentTestsTable extends Migration
             $table->id();
             $table->integer('patient_id');
             $table->integer('agent_id');
+            $table->integer('test_id');
             $table->timestamps();
         });
     }

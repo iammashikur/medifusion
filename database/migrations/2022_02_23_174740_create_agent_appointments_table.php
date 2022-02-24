@@ -17,6 +17,7 @@ class CreateAgentAppointmentsTable extends Migration
             $table->id();
             $table->integer('patient_id');
             $table->integer('agent_id');
+            $table->integer('appointment_id');
             $table->timestamps();
         });
     }

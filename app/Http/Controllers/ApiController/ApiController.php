@@ -447,6 +447,27 @@ public function agent_patient_tests(Request $request)
 
         return $tests;
     }
+
+
+    public function agent_tests(Request $request)
+    {
+
+       $agentTest =  AgentTest::whare(['agent_id' => $request->user()->id])->get();
+
+       foreach ($agentTest as $atest) {
+
+                $tests = PatientTest::where('id', $atest)->get();
+                foreach ($tests as $test) {
+                    $test_items = PatientTestItem::where('patient_test_id', $test->test_id)->get();
+                    $test->details = $test_items;
+                }
+       }
+
+       return $agentTest;
+
+    }
+
+
     public function update_profile(Request $request)
     {
 
