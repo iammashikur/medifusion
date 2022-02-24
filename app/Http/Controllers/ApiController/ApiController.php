@@ -80,11 +80,13 @@ class ApiController extends Controller
         $patient = Patient::where(['phone' => $request->phone])
             ->firstOrCreate();
         $patient->name = $request->name;
-        $patient->birth_date = $request->name;
+        $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
         $patient->zilla = $request->zilla;
         $patient->upazilla = $request->upazilla;
+        $patient->phone = $request->phone;
         $patient->save;
+      
 
         $agentAppointment = new AgentAppointment();
         $agentAppointment->patient_id = $patient->id;
@@ -312,10 +314,11 @@ public function agent_patient_tests(Request $request)
     $patient = Patient::where(['phone' => $request->phone])
         ->firstOrCreate();
     $patient->name = $request->name;
-    $patient->birth_date = $request->name;
+    $patient->birth_date = $request->birth_date;
     $patient->gender = $request->gender;
     $patient->zilla = $request->zilla;
     $patient->upazilla = $request->upazilla;
+    $patient->phone = $request->phone;
     $patient->save;
 
     $agentAppointment = new AgentTest();
