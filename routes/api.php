@@ -55,8 +55,10 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
     Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
     Route::get('/doctors', [ApiController::class, 'doctors']);
 
+
+
     Route::post('/fix-appointment', [ApiController::class, 'agent_fix_appointment']);
-    //Route::get('/my-appointments', [ApiController::class, 'my_appointments']);
+    Route::get('/agent-appointments', [ApiController::class, 'agent_appointments']);
 
     Route::get('/tests', [ApiController::class, 'tests']);
     Route::get('/test-categories', [ApiController::class, 'test_category']);
