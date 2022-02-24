@@ -99,7 +99,7 @@ class ApiController extends Controller
         $agentAppointment->save();
 
         $appointment = new Appointment();
-        $appointment->patient_id = $patient;
+        $appointment->patient_id = $patient->id;
         $appointment->doctor_id = $request->doctor_id;
         $appointment->hospital_id = Doctor::find($request->doctor_id)->hospital_id;
         $appointment->appointment_fee = Doctor::find($request->doctor_id)->consultationfee;
@@ -314,14 +314,13 @@ class ApiController extends Controller
 public function agent_patient_tests(Request $request)
 {
 
-
-
     $patient = Patient::where(['phone' => $request->phone])
         ->first();
         
     if (!$patient) {
         $patient = new Patient();
     }
+
 
     $patient->name = $request->name;
     $patient->birth_date = $request->birth_date;
@@ -349,7 +348,7 @@ public function agent_patient_tests(Request $request)
     }
 
     $test = new PatientTest();
-    $test->patient_id = $request->user()->id;
+    $test->patient_id = $patient->id;
     $test->test_uid = round(time() / 1000) . random(5);
     $test->status_id = 0;
     $test->hospital_id = 0;
