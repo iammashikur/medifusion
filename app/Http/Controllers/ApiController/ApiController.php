@@ -452,7 +452,7 @@ public function agent_patient_tests(Request $request)
     public function agent_tests(Request $request)
     {
 
-       $agentTest =  AgentTest::whare(['agent_id' => $request->user()->id])->get();
+       $agentTest =  AgentTest::where(['agent_id' => $request->user()->id])->get();
 
        foreach ($agentTest as $atest) {
 
