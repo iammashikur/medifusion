@@ -83,14 +83,14 @@ class ApiController extends Controller
         if (!$patient) {
             $patient = new Patient();
         }
-        
+
         $patient->name = $request->name;
         $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
         $patient->zilla = $request->zilla;
         $patient->upazilla = $request->upazilla;
         $patient->phone = $request->phone;
-        $patient->save;
+        $patient->save();
       
 
         $agentAppointment = new AgentAppointment();
@@ -329,7 +329,7 @@ public function agent_patient_tests(Request $request)
     $patient->zilla = $request->zilla;
     $patient->upazilla = $request->upazilla;
     $patient->phone = $request->phone;
-    $patient->save;
+    $patient->save();
 
     $agentAppointment = new AgentTest();
     $agentAppointment->patient_id = $patient->id;
