@@ -463,7 +463,7 @@ public function agent_patient_tests(Request $request)
                     $test->details = $test_items;
                 }
 
-                $atest->details = $tests;
+                $atest->test_items = $tests;
        }
 
        return $agentTest;
