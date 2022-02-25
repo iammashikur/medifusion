@@ -38,6 +38,7 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         $location = new Location();
+        $location->hospital = $request->hospital;
         $location->location = $request->location;
         $location->save();
 
@@ -77,6 +78,7 @@ class LocationController extends Controller
     public function update(Request $request, $id)
     {
         $location =  Location::findOrFail($id);
+        $location->hospital = $request->hospital;
         $location->location = $request->location;
         $location->save();
 

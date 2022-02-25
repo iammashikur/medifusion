@@ -60,9 +60,9 @@ class AppointmentsDataTable extends DataTable
      * @param \App\Models\Appointment $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Appointment $model)
+    public function query()
     {
-        return $model->newQuery();
+        return Appointment::where(['by_agent' => null]);
     }
 
     /**
@@ -79,9 +79,7 @@ class AppointmentsDataTable extends DataTable
             ->dom('Bfrtip')
             ->orderBy(1)
             ->buttons(
-
                 Button::make('print')
-
             );
     }
 

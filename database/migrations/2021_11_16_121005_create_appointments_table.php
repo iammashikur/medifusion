@@ -22,6 +22,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('appointment_fee');
             $table->integer('status_id');
             $table->string('location')->nullable();
+            $table->boolean('by_agent')->nullable();
             $table->timestamps();
         });
     }
