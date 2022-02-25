@@ -15,6 +15,7 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
+            $table->string('hospital')->nullable();
             $table->string('location');
             $table->timestamps();
         });
@@ -23,7 +24,7 @@ class CreateLocationsTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
+      * @return void
      */
     public function down()
     {
