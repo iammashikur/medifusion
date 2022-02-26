@@ -37,16 +37,12 @@
                     <span>Doctors</span></a>
             </li>
 
-
             <li class="dropdown {{ MenuActive('appointment', 1) }}">
                 <a href="{{ route('appointment.index') }}" class="nav-link">
                     <i
                     data-feather="calendar"></i>
                     <span>Appointments</span></a>
             </li>
-
-
-
 
             <li class="dropdown {{ MenuActive('patient', 1) }}">
                 <a href="{{ route('patient.index') }}" class="nav-link">
@@ -97,6 +93,13 @@
                     <i
                     data-feather="calendar"></i>
                     <span>Agents Appointments</span></a>
+            </li>
+
+            <li class="dropdown {{ MenuActive('agent-test', 1) }}">
+                <a href="{{ route('agent-test.index') }}" class="nav-link">
+                    <i
+                    data-feather="check-square"></i>
+                    <span>Agents Tests</span></a>
             </li>
 
 

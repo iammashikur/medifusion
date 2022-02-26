@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AgentTestsDataTable;
 use App\DataTables\PatientTestsDataTable;
 use App\Models\PatientTest;
 use Illuminate\Http\Request;
 
-class PatientTestController extends Controller
+class AgentTestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PatientTestsDataTable $patientTestsDataTable)
+    public function index(AgentTestsDataTable $patientTestsDataTable)
     {
-        return $patientTestsDataTable->render('admin.patient_test_index');
+        return $patientTestsDataTable->render('admin.agent_test_index');
     }
 
     /**
@@ -59,7 +60,7 @@ class PatientTestController extends Controller
     public function edit($id)
     {
         $test = PatientTest::find($id);
-        return view('admin.patient_test_edit', compact('test'));
+        return view('admin.agent_test_edit', compact('test'));
     }
 
     /**
