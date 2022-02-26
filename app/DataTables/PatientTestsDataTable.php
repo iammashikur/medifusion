@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\PatientTest;
+use Carbon\Carbon;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,7 +22,13 @@ class PatientTestsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'patienttests.action');
+            ->addColumn('created_at', function (Appointment $appointment) {
+                return Carbon::parse($appointment->appointment_date)->format('l jS \of F Y h:i:s A');
+            })
+            ->addColumn('action', function ($action) {
+                return '<a class="btn-sm btn-primary" href="' . route('appointment.edit', $action->id) . '"><i class="far fa-edit"></i> Edit</a>';
+            })
+            ->rawColumns(['created_at', 'status', 'action']);
     }
 
     /**

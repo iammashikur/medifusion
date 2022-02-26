@@ -9,6 +9,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PatientTestController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\TestCategoryController;
 use App\Http\Controllers\TestController;
@@ -38,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('doctor', DoctorController::class);
     Route::resource('appointment', AppointmentController::class);
     Route::resource('agent-appointment', AgentAppointmentController::class);
-    Route::resource('patient-test', PatientController::class);
+    Route::resource('patient-test', PatientTestController::class);
     Route::resource('hospital', HospitalController::class);
     Route::resource('test', TestController::class);
     Route::resource('test-category', TestCategoryController::class);
