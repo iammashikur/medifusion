@@ -103,12 +103,18 @@
             </li>
 
 
-            <li class="dropdown {{ MenuActive('admin-and-role', 1) }}">
+            <li class="dropdown {{ MenuActive('referred-patient', 1) }}">
+                <a href="{{ route('referred-patient.index') }}" class="nav-link">
+                    <i class="fa fa-diagnoses"></i>
+                    <span>Referred Patients</span></a>
+            </li>
+
+            {{-- <li class="dropdown {{ MenuActive('admin-and-role', 1) }}">
                 <a href="" class="nav-link">
                     <i
                     data-feather="key"></i>
                     <span>Admin & Roles</span></a>
-            </li>
+            </li> --}}
 
 
             {{-- <li class="dropdown {{ MenuActive('tests', 1) }}">

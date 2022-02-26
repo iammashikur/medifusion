@@ -3,13 +3,14 @@
 namespace App\DataTables;
 
 use App\Models\Patient;
+use App\Models\ReferredPatient;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\Html\Editor\Editor;
 
-class PatientsDataTable extends DataTable
+class ReferredPatientsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -21,18 +22,20 @@ class PatientsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'patients.action');
+            ->addColumn('agent', function($query){
+                return $query->getAgent->name;
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Patient $model
+     * @param \App\Models\ReferredPatient $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Patient $model)
+    public function query()
     {
-        return Patient::where('referred_by_id' , null);
+        return Patient::whereNotNull('referred_by_id');
     }
 
     /**
@@ -43,14 +46,13 @@ class PatientsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('patients-table')
+                    ->setTableId('referredpatients-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
-
-                        Button::make('reload')
+                        Button::make('reset'),
                     );
     }
 
@@ -65,9 +67,11 @@ class PatientsDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('phone'),
+            Column::make('agent'),
             Column::make('updated_at')->title('Registration Date'),
         ];
     }
+
 
     /**
      * Get filename for export.
@@ -76,6 +80,6 @@ class PatientsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Patients_' . date('YmdHis');
+        return 'ReferredPatients_' . date('YmdHis');
     }
 }

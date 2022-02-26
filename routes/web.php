@@ -11,6 +11,7 @@ use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientTestController;
+use App\Http\Controllers\ReferredPatientController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\TestCategoryController;
 use App\Http\Controllers\TestController;
@@ -47,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('test-category', TestCategoryController::class);
     Route::resource('test-subcategory', TestSubCategoryController::class);
     Route::resource('test-price', TestPriceController::class);
+    Route::resource('referred-patient', ReferredPatientController::class);
     Route::resource('admin-and-role', AdminRoleController::class);
     Route::resource('location', LocationController::class);
     Route::resource('agent', AgentController::class);
