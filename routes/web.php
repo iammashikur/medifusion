@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminRoleController;
+use App\Http\Controllers\AgentAppointmentController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HospitalController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('patient', PatientController::class);
     Route::resource('doctor', DoctorController::class);
     Route::resource('appointment', AppointmentController::class);
+    Route::resource('agent-appointment', AgentAppointmentController::class);
     Route::resource('patient-test', PatientController::class);
     Route::resource('hospital', HospitalController::class);
     Route::resource('test', TestController::class);

@@ -14,7 +14,7 @@ use App\Models\PatientTestItem;
 use App\Models\TestCategory;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
 
 class ApiController extends Controller
 {
@@ -79,7 +79,7 @@ class ApiController extends Controller
 
         $patient = Patient::where(['phone' => $request->phone])
         ->first();
-        
+
         if (!$patient) {
             $patient = new Patient();
         }
@@ -91,7 +91,7 @@ class ApiController extends Controller
         $patient->upazilla = $request->upazilla;
         $patient->phone = $request->phone;
         $patient->save();
-      
+
 
         $agentAppointment = new AgentAppointment();
         $agentAppointment->patient_id = $patient->id;
@@ -106,6 +106,7 @@ class ApiController extends Controller
         $appointment->status_id = 1;
         $appointment->location = $request->location;
         $appointment->appointment_date = $request->appointment_date;
+        $appointment->is_agent = 1;
         $appointment->save();
 
 
@@ -147,6 +148,7 @@ class ApiController extends Controller
         $appointment->status_id = 1;
         $appointment->location = $request->location;
         $appointment->appointment_date = $request->appointment_date;
+        $appointment->is_agent = 0;
         $appointment->save();
 
 
@@ -331,7 +333,7 @@ public function agent_patient_tests(Request $request)
 
     $patient = Patient::where(['phone' => $request->phone])
         ->first();
-        
+
     if (!$patient) {
         $patient = new Patient();
     }
@@ -366,6 +368,7 @@ public function agent_patient_tests(Request $request)
     $test->test_uid = round(time() / 1000) . random(5);
     $test->status_id = 0;
     $test->hospital_id = 0;
+    $test->is_agent = 1;
     $test->save();
 
 
@@ -381,6 +384,8 @@ public function agent_patient_tests(Request $request)
         $item->price = $data->price;
         $item->save();
     }
+
+
 
     // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
     // file_put_contents(public_path('data.json'), $data);
@@ -411,6 +416,7 @@ public function agent_patient_tests(Request $request)
         $test->test_uid = round(time() / 1000) . random(5);
         $test->status_id = 0;
         $test->hospital_id = 0;
+        $test->is_agent = 0;
         $test->save();
 
 

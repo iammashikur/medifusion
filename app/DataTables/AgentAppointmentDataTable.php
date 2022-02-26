@@ -6,11 +6,11 @@ use App\Models\Appointment;
 use Carbon\Carbon;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\Html\Editor\Editor;
 
-class AppointmentsDataTable extends DataTable
+class AgentAppointmentDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -48,7 +48,7 @@ class AppointmentsDataTable extends DataTable
 
 
             ->addColumn('action', function ($action) {
-                return '<a class="btn-sm btn-primary" href="' . route('appointment.edit', $action->id) . '"><i class="far fa-edit"></i> Edit</a>';
+                return '<a class="btn-sm btn-primary" href="' . route('agent-appointment.edit', $action->id) . '"><i class="far fa-edit"></i> Edit</a>';
             })
 
             ->rawColumns(['patient', 'doctor', 'status', 'action']);
@@ -62,7 +62,7 @@ class AppointmentsDataTable extends DataTable
      */
     public function query()
     {
-        return Appointment::where(['by_agent' => 0]);
+        return Appointment::where(['by_agent' => 1]);
     }
 
     /**
@@ -73,13 +73,17 @@ class AppointmentsDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('appointments-table')
+            ->setTableId('agentappointment-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom('Bfrtip')
             ->orderBy(1)
             ->buttons(
-                Button::make('print')
+                Button::make('create'),
+                Button::make('export'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
             );
     }
 
@@ -116,6 +120,6 @@ class AppointmentsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Appointments_' . date('YmdHis');
+        return 'AgentAppointment_' . date('YmdHis');
     }
 }

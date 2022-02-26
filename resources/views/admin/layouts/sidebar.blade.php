@@ -92,6 +92,13 @@
                     <span>Agents</span></a>
             </li>
 
+            <li class="dropdown {{ MenuActive('agent-appointment', 1) }}">
+                <a href="{{ route('agent-appointment.index') }}" class="nav-link">
+                    <i
+                    data-feather="calendar"></i>
+                    <span>Agents Appointments</span></a>
+            </li>
+
 
             <li class="dropdown {{ MenuActive('admin-and-role', 1) }}">
                 <a href="" class="nav-link">
