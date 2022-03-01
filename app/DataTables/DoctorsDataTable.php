@@ -84,7 +84,6 @@ class DoctorsDataTable extends DataTable
             Column::make('name')->width('70'),
             Column::make('specialization')->width('20'),
             Column::make('qualification')->width('20'),
-            Column::make('consultationfee')->title('Consultation Fee')->width('25'),
             Column::make('image')->title('Photo')->width('30'),
             Column::computed('action')
             ->exportable(false)

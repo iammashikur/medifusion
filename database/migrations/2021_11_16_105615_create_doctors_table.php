@@ -23,7 +23,8 @@ class CreateDoctorsTable extends Migration
             $table->string('phone');
             $table->string('avatar');
             $table->integer('hospital_id');
-            $table->integer('consultationfee');
+            $table->integer('commission');
+            $table->integer('discount');
             $table->timestamps();
         });
     }

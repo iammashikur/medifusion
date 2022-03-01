@@ -114,32 +114,19 @@ $page_type = 'Admin';
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Consultation Fee</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Commission (<span id="commission">{{ $doctor->commission }}</span>%)</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="consultationfee" value="{{ $doctor->consultationfee }}"
-                                    class="form-control" required>
+                              <input type="range" name="commission" class="form-control" min="0" max="100" value="{{ $doctor->commission }}" onInput="$('#commission').html($(this).val())" required>
                             </div>
-                        </div>
+                          </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Discount (<span id="discount">{{ $doctor->discount }}</span>%)</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control location" name="location[]" multiple="multiple" required>
-                                    @php
-                                        $locations = [];
-                                        foreach (App\Models\DoctorLocation::where(['doctor_id' => $doctor->id])->get() as $value) {
-                                            $locations[] = $value->location_id;
-                                        }
-
-                                    @endphp
-                                    @foreach (App\Models\Location::all() as $location)
-                                        <option value="{{ $location->id }}" @if (in_array($location->id, $locations))
-                                            selected
-                                    @endif >{{ $location->location }}</option>
-                                    @endforeach
-                                </select>
+                              <input type="range" name="discount" class="form-control" min="0" max="100" value="{{ $doctor->discount }}" onInput="$('#discount').html($(this).val())" required>
                             </div>
                         </div>
+
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>

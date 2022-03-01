@@ -9,7 +9,11 @@ class DoctorLocation extends Model
 {
     use HasFactory;
 
-    public function getLocation(){
-        return $this->hasOne(Location::class, 'id', 'location_id');
+    public function getDoctor(){
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
+    }
+
+    public function getHospital(){
+        return $this->hasOne(Hospital::class, 'id', 'hospital_id');
     }
 }

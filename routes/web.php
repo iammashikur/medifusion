@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\DoctorLocationController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\AgentAppointmentController;
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('specialization', SpecializationController::class);
     Route::resource('patient', PatientController::class);
     Route::resource('doctor', DoctorController::class);
+    Route::resource('doctor-location', DoctorLocationController::class);
     Route::resource('appointment', AppointmentController::class);
     Route::resource('agent-appointment', AgentAppointmentController::class);
     Route::resource('patient-test', PatientTestController::class);

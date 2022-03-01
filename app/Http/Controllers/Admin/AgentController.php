@@ -50,9 +50,9 @@ class AgentController extends Controller
             /** Save request data to db */
             $agent->avatar      = $imagePath;
         }
+
         $agent->gender = $request->gender;
         $agent->phone = $request->phone;
-
         $agent->password = bcrypt($request->password);
         $agent->billing_address = $request->billing_address;
         $agent->zilla = $request->zilla;
@@ -60,6 +60,7 @@ class AgentController extends Controller
         $agent->bkash = $request->bkash;
         $agent->nagad = $request->nagad;
         $agent->bank_details = $request->bank_details;
+        $agent->commission = $request->commission;
         $agent->save();
 
         toast('Agent Added!', 'success')->width('300px')->padding('10px');
@@ -119,6 +120,7 @@ class AgentController extends Controller
         $agent->bkash = $request->bkash;
         $agent->nagad = $request->nagad;
         $agent->bank_details = $request->bank_details;
+        $agent->commission = $request->commission;
         $agent->save();
 
         toast('Agent Updated!', 'success')->width('300px')->padding('10px');

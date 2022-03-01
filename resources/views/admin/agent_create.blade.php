@@ -123,6 +123,13 @@
                     </div>
                   </div>
 
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Commission (<span id="commission">0</span>%)</label>
+                    <div class="col-sm-12 col-md-7">
+                      <input type="range" name="commission" class="form-control" min="0" max="100" value="0" onInput="$('#commission').html($(this).val())" required>
+                    </div>
+                  </div>
+
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                   <div class="col-sm-12 col-md-7">

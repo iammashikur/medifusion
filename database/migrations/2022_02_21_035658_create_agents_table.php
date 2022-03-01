@@ -25,6 +25,7 @@ class CreateAgentsTable extends Migration
             $table->string('upazilla')->nullable();
             $table->string('bkash')->nullable();
             $table->string('nagad')->nullable();
+            $table->integer('commission')->nullable();
             $table->text('bank_details')->nullable();
             $table->timestamps();
         });

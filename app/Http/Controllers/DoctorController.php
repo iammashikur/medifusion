@@ -58,21 +58,10 @@ class DoctorController extends Controller
         $doctor->specialization      = $request->specialization;
         $doctor->qualification      = $request->qualification;
         $doctor->phone      = $request->phone;
-        $doctor->consultationfee      = $request->consultationfee;
+        $doctor->commission      = $request->commission;
+        $doctor->discount      = $request->discount;
         $doctor->hospital_id = auth()->user()->hospital_id;
         $doctor->save();
-
-        foreach($request->location as $location){
-            $store = new DoctorLocation();
-            $store->location_id = $location;
-            $store->doctor_id = $doctor->id;
-            $store->save();
-        }
-
-
-
-
-
 
         toast('Doctor Added!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor.index');
@@ -131,17 +120,9 @@ class DoctorController extends Controller
         $doctor->specialization      = $request->specialization;
         $doctor->qualification      = $request->qualification;
         $doctor->phone      = $request->phone;
-        $doctor->consultationfee      = $request->consultationfee;
+        $doctor->commission      = $request->commission;
+        $doctor->discount      = $request->discount;
         $doctor->save();
-
-        DoctorLocation::where(['doctor_id' =>  $doctor->id])->delete();
-
-        foreach($request->location as $location){
-            $store = new DoctorLocation();
-            $store->location_id = $location;
-            $store->doctor_id = $doctor->id;
-            $store->save();
-        }
 
         toast('Doctor Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor.index');
