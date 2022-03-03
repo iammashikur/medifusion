@@ -49,7 +49,7 @@ class DoctorLocationController extends Controller
             $location->consultation_fee = $request->consultation_fee;
             $location->save();
 
-            toast('Doctor Updated!', 'success')->width('300px')->padding('10px');
+            toast('Location Updated!', 'success')->width('300px')->padding('10px');
             return redirect()->route('doctor-location.index');
         }
 
@@ -63,6 +63,8 @@ class DoctorLocationController extends Controller
         $location->consultation_fee = $request->consultation_fee;
         $location->save();
 
+
+        toast('Location Added!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor-location.index');
     }
 
@@ -109,6 +111,7 @@ class DoctorLocationController extends Controller
         $location->consultation_fee = $request->consultation_fee;
         $location->save();
 
+        toast('Location Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('doctor-location.index');
     }
 

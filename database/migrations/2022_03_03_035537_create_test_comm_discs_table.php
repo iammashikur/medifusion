@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientTestsTable extends Migration
+class CreateTestCommDiscsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreatePatientTestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patient_tests', function (Blueprint $table) {
+        Schema::create('test_comm_discs', function (Blueprint $table) {
             $table->id();
-            $table->integer('patient_id');
-            $table->string('test_uid');
-            $table->string('status_id');
+            $table->integer('test_category_id');
             $table->integer('hospital_id');
-            $table->integer('by_agent');
+            $table->integer('commission');
+            $table->integer('discount');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreatePatientTestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patient_tests');
+        Schema::dropIfExists('test_comm_discs');
     }
 }

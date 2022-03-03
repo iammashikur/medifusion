@@ -20,14 +20,12 @@ $page_type = 'Admin';
     <div class="main-content">
         <div class="section">
             @include('admin.partials.error')
-
-
-            <form action="{{ route('hospital.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('hospital.update', $hospital->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                @method('PUT')
                 <div class="card card-primary">
                     <div class="card-header" style="border-bottom-color: #d0d0d0">
-                        <h4>Add Hospital</h4>
+                        <h4>Edit Hospital</h4>
                         <div class="card-header-action">
                             <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
                         </div>
@@ -37,23 +35,24 @@ $page_type = 'Admin';
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospital Name</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="name" class="form-control" required>
+                                <input type="text" name="name" value="{{ $hospital->name }}" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Address</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="address" class="form-control" required>
+                                <input type="text" name="address" value="{{ $hospital->address }}" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Phone Number</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="phone" class="form-control" required>
+                                <input type="text" name="phone" value="{{ $hospital->phone }}" class="form-control" required>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="card card-primary">
                     <div class="card-header" style="border-bottom-color: #d0d0d0">
                         <h4>Test Commission & Discount</h4>
@@ -72,28 +71,27 @@ $page_type = 'Admin';
                                     <tr>
                                         <td scope="row">{{ $item->name }}</td>
                                         <td>
-                                            <input type="number" class="form-control" name="test_commission_{{ $item->id }}" value="0" max="100" min="0">
+                                            <input type="number" class="form-control" name="test_commission_{{ $item->id }}"
+                                             value="{{@ App\Models\TestCommDisc::where(['hospital_id' => $hospital->id, 'test_category_id' => $item->id])->first()->commission }}"
+                                            max="100" min="0">
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control" name="test_discount_{{ $item->id }}" value="0" max="100" min="0">
+                                            <input type="number" class="form-control" name="test_discount_{{ $item->id }}"
+                                            value="{{@ App\Models\TestCommDisc::where(['hospital_id' => $hospital->id, 'test_category_id' => $item->id])->first()->discount }}"
+                                             max="100" min="0">
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-
-
                     </div>
                 </div>
 
-
                 <div class="card">
-
                   <div class="card-body">
                         <button class="btn btn-primary w-100">Add Hospital</button>
                   </div>
                 </div>
-
             </form>
         </div>
     </div>

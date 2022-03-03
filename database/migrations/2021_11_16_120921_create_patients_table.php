@@ -23,6 +23,7 @@ class CreatePatientsTable extends Migration
             $table->string('upazilla')->nullable();
             $table->string('phone');
             $table->string('password');
+            $table->integer('referred_by_id');
             $table->timestamps();
         });
 

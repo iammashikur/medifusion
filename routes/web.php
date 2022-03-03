@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\DoctorLocationController;
+use App\Http\Controllers\Admin\TestCommDiscController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\AgentAppointmentController;
@@ -55,14 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('location', LocationController::class);
     Route::resource('agent', AgentController::class);
 
-
 });
-
-
-
 
 Auth::routes();
 Route::get('/login', [AdminController::class, 'login'])->name('login');
 Route::get('/register', [AdminController::class, 'register'])->name('register');
-
-
