@@ -146,6 +146,7 @@ class ApiController extends Controller
         $appointment->by_agent = 0;
         $appointment->save();
 
+
         return response()->json([
             'success' => true,
             'message' => 'Appointment Requested !',
