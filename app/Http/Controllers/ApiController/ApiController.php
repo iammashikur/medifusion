@@ -137,7 +137,6 @@ class ApiController extends Controller
         $appointment = new Appointment();
         $appointment->patient_id = $request->user()->id;
         $appointment->doctor_id = $request->doctor_id;
-        $appointment->hospital_id = Doctor::find($request->doctor_id)->hospital_id;
         $appointment->appointment_fee = Doctor::find($request->doctor_id)->consultationfee;
         $appointment->status_id = 1;
         $appointment->location = $request->location;
