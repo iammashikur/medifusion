@@ -96,7 +96,7 @@ class ApiController extends Controller
         $appointment->status_id = 1;
         $appointment->location = $request->location;
         $appointment->appointment_date = $request->appointment_date;
-        $appointment->is_agent = 1;
+        $appointment->by_agent = 1;
         $appointment->save();
 
 
