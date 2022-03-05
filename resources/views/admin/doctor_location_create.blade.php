@@ -49,14 +49,9 @@ $page_type = 'Admin';
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospital</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location Name</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="hospital_id" id="">
-                                    <option> -- select -- </option>
-                                    @foreach (App\Models\Hospital::all() as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} </option>
-                                    @endforeach
-                                </select>
+                                <textarea type="text" name="name" class="form-control" required></textarea>
                             </div>
                         </div>
 
@@ -67,14 +62,6 @@ $page_type = 'Admin';
                                 <textarea type="text" name="address" class="form-control" required></textarea>
                             </div>
                         </div>
-
-                        <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Room Number</label>
-                            <div class="col-sm-12 col-md-7">
-                                <input type="text" name="room" class="form-control" required>
-                            </div>
-                        </div>
-
 
 
                         <div class="form-group row mb-4">

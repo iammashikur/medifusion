@@ -16,9 +16,8 @@ class CreateDoctorLocationsTable extends Migration
         Schema::create('doctor_locations', function (Blueprint $table) {
             $table->id();
             $table->integer('doctor_id');
-            $table->integer('hospital_id');
+            $table->string('name');
             $table->text('address');
-            $table->string('room')->nullable();
             $table->time('start_time');
             $table->time('end_time');
             $table->bigInteger('consultation_fee');

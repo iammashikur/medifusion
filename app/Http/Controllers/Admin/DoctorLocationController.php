@@ -37,13 +37,13 @@ class DoctorLocationController extends Controller
      */
     public function store(Request $request)
     {
-        if (DoctorLocation::where(['doctor_id' => $request->doctor_id, 'hospital_id' => $request->hospital_id])->count()) {
+        if (DoctorLocation::where(['doctor_id' => $request->doctor_id, 'name' => $request->name])->count()) {
 
-            $location = DoctorLocation::where(['doctor_id' => $request->doctor_id, 'hospital_id' => $request->hospital_id])->first();
+            $location = DoctorLocation::where(['doctor_id' => $request->doctor_id, 'name' => $request->name])->first();
             $location->doctor_id = $request->doctor_id;
-            $location->hospital_id = $request->hospital_id;
+            $location->name = $request->name;
             $location->address = $request->address;
-            $location->room = $request->room;
+
             $location->start_time = $request->start_time;
             $location->end_time = $request->end_time;
             $location->consultation_fee = $request->consultation_fee;
@@ -55,9 +55,9 @@ class DoctorLocationController extends Controller
 
         $location = new DoctorLocation();
         $location->doctor_id = $request->doctor_id;
-        $location->hospital_id = $request->hospital_id;
+        $location->name = $request->name;
         $location->address = $request->address;
-        $location->room = $request->room;
+
         $location->start_time = $request->start_time;
         $location->end_time = $request->end_time;
         $location->consultation_fee = $request->consultation_fee;
@@ -103,9 +103,9 @@ class DoctorLocationController extends Controller
 
         $location = DoctorLocation::findOrFail($id);
         $location->doctor_id = $request->doctor_id;
-        $location->hospital_id = $request->hospital_id;
+        $location->name = $request->name;
         $location->address = $request->address;
-        $location->room = $request->room;
+
         $location->start_time = $request->start_time;
         $location->end_time = $request->end_time;
         $location->consultation_fee = $request->consultation_fee;
