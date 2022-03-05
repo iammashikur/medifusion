@@ -54,11 +54,10 @@ function appointmentPay ($patient, $location, $agent = null) {
     } $agentCommission = 0;
 
 
-
     // test var
     $appointmentFee = DoctorLocation::find($location)->consultation_fee;
     $patientDiscount  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
-    $medicCommission  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
+    $medicCommission  = Doctor::find(DoctorLocation::find($location)->doctor_id)->commission;
 
 
     $q = ($appointmentFee * $medicCommission) / 10000;
