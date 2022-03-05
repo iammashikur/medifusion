@@ -95,11 +95,14 @@ function appointmentPay ($patient, $location, $agent = null) {
         $medicGetsInsert->save();
     }
 
-    // return
-    //     'Payable    : ' . $amountToPay . '<br>' .
-    //     'Doctor Gets: ' . $doctorGets . '<br>' .
-    //     'Medic Gets : ' . $medicGets . '<br>' .
-    //     'Agent Gets : ' . $agentGets;
+    return [
+        'patient_paid' => $amountToPay,
+        'doctor_earned' => $doctorGets,
+        'medic_earned' => $medicGets,
+        'agent_earned' => $agentGets,
+    ];
+
+
 }
 
 //echo $appointmentPay();

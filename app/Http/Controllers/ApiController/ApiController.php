@@ -132,14 +132,14 @@ class ApiController extends Controller
         }
 
 
-        appointmentPay($request->user()->id, $request->location);
+
 
 
         $appointment = new Appointment();
         $appointment->patient_id = $request->user()->id;
         $appointment->doctor_id = $request->doctor_id;
         $appointment->hospital_id = 0;
-        $appointment->appointment_fee = DoctorLocation::find($request->location)->consultation_fee;
+        $appointment->appointment_fee = json_encode(appointmentPay($request->user()->id, $request->location));
         $appointment->status_id = 1;
         $appointment->location = $request->location;
         $appointment->appointment_date = $request->appointment_date;
