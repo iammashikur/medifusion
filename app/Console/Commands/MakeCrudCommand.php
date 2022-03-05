@@ -42,14 +42,12 @@ class MakeCrudCommand extends Command
 
         $_ = fn($x) => $x;
         $crud = $this->argument("crud");
-
         Artisan::call("make:view admin/{$_(Str::snake($crud))}_create");
         Artisan::call("make:view admin/{$_(Str::snake($crud))}_edit");
         Artisan::call("make:view admin/{$_(Str::snake($crud))}_all");
         Artisan::call("datatables:make {$_(Str::ucfirst(Str::camel($crud)))}");
         Artisan::call("make:model {$_(Str::ucfirst(Str::camel($crud)))} -m");
         Artisan::call("make:controller Admin/{$_(Str::ucfirst(Str::camel($crud)))}Controller -r");
-
         $this->info("Crud {$crud} created.");
     }
 }

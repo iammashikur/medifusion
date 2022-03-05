@@ -1,0 +1,1 @@
+resources/views/admin/doctor_receive_create.blade.php

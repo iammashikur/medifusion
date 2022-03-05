@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\AgentPayController;
+use App\Http\Controllers\Admin\ClientPayController;
 use App\Http\Controllers\Admin\DoctorLocationController;
+use App\Http\Controllers\Admin\DoctorReceiveController;
+use App\Http\Controllers\Admin\HospitalReceiveController;
+use App\Http\Controllers\Admin\PushNotificationController;
 use App\Http\Controllers\Admin\TestCommDiscController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminRoleController;
@@ -55,6 +60,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('admin-and-role', AdminRoleController::class);
     Route::resource('location', LocationController::class);
     Route::resource('agent', AgentController::class);
+
+
+    Route::resource('agent-pay', AgentPayController::class);
+    Route::resource('client-pay', ClientPayController::class);
+    Route::resource('doctor-receive', DoctorReceiveController::class);
+    Route::resource('hospital-receive', HospitalReceiveController::class);
+    Route::resource('push-notification', PushNotificationController::class);
 
 });
 

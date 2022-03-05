@@ -136,22 +136,30 @@
             </li> --}}
 
             <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                        data-feather="dollar-sign"></i><span>Payments</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Agent Pay</a></li>
+                    <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Client Pay</a></li>
+                    <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Doctor Receive</a></li>
+                    <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Medic Receive</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="{{ route('push-notification.index') }}" class="nav-link">
+                    <i data-feather="bell"></i>
+                    <span>Push Notification</span></a>
+            </li>
+
+            <li class="dropdown">
                 <a href="" class="nav-link">
                     <i data-feather="settings"></i>
                     <span>Settings</span></a>
             </li>
 
 
-            {{-- <li class="dropdown">
-                <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                        data-feather="command"></i><span>Apps</span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="chat.html">Chat</a></li>
-                    <li><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                    <li><a class="nav-link" href="blog.html">Blog</a></li>
-                    <li><a class="nav-link" href="calendar.html">Calendar</a></li>
-                </ul>
-            </li> --}}
+
 
         </ul>
     </aside>
