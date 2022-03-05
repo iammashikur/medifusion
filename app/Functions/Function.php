@@ -79,7 +79,7 @@ function appointmentPay ($patient, $location, $agent = null) {
 
     // Doctor
     $medicGetsInsert = new Wallet();
-    $medicGetsInsert->amount = $medicGets;
+    $medicGetsInsert->amount = $doctorGets;
     $medicGetsInsert->user_type = 'doctor';
     $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
     $medicGetsInsert->transaction_type = '+';
@@ -88,7 +88,7 @@ function appointmentPay ($patient, $location, $agent = null) {
 
     if ($agentGets > 0) {
         $medicGetsInsert = new Wallet();
-        $medicGetsInsert->amount = $medicGets;
+        $medicGetsInsert->amount = $agentGets;
         $medicGetsInsert->user_type = 'agent';
         $medicGetsInsert->user_id = $agent;
         $medicGetsInsert->transaction_type = '+';
