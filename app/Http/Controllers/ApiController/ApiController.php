@@ -43,7 +43,6 @@ class ApiController extends Controller
 
 
 
-
         if (!$request->filled('doctor_id')) {
             return response()->json([
                 'success' => false,
@@ -71,6 +70,9 @@ class ApiController extends Controller
         if (!$patient) {
             $patient = new Patient();
         }
+
+
+        return appointmentPay($patient->id, $request->location);
 
         $patient->name = $request->name;
         $patient->birth_date = $request->birth_date;

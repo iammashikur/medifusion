@@ -41,8 +41,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/my-tests', [ApiController::class, 'my_tests']);
     Route::post('/update-profile', [ApiController::class, 'update_profile']);
 
-
-
 });
 
 

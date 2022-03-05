@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Agent;
+use App\Models\Doctor;
+use App\Models\DoctorLocation;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -43,15 +46,20 @@ function MakeImage(Request $request, $fileName, $path)
 $percentToAmount = fn ($amount, $percent) => ($percent / 100) * $amount;
 
 // Payment
-$appointmentPay = function ($patient = null, $doctor = null, $agent = null) {
-    // Percentage
-    $percentToAmount = fn ($amount, $percent) => ($percent / 100) * $amount;
+function appointmentPay ($patient, $location, $agent = null) {
+
+
+    if ($agent) {
+        $agentCommission  = Agent::find($agent)->commission;
+    } $agentCommission = 0;
+
+
 
     // test var
-    $appointmentFee = 1500;
-    $patientDiscount  = 10;
-    $medicCommission  = 50;
-    $agentCommission  = 50;
+    $appointmentFee = DoctorLocation::find($location)->consultation_fee;
+    $patientDiscount  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
+    $medicCommission  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
+
 
     $q = ($appointmentFee * $medicCommission) / 10000;
     $x = ($patientDiscount * $q);
@@ -62,7 +70,7 @@ $appointmentPay = function ($patient = null, $doctor = null, $agent = null) {
     $doctorGets  = $amountToPay - ($medicGets + $agentGets);
 
 
-    echo
+    return
         'Payable    : ' . $amountToPay . '<br>' .
         'Doctor Gets: ' . $doctorGets . '<br>' .
         'Medic Gets : ' . $medicGets . '<br>' .
