@@ -130,7 +130,7 @@ class ApiController extends Controller
             ], 200);
         }
 
-        appointmentPay($request->user()->id, $request->location);
+
 
         $appointment = new Appointment();
         $appointment->patient_id = $request->user()->id;
@@ -142,6 +142,8 @@ class ApiController extends Controller
         $appointment->appointment_date = $request->appointment_date;
         $appointment->by_agent = 0;
         $appointment->save();
+
+        appointmentPay($request->user()->id, $request->location);
 
         return response()->json([
             'success' => true,
