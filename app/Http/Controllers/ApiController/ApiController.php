@@ -72,7 +72,7 @@ class ApiController extends Controller
         }
 
 
-        return appointmentPay($patient->id, $request->location);
+
 
         $patient->name = $request->name;
         $patient->birth_date = $request->birth_date;
@@ -129,6 +129,8 @@ class ApiController extends Controller
                 'message' => 'Doctor not found !',
             ], 200);
         }
+
+        return appointmentPay($request->user()->id, $request->location);
 
         $appointment = new Appointment();
         $appointment->patient_id = $request->user()->id;
