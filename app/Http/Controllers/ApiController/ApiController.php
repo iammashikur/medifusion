@@ -7,6 +7,7 @@ use App\Models\AgentAppointment;
 use App\Models\AgentTest;
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\DoctorLocation;
 use App\Models\DoctorSpecialization;
 use App\Models\Patient;
 use App\Models\PatientTest;
@@ -137,14 +138,13 @@ class ApiController extends Controller
         $appointment = new Appointment();
         $appointment->patient_id = $request->user()->id;
         $appointment->doctor_id = $request->doctor_id;
-        $appointment->appointment_fee = Doctor::find($request->doctor_id)->consultationfee;
+        $appointment->hospital_id = 0;
+        $appointment->appointment_fee = DoctorLocation::find($request->location)->consultation_fee;
         $appointment->status_id = 1;
         $appointment->location = $request->location;
         $appointment->appointment_date = $request->appointment_date;
         $appointment->by_agent = 0;
         $appointment->save();
-
-
 
         return response()->json([
             'success' => true,
