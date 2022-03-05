@@ -3,6 +3,7 @@
 use App\Models\Agent;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -45,6 +46,7 @@ function MakeImage(Request $request, $fileName, $path)
 // Percentage
 $percentToAmount = fn ($amount, $percent) => ($percent / 100) * $amount;
 
+
 // Payment
 function appointmentPay ($patient, $location, $agent = null) {
 
@@ -59,7 +61,6 @@ function appointmentPay ($patient, $location, $agent = null) {
     $patientDiscount  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
     $medicCommission  = Doctor::find(DoctorLocation::find($location)->doctor_id)->commission;
 
-
     $q = ($appointmentFee * $medicCommission) / 10000;
     $x = ($patientDiscount * $q);
     $amountToPay = $appointmentFee - $x;
@@ -68,12 +69,37 @@ function appointmentPay ($patient, $location, $agent = null) {
     $medicGets = $q * (100 - $patientDiscount - $agentCommission);
     $doctorGets  = $amountToPay - ($medicGets + $agentGets);
 
+    // Medic
+    $medicGetsInsert = new Wallet();
+    $medicGetsInsert->amount = $medicGets;
+    $medicGetsInsert->user_type = 'medic';
+    $medicGetsInsert->user_id = 0;
+    $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->save();
 
-    return
-        'Payable    : ' . $amountToPay . '<br>' .
-        'Doctor Gets: ' . $doctorGets . '<br>' .
-        'Medic Gets : ' . $medicGets . '<br>' .
-        'Agent Gets : ' . $agentGets;
-};
+    // Doctor
+    $medicGetsInsert = new Wallet();
+    $medicGetsInsert->amount = $medicGets;
+    $medicGetsInsert->user_type = 'doctor';
+    $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
+    $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->save();
+
+
+    if ($agentGets > 0) {
+        $medicGetsInsert = new Wallet();
+        $medicGetsInsert->amount = $medicGets;
+        $medicGetsInsert->user_type = 'agent';
+        $medicGetsInsert->user_id = $agent;
+        $medicGetsInsert->transaction_type = '+';
+        $medicGetsInsert->save();
+    }
+
+    // return
+    //     'Payable    : ' . $amountToPay . '<br>' .
+    //     'Doctor Gets: ' . $doctorGets . '<br>' .
+    //     'Medic Gets : ' . $medicGets . '<br>' .
+    //     'Agent Gets : ' . $agentGets;
+}
 
 //echo $appointmentPay();
