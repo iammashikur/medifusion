@@ -427,6 +427,8 @@ public function agent_patient_tests(Request $request)
             $item->price = $data->price;
             $item->save();
 
+            testPay($data->get_category , $data->price, $test->id);
+
         }
 
         // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
