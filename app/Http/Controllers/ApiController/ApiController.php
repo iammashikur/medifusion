@@ -425,7 +425,7 @@ public function agent_patient_tests(Request $request)
             $item->price = $data->price;
             $item->save();
 
-            // testPay($data->get_category , $data->price, $test->id);
+            testPay($data->get_category , $data->price, $test->id);
 
         }
 
