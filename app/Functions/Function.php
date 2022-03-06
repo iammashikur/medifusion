@@ -77,6 +77,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->status = 0;
+
     $medicGetsInsert->save();
 
     // Doctor
@@ -113,7 +114,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
 
 
 // Payment
-function testPay ($testId, $testCategory, $agent = null) {
+function testPay($testId, $testCategory, $agent = null) {
 
 
     if ($agent) {
