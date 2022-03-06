@@ -363,7 +363,7 @@ public function agent_patient_tests(Request $request)
     $test->test_uid = round(time() / 1000) . random(5);
     $test->status_id = 0;
     $test->hospital_id = 0;
-    $test->is_agent = 1;
+    $test->by_agent = 1;
     $test->save();
 
 
@@ -411,7 +411,7 @@ public function agent_patient_tests(Request $request)
         $test->test_uid = round(time() / 1000) . random(5);
         $test->status_id = 0;
         $test->hospital_id = 0;
-        $test->is_agent = 0;
+        $test->by_agent = 0;
         $test->save();
 
 
