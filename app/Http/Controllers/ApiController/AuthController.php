@@ -36,6 +36,9 @@ class AuthController extends Controller
         $user->phone = $request->phone;
         $user->birth_date = $request->birth_date;
         $user->gender = $request->gender ? $request->gender : '1';
+        $user->notification_id = $request->notification_id;
+        $user->blood_group = $request->blood_group;
+        $user->upazilla = $request->upazilla;
         $user->save();
 
         return response()->json([

@@ -73,13 +73,12 @@ class ApiController extends Controller
         }
 
 
-
-
         $patient->name = $request->name;
         $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
         $patient->zilla = $request->zilla;
         $patient->upazilla = $request->upazilla;
+        $patient->blood_group = $request->blood_group;
         $patient->phone = $request->phone;
         $patient->save();
 
@@ -97,8 +96,14 @@ class ApiController extends Controller
         $appointment->status_id = 1;
         $appointment->location = $request->location;
         $appointment->appointment_date = $request->appointment_date;
-        $appointment->is_agent = 1;
+        $appointment->by_agent = 1;
         $appointment->save();
+
+
+        //Update with wallet
+        $appointmentUp = Appointment::find($appointment->id);
+        $appointmentUp->appointment_fee = json_encode(appointmentPay($appointment->id, $request->location, $request->user()->id));
+        $appointmentUp->save();
 
 
         return response()->json([
@@ -132,20 +137,22 @@ class ApiController extends Controller
         }
 
 
-
-
-
         $appointment = new Appointment();
         $appointment->patient_id = $request->user()->id;
         $appointment->doctor_id = $request->doctor_id;
         $appointment->hospital_id = 0;
-        $appointment->appointment_fee = json_encode(appointmentPay($request->user()->id, $request->location));
+        $appointment->appointment_fee = 0;
         $appointment->status_id = 1;
         $appointment->location = $request->location;
         $appointment->appointment_date = $request->appointment_date;
         $appointment->by_agent = 0;
         $appointment->save();
 
+
+        //Update with wallet
+        $appointmentUp = Appointment::find($appointment->id);
+        $appointmentUp->appointment_fee = json_encode(appointmentPay($appointment->id, $request->location));
+        $appointmentUp->save();
 
         return response()->json([
             'success' => true,
@@ -497,6 +504,9 @@ public function agent_patient_tests(Request $request)
         if ($request->has('gender')) {
             $user->gender = $request->gender;
         }
+
+        $user->notification_id = $request->notification_id;
+        $user->blood_group = $request->blood_group;
 
         $user->save();
 

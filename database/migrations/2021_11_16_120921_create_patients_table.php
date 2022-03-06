@@ -22,6 +22,8 @@ class CreatePatientsTable extends Migration
             $table->string('zilla')->nullable();
             $table->string('upazilla')->nullable();
             $table->string('phone');
+            $table->string('blood_group')->nullable();
+            $table->string('notification_id')->nullable();
             $table->string('password');
             $table->integer('referred_by_id');
             $table->timestamps();
