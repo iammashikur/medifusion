@@ -394,7 +394,6 @@ public function agent_patient_tests(Request $request)
     public function patient_tests(Request $request)
     {
 
-
         function random($len)
         {
             $char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -427,7 +426,7 @@ public function agent_patient_tests(Request $request)
             $item->price = $data->price;
             $item->save();
 
-            testPay($data->get_category , $data->price, $test->id);
+            // testPay($data->get_category , $data->price, $test->id);
 
         }
 
