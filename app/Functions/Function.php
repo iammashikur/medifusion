@@ -76,6 +76,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $medicGetsInsert->user_id = 0;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
+    $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
 
     // Doctor
@@ -85,6 +86,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
+    $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
 
 
@@ -95,6 +97,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
         $medicGetsInsert->user_id = $agent;
         $medicGetsInsert->transaction_type = '+';
         $medicGetsInsert->appointment_id = $appointmentId;
+        $medicGetsInsert->status = 0;
         $medicGetsInsert->save();
     }
 
@@ -138,6 +141,7 @@ function testPay ($testId, $testCategory, $agent = null) {
     $medicGetsInsert->user_id = 0;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->test_id = $testId;
+    $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
 
     // Doctor
@@ -147,6 +151,7 @@ function testPay ($testId, $testCategory, $agent = null) {
     $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->test_id = $testId;
+    $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
 
 
@@ -157,6 +162,7 @@ function testPay ($testId, $testCategory, $agent = null) {
         $medicGetsInsert->user_id = $agent;
         $medicGetsInsert->transaction_type = '+';
         $medicGetsInsert->test_id = $testId;
+        $medicGetsInsert->status = 0;
         $medicGetsInsert->save();
     }
 
