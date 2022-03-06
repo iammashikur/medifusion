@@ -13,6 +13,7 @@ use App\Models\Patient;
 use App\Models\PatientTest;
 use App\Models\PatientTestItem;
 use App\Models\TestCategory;
+use App\Models\TestCommDisc;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
 
@@ -201,9 +202,8 @@ class ApiController extends Controller
 
             foreach ($test->getPrice as $it) {
 
-
                 $it->get_hospital =  $it->getHospital;
-
+                $it->get_category = TestCommDisc::where(['hospital_id' => $it->getHospital->id, 'test_category_id' => $test->getParent->id]);
 
                 unset($it->id);
                 unset($it->created_at);
@@ -428,6 +428,7 @@ public function agent_patient_tests(Request $request)
             $item->hospital_name = $data->hospitalName;
             $item->price = $data->price;
             $item->save();
+
         }
 
         // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
