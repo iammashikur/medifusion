@@ -166,7 +166,7 @@ class ApiController extends Controller
 
 
         foreach ($appointments as $value) {
-            $value->location = 'hello';
+            $value->location = $value->getLocation;
         }
 
         return response()->json([

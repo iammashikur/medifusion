@@ -25,4 +25,8 @@ class Appointment extends Model
     public function getStatus(){
         return $this->hasOne(AppointmentStatus::class, 'id', 'status_id');
     }
+
+    public function getLocation(){
+        return $this->hasOne(DoctorLocation::class, 'id', 'location');
+    }
 }
