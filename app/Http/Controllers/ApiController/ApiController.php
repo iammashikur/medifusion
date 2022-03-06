@@ -163,6 +163,12 @@ class ApiController extends Controller
     public function my_appointments(Request $request)
     {
         $appointments = Appointment::where('patient_id', $request->user()->id)->with('getDoctor', 'getHospital', 'getStatus')->get();
+
+
+        foreach ($appointments as $value) {
+            $value->location = 'hello';
+        }
+
         return response()->json([
             'success' => true,
             'appointments' => $appointments,
