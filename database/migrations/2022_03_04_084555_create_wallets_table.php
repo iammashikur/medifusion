@@ -20,8 +20,8 @@ class CreateWalletsTable extends Migration
             $table->string('transaction_type');
             $table->string('amount');
             $table->boolean('status');
-            $table->inetger('test_id')->nullable();
-            $table->inetger('appointment_id')->nullable();
+            $table->integer('test_id')->nullable();
+            $table->integer('appointment_id')->nullable();
             $table->timestamps();
         });
     }
