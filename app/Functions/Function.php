@@ -48,7 +48,7 @@ $percentToAmount = fn ($amount, $percent) => ($percent / 100) * $amount;
 
 
 // Payment
-function appointmentPay ($patient, $location, $agent = null) {
+function appointmentPay ($appointmentId, $location, $agent = null) {
 
 
     if ($agent) {
@@ -75,6 +75,7 @@ function appointmentPay ($patient, $location, $agent = null) {
     $medicGetsInsert->user_type = 'medic';
     $medicGetsInsert->user_id = 0;
     $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->save();
 
     // Doctor
@@ -83,6 +84,7 @@ function appointmentPay ($patient, $location, $agent = null) {
     $medicGetsInsert->user_type = 'doctor';
     $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
     $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->save();
 
 
@@ -92,6 +94,7 @@ function appointmentPay ($patient, $location, $agent = null) {
         $medicGetsInsert->user_type = 'agent';
         $medicGetsInsert->user_id = $agent;
         $medicGetsInsert->transaction_type = '+';
+        $medicGetsInsert->appointment_id = $appointmentId;
         $medicGetsInsert->save();
     }
 
@@ -105,4 +108,64 @@ function appointmentPay ($patient, $location, $agent = null) {
 
 }
 
-//echo $appointmentPay();
+
+// Payment
+function testPay ($testId, $testCategory, $agent = null) {
+
+
+    if ($agent) {
+        $agentCommission  = Agent::find($agent)->commission;
+    } $agentCommission = 0;
+
+
+    // test var
+    $appointmentFee = DoctorLocation::find($location)->consultation_fee;
+    $patientDiscount  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
+    $medicCommission  = Doctor::find(DoctorLocation::find($location)->doctor_id)->commission;
+
+    $q = ($appointmentFee * $medicCommission) / 10000;
+    $x = ($patientDiscount * $q);
+    $amountToPay = $appointmentFee - $x;
+
+    $agentGets = $q * $agentCommission;
+    $medicGets = $q * (100 - $patientDiscount - $agentCommission);
+    $doctorGets  = $amountToPay - ($medicGets + $agentGets);
+
+    // Medic
+    $medicGetsInsert = new Wallet();
+    $medicGetsInsert->amount = $medicGets;
+    $medicGetsInsert->user_type = 'medic';
+    $medicGetsInsert->user_id = 0;
+    $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->test_id = $testId;
+    $medicGetsInsert->save();
+
+    // Doctor
+    $medicGetsInsert = new Wallet();
+    $medicGetsInsert->amount = $doctorGets;
+    $medicGetsInsert->user_type = 'doctor';
+    $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
+    $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->test_id = $testId;
+    $medicGetsInsert->save();
+
+
+    if ($agentGets > 0) {
+        $medicGetsInsert = new Wallet();
+        $medicGetsInsert->amount = $agentGets;
+        $medicGetsInsert->user_type = 'agent';
+        $medicGetsInsert->user_id = $agent;
+        $medicGetsInsert->transaction_type = '+';
+        $medicGetsInsert->test_id = $testId;
+        $medicGetsInsert->save();
+    }
+
+    return [
+        'patient_paid' => $amountToPay,
+        'doctor_earned' => $doctorGets,
+        'medic_earned' => $medicGets,
+        'agent_earned' => $agentGets,
+    ];
+
+
+}
