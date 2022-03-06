@@ -256,6 +256,7 @@ class ApiController extends Controller
 
                 $it->get_hospital =  $it->getHospital;
                 $it->get_category = TestCommDisc::where(['hospital_id' => $it->getHospital->id, 'test_category_id' => $test->getParent->id])->first();
+                $it->calc = testPay($it->get_category , $it->price);
 
                 unset($it->id);
                 unset($it->created_at);

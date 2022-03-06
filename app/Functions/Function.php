@@ -114,7 +114,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
 
 
 // Payment
-function testPay($testId, $testCategory, $agent = null) {
+function testPay($testCategory, $test_price, $agent = null) {
 
 
     if ($agent) {
@@ -123,9 +123,9 @@ function testPay($testId, $testCategory, $agent = null) {
 
 
     // test var
-    $appointmentFee = DoctorLocation::find($location)->consultation_fee;
-    $patientDiscount  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
-    $medicCommission  = Doctor::find(DoctorLocation::find($location)->doctor_id)->commission;
+    $appointmentFee = $test_price;
+    $patientDiscount  = $testCategory->discount;
+    $medicCommission  = $testCategory->commission;
 
     $q = ($appointmentFee * $medicCommission) / 10000;
     $x = ($patientDiscount * $q);
@@ -133,43 +133,43 @@ function testPay($testId, $testCategory, $agent = null) {
 
     $agentGets = $q * $agentCommission;
     $medicGets = $q * (100 - $patientDiscount - $agentCommission);
-    $doctorGets  = $amountToPay - ($medicGets + $agentGets);
+    $hospitalGets  = $amountToPay - ($medicGets + $agentGets);
 
     // Medic
-    $medicGetsInsert = new Wallet();
-    $medicGetsInsert->amount = $medicGets;
-    $medicGetsInsert->user_type = 'medic';
-    $medicGetsInsert->user_id = 0;
-    $medicGetsInsert->transaction_type = '+';
-    $medicGetsInsert->test_id = $testId;
-    $medicGetsInsert->status = 0;
-    $medicGetsInsert->save();
+    // $medicGetsInsert = new Wallet();
+    // $medicGetsInsert->amount = $medicGets;
+    // $medicGetsInsert->user_type = 'medic';
+    // $medicGetsInsert->user_id = 0;
+    // $medicGetsInsert->transaction_type = '+';
+    // $medicGetsInsert->test_id = $testId;
+    // $medicGetsInsert->status = 0;
+    // $medicGetsInsert->save();
 
-    // Doctor
-    $medicGetsInsert = new Wallet();
-    $medicGetsInsert->amount = $doctorGets;
-    $medicGetsInsert->user_type = 'doctor';
-    $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
-    $medicGetsInsert->transaction_type = '+';
-    $medicGetsInsert->test_id = $testId;
-    $medicGetsInsert->status = 0;
-    $medicGetsInsert->save();
+    // // Doctor
+    // $medicGetsInsert = new Wallet();
+    // $medicGetsInsert->amount = $doctorGets;
+    // $medicGetsInsert->user_type = 'doctor';
+    // $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
+    // $medicGetsInsert->transaction_type = '+';
+    // $medicGetsInsert->test_id = $testId;
+    // $medicGetsInsert->status = 0;
+    // $medicGetsInsert->save();
 
 
-    if ($agentGets > 0) {
-        $medicGetsInsert = new Wallet();
-        $medicGetsInsert->amount = $agentGets;
-        $medicGetsInsert->user_type = 'agent';
-        $medicGetsInsert->user_id = $agent;
-        $medicGetsInsert->transaction_type = '+';
-        $medicGetsInsert->test_id = $testId;
-        $medicGetsInsert->status = 0;
-        $medicGetsInsert->save();
-    }
+    // if ($agentGets > 0) {
+    //     $medicGetsInsert = new Wallet();
+    //     $medicGetsInsert->amount = $agentGets;
+    //     $medicGetsInsert->user_type = 'agent';
+    //     $medicGetsInsert->user_id = $agent;
+    //     $medicGetsInsert->transaction_type = '+';
+    //     $medicGetsInsert->test_id = $testId;
+    //     $medicGetsInsert->status = 0;
+    //     $medicGetsInsert->save();
+    // }
 
     return [
         'patient_paid' => $amountToPay,
-        'doctor_earned' => $doctorGets,
+        'hospital_earned' => $hospitalGets,
         'medic_earned' => $medicGets,
         'agent_earned' => $agentGets,
     ];
