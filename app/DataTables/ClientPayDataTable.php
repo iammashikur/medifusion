@@ -34,7 +34,7 @@ class ClientPayDataTable extends DataTable
             })
 
             ->addColumn('appointments', function ($action) {
-                return Appointment::where(['patient_id' => $action->id, 'status_id' => 1])->count();
+                return Appointment::where(['patient_id' => $action->id, 'status_id' => 3])->count();
             })
 
             ->addColumn('tests', function ($action) {
