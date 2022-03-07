@@ -74,7 +74,6 @@ class ApiController extends Controller
             $patient = new Patient();
         }
 
-
         $patient->name = $request->name;
         $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
@@ -82,6 +81,7 @@ class ApiController extends Controller
         $patient->upazilla = $request->upazilla;
         $patient->blood_group = $request->blood_group;
         $patient->phone = $request->phone;
+        $patient->password = bcrypt('12345678');
         $patient->save();
 
 
