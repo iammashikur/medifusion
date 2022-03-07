@@ -40,14 +40,11 @@ $page_type = 'Admin';
                                             <td>
                                                 {{$item->hospital_name}}
                                             </td>
-
                                             <td>
                                                 {{App\Models\TestPrice::where(['hospital_id' => $item->hospital_id, 'test_id' => $item->id])->first()->price}} ৳
                                             </td>
-
-
                                             <td>
-                                                {{$item->price}} ৳
+                                                {{$item->price->patient_paid}} ৳
                                             </td>
 
                                         </tr>
