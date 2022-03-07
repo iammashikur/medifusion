@@ -85,10 +85,7 @@ class ApiController extends Controller
         $patient->save();
 
 
-        $agentAppointment = new AgentAppointment();
-        $agentAppointment->patient_id = $patient->id;
-        $agentAppointment->agent_id   = $request->user()->id;
-        $agentAppointment->save();
+
 
         $appointment = new Appointment();
         $appointment->patient_id = $patient->id;
@@ -100,6 +97,12 @@ class ApiController extends Controller
         $appointment->appointment_date = $request->appointment_date;
         $appointment->by_agent = 1;
         $appointment->save();
+
+        $agentAppointment = new AgentAppointment();
+        $agentAppointment->patient_id = $patient->id;
+        $agentAppointment->agent_id   = $request->user()->id;
+        $agentAppointment->appointment_id   =  $appointment->id;
+        $agentAppointment->save();
 
 
         //Update with wallet
