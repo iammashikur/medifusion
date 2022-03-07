@@ -110,7 +110,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
         'patient_paid' => $amountToPay,
         'doctor_earned'=> $doctorGets,
         'medic_earned' => $medicGets,
-        'agent_earned' => $agentCommission,
+        'agent_earned' => $agentGets,
     ];
 
 
@@ -121,9 +121,12 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
 function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
 
-    if ($agent) {
+    if ($agent !== null) {
         $agentCommission  = Agent::find($agent)->commission;
-    } $agentCommission = 0;
+    }else
+    {
+        $agentCommission = 0;
+    }
 
 
     // test var
