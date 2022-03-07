@@ -42,6 +42,9 @@ $page_type = 'Admin';
                                             <td>
                                                 {{$item->price}} ৳
                                             </td>
+                                            <td>
+                                                {{App\Models\TestPrice::where(['hospital_id' => $item->hospital_id, 'test_id' => $item->id])->first()}} ৳
+                                            </td>
                                         </tr>
                                     @endforeach
 

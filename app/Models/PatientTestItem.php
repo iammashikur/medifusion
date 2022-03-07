@@ -9,4 +9,8 @@ class PatientTestItem extends Model
 {
     use HasFactory;
 
+    public function getTest(){
+        return $this->hasOne(TestSubcategory::class, 'id', 'test_id');
+    }
+
 }
