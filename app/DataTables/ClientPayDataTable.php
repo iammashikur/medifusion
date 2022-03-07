@@ -2,8 +2,10 @@
 
 namespace App\DataTables;
 
+use App\Models\Appointment;
 use App\Models\ClientPay;
 use App\Models\Patient;
+use App\Models\PatientTest;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -22,7 +24,24 @@ class ClientPayDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'clientpay.action');
+
+            ->addColumn('balance', function ($action) {
+                return currentBalance('medic' , $action->id). ' ৳';
+            })
+
+            ->addColumn('action', function ($action) {
+                return '';
+            })
+
+            ->addColumn('appointments', function ($action) {
+                return Appointment::where(['patient_id' => $action->id, 'status_id' => 1])->count();
+            })
+
+            ->addColumn('tests', function ($action) {
+                return PatientTest::where(['patient_id' => $action->id, 'status_id' => 1])->count();
+            })
+
+            ->rawColumns([ 'action', 'balance','tests','appointments']);
     }
 
     /**
@@ -66,15 +85,18 @@ class ClientPayDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+
+            Column::make('id')->width(50),
+            Column::make('name'),
+            Column::make('balance'),
+            Column::make('appointments'),
+            Column::make('tests'),
+            // Column::computed('action')
+            //       ->exportable(false)
+            //       ->printable(false)
+            //       ->width(100)
+            //       ->addClass('text-center'),
+
         ];
     }
 

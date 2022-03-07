@@ -183,15 +183,10 @@ class ApiController extends Controller
         $appointments = AgentAppointment::where('agent_id', $request->user()->id)->get();
 
         foreach($appointments as $appointment){
-
             $appointment->details = Appointment::where('id', $appointment->appointment_id)->with('getDoctor', 'getPatient', 'getHospital', 'getStatus')->get();
-
             foreach ($appointment->details as $ad) {
-
                 $ad->location = $ad->getLocation;
             }
-
-
         }
 
         return response()->json([

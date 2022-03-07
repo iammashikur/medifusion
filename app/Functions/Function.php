@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Agent;
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
 use App\Models\Wallet;
@@ -91,6 +92,16 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->status = 0;
+    $medicGetsInsert->save();
+
+    // Patient Wallet
+    $medicGetsInsert = new Wallet();
+    $medicGetsInsert->amount = $appointmentFee - $amountToPay;
+    $medicGetsInsert->user_type = 'patient';
+    $medicGetsInsert->user_id = Appointment::find($appointmentId)->patient_id;
+    $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->appointment_id = $appointmentId;
+    $medicGetsInsert->status = 1;
     $medicGetsInsert->save();
 
 
@@ -184,3 +195,12 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     ];
 
 }
+
+function currentBalance($type , $id){
+
+    return Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+'])->sum('amount');
+
+}
+
+
+
