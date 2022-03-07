@@ -40,6 +40,14 @@ class TestSubCategoryController extends Controller
     public function store(Request $request)
     {
         $category = new TestSubCategory();
+
+        if ($request->hasFile('image')) {
+
+            $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $category->image      = $imagePath;
+        }
+
         $category->name = $request->name;
         $category->category_id = $request->category_id;
         $category->hospital_id = auth()->user()->hospital_id;
@@ -67,7 +75,9 @@ class TestSubCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = TestSubCategory::findOrFail($id);
+        $categories = TestCategory::where(['hospital_id' => auth()->user()->hospital_id ])->get();
+        return view('admin.test_subcategory_edit', compact('category','categories'));
     }
 
     /**
@@ -80,6 +90,22 @@ class TestSubCategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $category = TestSubCategory::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+
+            $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $category->image      = $imagePath;
+        }
+
+        $category->name = $request->name;
+        $category->category_id = $request->category_id;
+        $category->hospital_id = auth()->user()->hospital_id;
+        $category->save();
+        toast('Test Subcategory Updated!', 'success')->width('300px')->padding('10px');
+        return redirect()->route('test-subcategory.index');
+
     }
 
     /**
