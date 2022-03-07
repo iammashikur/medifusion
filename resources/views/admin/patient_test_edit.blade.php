@@ -32,7 +32,7 @@ $page_type = 'Admin';
                                         <td>Tests</td>
                                         <td>Hospital</td>
                                         <td>Price</td>
-                                        <td>Discount Price</td>
+                                        <td>Patient Paid</td>
                                     </tr>
                                     @foreach ($test->getItems as $item)
                                         <tr>
@@ -41,10 +41,10 @@ $page_type = 'Admin';
                                                 {{$item->hospital_name}}
                                             </td>
                                             <td>
-                                                {{App\Models\TestPrice::where(['hospital_id' => $item->hospital_id, 'test_id' => $item->id])->first()->price}} ৳
+                                                {{ json_decode($item->price)->main_price }} ৳
                                             </td>
                                             <td>
-                                                {{$item->price->patient_paid}} ৳
+                                                {{ json_decode($item->price)->patient_paid }} ৳
                                             </td>
 
                                         </tr>
