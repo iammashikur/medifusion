@@ -110,7 +110,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
         'patient_paid' => $amountToPay,
         'doctor_earned'=> $doctorGets,
         'medic_earned' => $medicGets,
-        'agent_earned' => $agentGets,
+        'agent_earned' => $agent,
     ];
 
 
