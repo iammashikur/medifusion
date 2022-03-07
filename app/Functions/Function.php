@@ -103,8 +103,10 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     }
 
     return [
+
+        'main_price'   => $appointmentId,
         'patient_paid' => $amountToPay,
-        'doctor_earned' => $doctorGets,
+        'doctor_earned'=> $doctorGets,
         'medic_earned' => $medicGets,
         'agent_earned' => $agentGets,
     ];
