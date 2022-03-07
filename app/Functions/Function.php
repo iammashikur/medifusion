@@ -103,7 +103,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     }
 
     return [
-        'main_price'   => $appointmentId,
+        'main_price'   => $appointmentFee,
         'patient_paid' => $amountToPay,
         'doctor_earned'=> $doctorGets,
         'medic_earned' => $medicGets,
@@ -169,6 +169,8 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     }
 
     return [
+
+        'main_price'   => $appointmentFee,
         'patient_paid' => $amountToPay,
         'hospital_earned' => $hospitalGets,
         'medic_earned' => $medicGets,
