@@ -51,9 +51,12 @@ $percentToAmount = fn ($amount, $percent) => ($percent / 100) * $amount;
 function appointmentPay ($appointmentId, $location, $agent = null) {
 
 
-    if ($agent) {
+    if ($agent !== null) {
         $agentCommission  = Agent::find($agent)->commission;
-    } $agentCommission = 0;
+    }
+    {
+        $agentCommission = 0;
+    }
 
 
     // test var

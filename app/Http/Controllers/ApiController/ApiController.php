@@ -84,9 +84,6 @@ class ApiController extends Controller
         $patient->password = bcrypt('12345678');
         $patient->save();
 
-
-
-
         $appointment = new Appointment();
         $appointment->patient_id = $patient->id;
         $appointment->doctor_id = $request->doctor_id;
