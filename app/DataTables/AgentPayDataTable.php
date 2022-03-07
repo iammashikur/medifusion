@@ -27,7 +27,7 @@ class AgentPayDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('balance', function ($action) {
-                return currentBalance('medic' , $action->id). ' ৳';
+                return currentBalance('agent' , $action->id). ' ৳';
             })
 
             ->addColumn('action', function ($action) {
