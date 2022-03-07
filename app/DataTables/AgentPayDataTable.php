@@ -47,7 +47,13 @@ class AgentPayDataTable extends DataTable
             })
 
             ->addColumn('tests', function ($action) {
-                return AgentTest::where(['agent_id' => $action->id])->count();
+                $data = AgentTest::where(['agent_id' => $action->id])->count();
+                $count = 0;
+                foreach ($data as $value) {
+                    $count += PatientTest::where(['id' => $value->id, 'status_id' => 1])->count();
+                }
+
+                return $count;
             })
 
             ->rawColumns([ 'action', 'balance','tests','appointments']);
