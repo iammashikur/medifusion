@@ -5,6 +5,7 @@ namespace App\DataTables;
 use App\Models\Agent;
 use App\Models\AgentAppointment;
 use App\Models\AgentPay;
+use App\Models\AgentTest;
 use App\Models\Appointment;
 use App\Models\PatientTest;
 use Yajra\DataTables\Html\Button;
@@ -34,11 +35,11 @@ class AgentPayDataTable extends DataTable
             })
 
             ->addColumn('appointments', function ($action) {
-                return AgentAppointment::where(['agent_id' => $action->id, 'status_id' => 3])->count();
+                return AgentAppointment::where(['agent_id' => $action->id])->count();
             })
 
             ->addColumn('tests', function ($action) {
-                return PatientTest::where(['patient_id' => $action->id, 'status_id' => 1])->count();
+                return AgentTest::where(['agent_id' => $action->id])->count();
             })
 
             ->rawColumns([ 'action', 'balance','tests','appointments']);
