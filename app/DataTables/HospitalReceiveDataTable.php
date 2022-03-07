@@ -2,7 +2,10 @@
 
 namespace App\DataTables;
 
+use App\Models\Hospital;
 use App\Models\HospitalReceive;
+use App\Models\PatientTest;
+use App\Models\PatientTestItem;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -21,7 +24,24 @@ class HospitalReceiveDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'hospitalreceive.action');
+            ->addColumn('balance', function ($action) {
+                return currentBalance('hospital' , $action->id). ' ৳';
+            })
+
+            ->addColumn('tests', function ($action) {
+                $data = PatientTestItem::where(['hospital_id' => $action->id])->get();
+                $count = 0;
+                foreach ($data as $value) {
+                    $count += PatientTest::where(['id' => $value->patient_test_id, 'status_id' => 1])->count();
+                }
+
+                return $count;
+
+            })
+
+
+
+            ->rawColumns(['balance','tests',]);
     }
 
     /**
@@ -30,7 +50,7 @@ class HospitalReceiveDataTable extends DataTable
      * @param \App\Models\HospitalReceive $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(HospitalReceive $model)
+    public function query(Hospital $model)
     {
         return $model->newQuery();
     }
@@ -65,15 +85,11 @@ class HospitalReceiveDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('name'),
+            Column::make('balance'),
+            Column::make('tests'),
         ];
     }
 

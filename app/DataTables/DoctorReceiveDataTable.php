@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorReceive;
 use Yajra\DataTables\Html\Button;
@@ -22,7 +23,34 @@ class DoctorReceiveDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'doctorreceive.action');
+            ->addColumn('balance', function ($action) {
+                return currentBalance('doctor' , $action->id). ' ৳';
+            })
+
+            ->addColumn('action', function ($action) {
+                return '';
+            })
+
+            ->addColumn('appointments_by_agent', function ($action) {
+
+
+                $count = Appointment::where(['doctor_id' => $action->id, 'status_id' => 3, 'by_agent' => 1])->count();
+
+                return $count;
+
+            })
+
+            ->addColumn('user_appointments', function ($action) {
+
+
+                $count = Appointment::where(['doctor_id' => $action->id, 'status_id' => 3, 'by_agent' => 0])->count();
+
+                return $count;
+
+            })
+
+
+            ->rawColumns([ 'action', 'balance','user_appointments', 'appointments_by_agent']);
     }
 
     /**
@@ -68,6 +96,9 @@ class DoctorReceiveDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
+            Column::make('balance'),
+            Column::make('user_appointments'),
+            Column::make('appointments_by_agent'),
 
         ];
     }

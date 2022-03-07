@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('agent-pay', AgentPayController::class);
     Route::resource('client-pay', ClientPayController::class);
     Route::resource('doctor-receive', DoctorReceiveController::class);
-    Route::resource('medic-receive', HospitalReceiveController::class);
+    Route::resource('hospital-receive', HospitalReceiveController::class);
 
 
     Route::resource('push-notification', PushNotificationController::class);
