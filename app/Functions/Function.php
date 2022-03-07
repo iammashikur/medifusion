@@ -53,7 +53,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
 
     if ($agent !== null) {
         $agentCommission  = Agent::find($agent)->commission;
-    }
+    }else
     {
         $agentCommission = 0;
     }
