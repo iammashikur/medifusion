@@ -14,6 +14,7 @@ use App\Models\PatientTest;
 use App\Models\PatientTestItem;
 use App\Models\TestCategory;
 use App\Models\TestCommDisc;
+use App\Models\TestPrice;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
 
@@ -427,7 +428,7 @@ public function agent_patient_tests(Request $request)
             $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
 
             $itemUp = PatientTestItem::find($item->id);
-            $itemUp->price = testPay($get_category , PatientTest::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id);
+            $itemUp->price = testPay($get_category , TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id);
             $itemUp->save();
 
         }
