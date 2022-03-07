@@ -61,6 +61,7 @@ class DoctorController extends Controller
         $doctor->commission      = $request->commission;
         $doctor->discount      = $request->discount;
         $doctor->hospital_id = auth()->user()->hospital_id;
+        $doctor->status      = $request->status;
         $doctor->save();
 
         toast('Doctor Added!', 'success')->width('300px')->padding('10px');
@@ -122,6 +123,7 @@ class DoctorController extends Controller
         $doctor->phone      = $request->phone;
         $doctor->commission      = $request->commission;
         $doctor->discount      = $request->discount;
+        $doctor->status      = $request->status;
         $doctor->save();
 
         toast('Doctor Updated!', 'success')->width('300px')->padding('10px');

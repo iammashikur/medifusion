@@ -36,6 +36,18 @@ $page_type = 'Admin';
                     <form action="{{ route('test-category.update', $test_category->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
+                            <div class="col-sm-12 col-md-7">
+                                <div id="image-preview" class="image-preview"
+                                    style="background-image: url({{ asset("/uploads/images/$test_category->image") }}); background-size: cover; background-position: center center;">
+                                    <label for="image-upload" id="image-label">Choose File</label>
+                                    <input type="file" name="image" id="image-upload" />
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
                             <div class="col-sm-12 col-md-7">

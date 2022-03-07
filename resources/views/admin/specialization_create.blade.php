@@ -36,6 +36,17 @@
               @csrf
 
 
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
+                <div class="col-sm-12 col-md-7">
+                  <div id="image-preview" class="image-preview" style="background-image: url(); background-size: cover; background-position: center center;">
+                    <label for="image-upload" id="image-label">Choose File</label>
+                    <input type="file" name="image" id="image-upload" required/>
+                  </div>
+                </div>
+              </div>
+
+
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Specialization</label>
                   <div class="col-sm-12 col-md-7">

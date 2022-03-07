@@ -36,6 +36,16 @@
                         </div>
 
 
+                        <div class="form-group mb-2">
+                            <label for="">Location</label>
+                            <Textarea type="text" class="form-control h-100" name="" id="" aria-describedby="helpId" rows="5"
+                            disabled>Location : {{$appointment->getLocation->name}}
+Address :  {{$appointment->getLocation->address}}
+                            </Textarea>
+
+                          </div>
+
+
                         <div class="form-group mb-3">
                           <label for="">Appointment Date</label>
                           <input type="datetime-local" class="form-control" name="appointment_date" value="{{  date('Y-m-d\TH:i', strtotime($appointment->appointment_date)) }}" aria-describedby="helpId" placeholder="">

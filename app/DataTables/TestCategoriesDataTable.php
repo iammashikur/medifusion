@@ -26,7 +26,15 @@ class TestCategoriesDataTable extends DataTable
                         <a class="btn-sm btn-danger delete" href="'.route('test-category.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
             })
 
-           ->rawColumns(['action']);
+            ->addColumn('image', function($image){
+
+                $url=asset("/uploads/images/$image->image");
+                return '<img src='.$url.' border="0" width="100" class="img-rounded" align="center" />';
+
+
+            })
+
+           ->rawColumns(['action','image']);
     }
 
     /**
@@ -71,6 +79,7 @@ class TestCategoriesDataTable extends DataTable
 
             Column::make('id'),
             Column::make('name'),
+            Column::make('image'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

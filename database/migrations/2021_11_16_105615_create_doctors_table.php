@@ -25,6 +25,7 @@ class CreateDoctorsTable extends Migration
             $table->integer('hospital_id');
             $table->integer('commission');
             $table->integer('discount');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

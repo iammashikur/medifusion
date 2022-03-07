@@ -30,6 +30,10 @@ class AppointmentsDataTable extends DataTable
                 return $appointment->getDoctor->name;
             })
 
+            ->addColumn('location', function ($query) {
+                return $query->getLocation->name. '<br/>' . $query->getLocation->address;
+            })
+
             ->addColumn('appointment_date', function (Appointment $appointment) {
                 return Carbon::parse($appointment->appointment_date)->format('l jS \of F Y h:i:s A');
             })
@@ -51,7 +55,7 @@ class AppointmentsDataTable extends DataTable
                 return '<a class="btn-sm btn-primary" href="' . route('appointment.edit', $action->id) . '"><i class="far fa-edit"></i> Edit</a>';
             })
 
-            ->rawColumns(['patient', 'doctor', 'status', 'action']);
+            ->rawColumns(['patient', 'doctor', 'status', 'action', 'location']);
     }
 
     /**

@@ -140,9 +140,9 @@
                         data-feather="dollar-sign"></i><span>Payments</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Agent Pay</a></li>
-                    <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Client Pay</a></li>
-                    <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Doctor Receive</a></li>
-                    <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Medic Receive</a></li>
+                    <li><a class="nav-link" href="{{ route('client-pay.index') }}">Client Pay</a></li>
+                    <li><a class="nav-link" href="{{ route('doctor-receive.index') }}">Doctor Receive</a></li>
+                    <li><a class="nav-link" href="{{ route('medic-receive.index') }}">Medic Receive</a></li>
                 </ul>
             </li>
 

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\ClientPay;
+use App\Models\Patient;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -30,9 +31,9 @@ class ClientPayDataTable extends DataTable
      * @param \App\Models\ClientPay $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(ClientPay $model)
+    public function query(Patient $model)
     {
-        return $model->newQuery();
+        return Patient::whereNull('referred_by_id');
     }
 
     /**

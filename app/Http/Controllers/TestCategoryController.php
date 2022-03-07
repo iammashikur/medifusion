@@ -37,6 +37,15 @@ class TestCategoryController   extends Controller
     public function store(Request $request)
     {
         $category = new TestCategory();
+
+
+        if ($request->hasFile('image')) {
+
+            $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $category->image      = $imagePath;
+        }
+
         $category->name = $request->name;
 
 
@@ -80,6 +89,14 @@ class TestCategoryController   extends Controller
     public function update(Request $request, $id)
     {
         $category =  TestCategory::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+
+            $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $category->image      = $imagePath;
+        }
+
         $category->name = $request->name;
 
         $category->hospital_id = auth()->user()->hospital_id;

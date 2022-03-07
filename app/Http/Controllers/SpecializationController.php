@@ -37,6 +37,15 @@ class SpecializationController extends Controller
     public function store(Request $request)
     {
         $specialization = new DoctorSpecialization();
+
+
+        if ($request->hasFile('image')) {
+
+            $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $specialization->image      = $imagePath;
+        }
+
         $specialization->specialization = $request->specialization;
         $specialization->hospital_id = auth()->user()->hospital_id;
         $specialization->save();
@@ -82,6 +91,15 @@ class SpecializationController extends Controller
 
 
         $specialization = DoctorSpecialization::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+
+            $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $specialization->image      = $imagePath;
+        }
+
+
         $specialization->specialization = $request->specialization;
         $specialization->hospital_id = auth()->user()->hospital_id;
 
