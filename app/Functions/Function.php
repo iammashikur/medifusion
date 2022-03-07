@@ -167,4 +167,11 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
         $medicGetsInsert->save();
     }
 
+    return [
+        'patient_paid' => $amountToPay,
+        'hospital_earned' => $hospitalGets,
+        'medic_earned' => $medicGets,
+        'agent_earned' => $agentGets,
+    ];
+
 }

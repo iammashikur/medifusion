@@ -422,10 +422,13 @@ public function agent_patient_tests(Request $request)
             $item->patient_test_id = $test->id;
             $item->hospital_id = $data->hospitalID;
             $item->hospital_name = $data->hospitalName;
-            $item->price = $data->price;
+            $item->price = 0;
             $item->save();
             $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
-            testPay($get_category , $data->price, $test->id);
+
+            $itemUp = PatientTestItem::find($item->id);
+            $itemUp->price = testPay($get_category , $data->price, $test->id);
+            $itemUp->save();
 
         }
 

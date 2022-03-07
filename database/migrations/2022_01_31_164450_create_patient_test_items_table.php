@@ -20,7 +20,7 @@ class CreatePatientTestItemsTable extends Migration
             $table->integer('patient_test_id');
             $table->integer('hospital_id');
             $table->string('hospital_name');
-            $table->integer('price');
+            $table->string('price');
             $table->timestamps();
         });
     }
