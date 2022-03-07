@@ -35,7 +35,15 @@ class AgentPayDataTable extends DataTable
             })
 
             ->addColumn('appointments', function ($action) {
-                return AgentAppointment::where(['agent_id' => $action->id])->count();
+
+                $data =  AgentAppointment::where(['agent_id' => $action->id])->get();
+                $count = 0;
+                foreach ($data as $value) {
+                    $count += Appointment::where(['id' => $value->id])->count();
+                }
+
+                return $count;
+
             })
 
             ->addColumn('tests', function ($action) {
