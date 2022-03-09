@@ -27,7 +27,7 @@
             <div class="card-header" style="border-bottom-color: #d0d0d0">
                 <h4>Edit Specialization</h4>
                 <div class="card-header-action">
-                    <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
+                    <a href="{{ route('specialization.index') }}" class="btn btn-warning">Go Back</a>
                 </div>
             </div>
 
@@ -47,7 +47,6 @@
                 </div>
             </div>
 
-
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Specialization</label>
                   <div class="col-sm-12 col-md-7">
@@ -56,14 +55,10 @@
                 </div>
 
 
-
-
-
-
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                   <div class="col-sm-12 col-md-7">
-                    <button class="btn btn-primary">Add Specialization</button>
+                    <button class="btn btn-primary">Update Specialization</button>
                   </div>
                 </div>
              </form>

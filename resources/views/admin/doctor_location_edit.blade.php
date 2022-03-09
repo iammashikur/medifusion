@@ -27,7 +27,7 @@
                 <div class="card-header" style="border-bottom-color: #d0d0d0">
                     <h4>Edit Location</h4>
                     <div class="card-header-action">
-                        <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
+                        <a href="{{ route('doctor-location.index') }}" class="btn btn-warning">Go Back</a>
                     </div>
                 </div>
 
@@ -94,7 +94,7 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                             <div class="col-sm-12 col-md-7">
-                                <button class="btn btn-primary">Add Doctor Location</button>
+                                <button class="btn btn-primary">Update Doctor Location</button>
                             </div>
                         </div>
 

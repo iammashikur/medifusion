@@ -27,7 +27,7 @@
             <div class="card-header" style="border-bottom-color: #d0d0d0">
                 <h4>Add Specialization</h4>
                 <div class="card-header-action">
-                    <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
+                    <a href="{{ route('specialization.index') }}" class="btn btn-warning">Go Back</a>
                 </div>
             </div>
 

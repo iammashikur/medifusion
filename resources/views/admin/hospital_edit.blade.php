@@ -28,7 +28,7 @@
                     <div class="card-header" style="border-bottom-color: #d0d0d0">
                         <h4>Edit Hospital</h4>
                         <div class="card-header-action">
-                            <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
+                            <a href="{{ route('hospital.index') }}" class="btn btn-warning">Go Back</a>
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
 
                 <div class="card">
                   <div class="card-body">
-                        <button class="btn btn-primary w-100">Add Hospital</button>
+                        <button class="btn btn-primary w-100">Edit Hospital</button>
                   </div>
                 </div>
             </form>

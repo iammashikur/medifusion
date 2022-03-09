@@ -30,7 +30,7 @@
                     <div class="card-header" style="border-bottom-color: #d0d0d0">
                         <h4>Add Hospital</h4>
                         <div class="card-header-action">
-                            <a href="{{ route('doctor.index') }}" class="btn btn-warning">Go Back</a>
+                            <a href="{{ route('hospital.index') }}" class="btn btn-warning">Go Back</a>
                         </div>
                     </div>
 
