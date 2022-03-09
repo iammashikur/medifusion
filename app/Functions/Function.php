@@ -226,7 +226,7 @@ function currentBalance($type , $id){
 }
 
 function medicBalance(){
-    return Wallet::where(['user_type' => 'hospital_to_medic', 'transaction_type' => '+'])->sum('amount');
+    return Wallet::where(['user_type' => 'medic', 'transaction_type' => '+'])->sum('amount');
 }
 
 
