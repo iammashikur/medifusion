@@ -329,6 +329,7 @@ class ApiController extends Controller
 
 public function agent_patient_tests(Request $request)
 {
+    
 
     $patient = Patient::where(['phone' => $request->phone])
         ->first();
@@ -343,12 +344,10 @@ public function agent_patient_tests(Request $request)
     $patient->zilla = $request->zilla;
     $patient->upazilla = $request->upazilla;
     $patient->phone = $request->phone;
+    $patient->password = bcrypt('12345678');
     $patient->save();
 
-    $agentAppointment = new AgentTest();
-    $agentAppointment->patient_id = $patient->id;
-    $agentAppointment->agent_id   = $request->user()->id;
-    $agentAppointment->save();
+    
 
 
     function random($len)
@@ -380,9 +379,25 @@ public function agent_patient_tests(Request $request)
         $item->patient_test_id = $test->id;
         $item->hospital_id = $data->hospitalID;
         $item->hospital_name = $data->hospitalName;
-        $item->price = $data->price;
+        $item->price = $data->cat_id;
         $item->save();
+        
+        $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
+        
+        $itemUp = PatientTestItem::find($item->id);
+        $itemUp->price = testPay($get_category , TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id, $request->user()->id);
+        $itemUp->save();
     }
+    
+    
+    $agentAppointment = new AgentTest();
+    $agentAppointment->agent_id = $request->user()->id;
+    $agentAppointment->patient_id = $patient->id;
+    $agentAppointment->test_id   = $test->id;
+    $agentAppointment->save();
+    
+    
+    
 
 
 
@@ -429,8 +444,9 @@ public function agent_patient_tests(Request $request)
             $item->hospital_name = $data->hospitalName;
             $item->price = 0;
             $item->save();
+            
+            
             $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
-
             $itemUp = PatientTestItem::find($item->id);
             $itemUp->price = testPay($get_category , TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id);
             $itemUp->save();

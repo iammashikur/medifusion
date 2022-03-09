@@ -23,8 +23,8 @@ class DoctorReceiveDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('balance', function ($action) {
-                return currentBalance('doctor' , $action->id). ' ৳';
+            ->addColumn('pending_balance', function ($action) {
+                return currentBalance('doctor_to_medic' , $action->id). ' ৳';
             })
 
             ->addColumn('action', function ($action) {
@@ -50,7 +50,7 @@ class DoctorReceiveDataTable extends DataTable
             })
 
 
-            ->rawColumns([ 'action', 'balance','user_appointments', 'appointments_by_agent']);
+            ->rawColumns([ 'action', 'pending_balance','user_appointments', 'appointments_by_agent']);
     }
 
     /**
@@ -96,7 +96,7 @@ class DoctorReceiveDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('balance'),
+            Column::make('pending_balance'),
             Column::make('user_appointments'),
             Column::make('appointments_by_agent'),
 

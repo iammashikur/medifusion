@@ -13,6 +13,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        
 
         if (Patient::where('phone', $request->phone)->exists()) {
             return response()->json([
