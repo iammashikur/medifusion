@@ -226,14 +226,14 @@ function currentBalance($type , $id){
 }
 
 function medicBalance(){
-
     return Wallet::where(['user_type' => 'hospital_to_medic', 'transaction_type' => '+'])->sum('amount');
-
 }
+
 
 function doctorRevenue(){
     return Wallet::where(['user_type' => 'doctor', 'transaction_type' => '+'])->sum('amount');
 }
+
 
 function hospitalRevenue(){
     return Wallet::where(['user_type' => 'hospital', 'transaction_type' => '+'])->sum('amount');
