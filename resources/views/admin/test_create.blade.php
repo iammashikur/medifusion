@@ -1,5 +1,6 @@
 @php
     $page_type = 'Admin';
+        $page_title = 'Add Test';
 @endphp
 @extends('admin.layouts.master')
 
