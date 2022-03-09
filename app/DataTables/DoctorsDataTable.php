@@ -29,8 +29,19 @@ class DoctorsDataTable extends DataTable
 
 
             })
+
             ->addColumn('specialization', function(Doctor $doctor){
                 return $doctor->getSpecialization->specialization;
+            })
+
+            ->addColumn('status', function(Doctor $doctor){
+                $status =  $doctor->status;
+                if ($status == 1) {
+                    return '<a> Active </a>';
+                }
+                else{
+                    return '<a> Inactive </a>';
+                }
             })
 
             ->addColumn('action', function($action){
@@ -38,7 +49,7 @@ class DoctorsDataTable extends DataTable
                         <a class="btn-sm btn-danger delete" href="'.route('doctor.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
             })
 
-           ->rawColumns(['image', 'specialization', 'action']);
+           ->rawColumns(['image', 'specialization', 'action', 'status']);
     }
 
     /**
@@ -85,6 +96,7 @@ class DoctorsDataTable extends DataTable
             Column::make('specialization')->width('20'),
             Column::make('qualification')->width('20'),
             Column::make('image')->title('Photo')->width('30'),
+            Column::make('status')->title('Doctor Status')->width('30'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

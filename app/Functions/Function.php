@@ -81,8 +81,8 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->status = 0;
-    
-    
+
+
     // Doctor to Medic
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $medicGets;
@@ -91,8 +91,8 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->status = 0;
-    
-    
+
+
 
     $medicGetsInsert->save();
 
@@ -174,8 +174,8 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $medicGetsInsert->test_id = $test_id;
     $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
-    
-    
+
+
      //Test to Medic
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $medicGets;
@@ -231,5 +231,10 @@ function medicBalance(){
 
 }
 
+function doctorRevenue(){
+    return Wallet::where(['user_type' => 'doctor', 'transaction_type' => '+'])->sum('amount');
+}
 
-
+function hospitalRevenue(){
+    return Wallet::where(['user_type' => 'hospital', 'transaction_type' => '+'])->sum('amount');
+}
