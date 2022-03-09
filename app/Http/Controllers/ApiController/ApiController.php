@@ -473,6 +473,7 @@ public function agent_patient_tests(Request $request)
 
             foreach ($test_items as $key) {
                 $key->location = Hospital::find($key->hospital_id);
+                $key->image = @TestSubcategory::find($key->test_id)->image;
             }
 
             $test->test_items = $test_items;
