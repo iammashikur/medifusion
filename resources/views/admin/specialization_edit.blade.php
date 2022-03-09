@@ -1,5 +1,6 @@
 @php
     $page_type = 'Admin';
+        $page_title = 'Edit Specialization';
 @endphp
 @extends('admin.layouts.master')
 

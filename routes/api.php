@@ -23,6 +23,8 @@ Route::fallback([AuthController::class, 'fallback']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/notifications', [ApiController::class, 'notifications']);
+
 
 // Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
 // Route::get('/doctors', [ApiController::class, 'doctors']);

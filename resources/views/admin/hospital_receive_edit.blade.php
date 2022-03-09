@@ -1,1 +1,0 @@
-resources/views/admin/hospital_receive_edit.blade.php

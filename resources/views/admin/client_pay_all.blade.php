@@ -1,5 +1,6 @@
 @php
     $page_type = 'Admin';
+        $page_title = 'Client Pay';
 @endphp
 @extends('admin.layouts.master')
 

@@ -1,5 +1,6 @@
 @php
     $page_type = 'Admin';
+        $page_title = 'Edit Appointment';
 @endphp
 @extends('admin.layouts.master')
 

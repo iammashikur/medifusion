@@ -1,5 +1,6 @@
 @php
     $page_type = 'Admin';
+        $page_title = 'Registered Users';
 @endphp
 @extends('admin.layouts.master')
 
@@ -9,7 +10,7 @@
     <div class="section">
         <div class="card card-primary">
             <div class="card-header" style="border-bottom-color: #d0d0d0">
-                <h4>Patients</h4>
+                <h4>Registered Users</h4>
 
             </div>
             <div class="card-body" style="overflow-x: auto">

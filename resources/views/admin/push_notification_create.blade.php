@@ -1,5 +1,6 @@
 @php
-$page_type = 'Admin';
+    $page_type = 'Admin';
+        $page_title = 'Send Push Notification';
 @endphp
 @extends('admin.layouts.master')
 
@@ -26,7 +27,7 @@ $page_type = 'Admin';
                 <div class="card-header" style="border-bottom-color: #d0d0d0">
                     <h4>Send Push Notification</h4>
                     <div class="card-header-action">
-                        <a href="{{ route('test-category.index') }}" class="btn btn-warning">Go Back</a>
+                        <a href="{{ route('push-notification.index') }}" class="btn btn-warning">Go Back</a>
                     </div>
                 </div>
 

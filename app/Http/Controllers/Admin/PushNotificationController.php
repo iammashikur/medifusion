@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\PushNotificationDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\PushNotification;
 use Illuminate\Http\Request;
 
 class PushNotificationController extends Controller
@@ -36,7 +37,27 @@ class PushNotificationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $notification = new PushNotification();
+
+        if ($request->hasFile('image')) {
+
+            $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
+            /** Save request data to db */
+            $notification->image  = $imagePath;
+        }
+
+        $notification->title = $request->title;
+        $notification->description = $request->description;
+        $notification->link = $request->link;
+        $notification->user_id = $request->user_id;
+        $notification->agent_id = $request->agent_id;
+        $notification->save();
+
+        toast('Notification sent!', 'success')->width('300px')->padding('10px');
+
+        return redirect()->back();
+
     }
 
     /**

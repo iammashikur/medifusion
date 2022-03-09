@@ -1,1 +1,0 @@
-resources/views/admin/agent_pay_edit.blade.php

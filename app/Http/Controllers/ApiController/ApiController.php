@@ -9,9 +9,11 @@ use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
 use App\Models\DoctorSpecialization;
+use App\Models\Hospital;
 use App\Models\Patient;
 use App\Models\PatientTest;
 use App\Models\PatientTestItem;
+use App\Models\PushNotification;
 use App\Models\TestCategory;
 use App\Models\TestCommDisc;
 use App\Models\TestPrice;
@@ -329,7 +331,7 @@ class ApiController extends Controller
 
 public function agent_patient_tests(Request $request)
 {
-    
+
 
     $patient = Patient::where(['phone' => $request->phone])
         ->first();
@@ -347,7 +349,7 @@ public function agent_patient_tests(Request $request)
     $patient->password = bcrypt('12345678');
     $patient->save();
 
-    
+
 
 
     function random($len)
@@ -381,23 +383,23 @@ public function agent_patient_tests(Request $request)
         $item->hospital_name = $data->hospitalName;
         $item->price = $data->cat_id;
         $item->save();
-        
+
         $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
-        
+
         $itemUp = PatientTestItem::find($item->id);
         $itemUp->price = testPay($get_category , TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id, $request->user()->id);
         $itemUp->save();
     }
-    
-    
+
+
     $agentAppointment = new AgentTest();
     $agentAppointment->agent_id = $request->user()->id;
     $agentAppointment->patient_id = $patient->id;
     $agentAppointment->test_id   = $test->id;
     $agentAppointment->save();
-    
-    
-    
+
+
+
 
 
 
@@ -444,8 +446,8 @@ public function agent_patient_tests(Request $request)
             $item->hospital_name = $data->hospitalName;
             $item->price = 0;
             $item->save();
-            
-            
+
+
             $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
             $itemUp = PatientTestItem::find($item->id);
             $itemUp->price = testPay($get_category , TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id);
@@ -468,6 +470,11 @@ public function agent_patient_tests(Request $request)
         $tests = PatientTest::where('patient_id', $request->user()->id)->get();
         foreach ($tests as $test) {
             $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
+
+            foreach ($test_items as $key) {
+                $key->location = Hospital::find($key->hospital_id);
+            }
+
             $test->test_items = $test_items;
         }
 
@@ -549,5 +556,18 @@ public function agent_patient_tests(Request $request)
     public function test(Request $request)
     {
         return $request->user()->name;
+    }
+
+    public function notifications(){
+
+        $notifications = PushNotification::all();
+        foreach ($notifications as $value) {
+            $value->image = asset($value->image);
+        }
+
+        return response()->json([
+            'success' => true,
+            'notifications' => $notifications,
+        ], 200);
     }
 }

@@ -1,5 +1,6 @@
 @php
     $page_type = 'Admin';
+        $page_title = 'Edit Location';
 @endphp
 @extends('admin.layouts.master')
 
@@ -24,7 +25,7 @@
 
         <div class="card card-primary">
             <div class="card-header" style="border-bottom-color: #d0d0d0">
-                <h4>Add Location</h4>
+                <h4>Edit Location</h4>
                 <div class="card-header-action">
                     <a href="{{ route('location.index') }}" class="btn btn-warning">Go Back</a>
                 </div>

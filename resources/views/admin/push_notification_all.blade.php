@@ -1,5 +1,6 @@
 @php
     $page_type = 'Admin';
+        $page_title = 'Push Notifications';
 @endphp
 @extends('admin.layouts.master')
 

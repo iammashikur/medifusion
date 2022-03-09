@@ -1,5 +1,6 @@
 @php
-$page_type = 'Admin';
+    $page_type = 'Admin';
+        $page_title = 'Edit Location';
 @endphp
 @extends('admin.layouts.master')
 

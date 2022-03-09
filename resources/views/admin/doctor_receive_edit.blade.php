@@ -1,1 +1,0 @@
-resources/views/admin/doctor_receive_edit.blade.php

@@ -1,1 +1,0 @@
-resources/views/admin/patient_create.blade.php
