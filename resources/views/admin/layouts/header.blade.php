@@ -22,9 +22,10 @@
     </div>
     <ul class="navbar-nav navbar-right">
 
-        <li class="nav-link">
+        <li><a href="#" class="nav-link nav-link-lg text-dark">
             <div id="myDiv">Date</div>
-        </li>
+        </a></li>
+
 
 
         <li class="dropdown"><a href="#" data-bs-toggle="dropdown"

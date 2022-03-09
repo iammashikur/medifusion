@@ -57,7 +57,7 @@
             <li class="dropdown {{ MenuActive('patient', 1) }}">
                 <a href="{{ route('patient.index') }}" class="nav-link">
                     <i class="fa fa-diagnoses"></i>
-                    <span>Patients</span></a>
+                    <span>Registered Users</span></a>
             </li>
 
 
