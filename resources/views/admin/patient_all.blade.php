@@ -1,6 +1,6 @@
 @php
     $page_type = 'Admin';
-        $page_title = 'Registered Users';
+    $page_title = 'Registered Users';
 @endphp
 @extends('admin.layouts.master')
 
