@@ -1,6 +1,6 @@
 @php
     $page_type = 'Admin';
-        $page_title = 'Admin';
+    $page_title = 'Referred Patients';
 @endphp
 @extends('admin.layouts.master')
 
