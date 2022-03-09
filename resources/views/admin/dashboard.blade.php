@@ -27,7 +27,7 @@
                               <div class="row ">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
-                                    <h5 class="font-15">Doctors</h5>
+                                    <h5 class="font-14">Doctors</h5>
                                     <h2 class="mb-3 font-18">{{ $doctor->count() }}</h2>
                                   </div>
                                 </div>
@@ -51,7 +51,7 @@
                               <div class="row ">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
-                                    <h5 class="font-15">Patients</h5>
+                                    <h5 class="font-14">Patients</h5>
                                     <h2 class="mb-3 font-18">{{ $patient->count() }}</h2>
                                   </div>
                                 </div>
@@ -77,7 +77,7 @@
                               <div class="row ">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
-                                    <h5 class="font-15">Appointment</h5>
+                                    <h5 class="font-14">Appointment</h5>
                                     <h2 class="mb-3 font-18">{{ $appointments->count() }}</h2>
                                   </div>
                                 </div>
@@ -102,7 +102,7 @@
                               <div class="row ">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
-                                    <h5 class="font-15">User Tests</h5>
+                                    <h5 class="font-14">User Tests</h5>
                                     <h2 class="mb-3 font-18">{{ $usertest->count() }}</h2>
                                   </div>
                                 </div>
@@ -126,7 +126,7 @@
                             <div class="row ">
                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                 <div class="card-content">
-                                  <h5 class="font-15">Medic Revenue</h5>
+                                  <h5 class="font-14">Medic Revenue</h5>
                                   <h2 class="mb-3 font-18">৳ {{ medicBalance() }}</h2>
                                 </div>
                               </div>
@@ -151,7 +151,7 @@
                             <div class="row ">
                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                 <div class="card-content">
-                                  <h5 class="font-15">Doctor Revenue</h5>
+                                  <h5 class="font-14">Doctor Revenue</h5>
                                   <h2 class="mb-3 font-18">৳ {{ doctorRevenue() }}</h2>
                                 </div>
                               </div>
@@ -175,7 +175,7 @@
                             <div class="row ">
                               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                 <div class="card-content">
-                                  <h5 class="font-15">Hospital Revenue</h5>
+                                  <h5 class="font-14">Hospital Revenue</h5>
                                   <h2 class="mb-3 font-18">৳ {{ hospitalRevenue() }}</h2>
                                 </div>
                               </div>
@@ -190,6 +190,32 @@
                     </div>
                 </a>
             </div>
+
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="">
+                    <div class="card">
+                        <div class="card-statistic-4">
+                          <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                <div class="card-content">
+                                  <h5 class="font-14">Agent Revenue</h5>
+                                  <h2 class="mb-3 font-18">৳ {{ agentRevenue() }}</h2>
+                                </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
+                                <div class="banner-img">
+                                  <img style="max-width: 55px" class="" src="{{ asset('uploads/icons/revenue.png') }}" alt="">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
 
 
             </div>

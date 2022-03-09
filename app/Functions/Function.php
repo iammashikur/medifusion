@@ -238,3 +238,7 @@ function doctorRevenue(){
 function hospitalRevenue(){
     return Wallet::where(['user_type' => 'hospital', 'transaction_type' => '+'])->sum('amount');
 }
+
+function agentRevenue(){
+    return Wallet::where(['user_type' => 'agent', 'transaction_type' => '+'])->sum('amount');
+}
