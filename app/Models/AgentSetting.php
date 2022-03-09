@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class AgentSetting extends Model
 {
     use HasFactory;
+    protected $fillable = ['default_commission'];
 }
