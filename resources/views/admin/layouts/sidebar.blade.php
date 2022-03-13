@@ -71,7 +71,7 @@
 
             <li
                 class="dropdown {{ MenuActive('test', 1) }} {{ MenuActive('test-category', 1) }} {{ MenuActive('test-subcategory', 1) }}">
-                <a href="#" class=" nav-link has-dropdown "><i data-feather="list"></i><span>Tests</span></a>
+                <a href="#" class="menu-toggle nav-link has-dropdown "><i data-feather="list"></i><span>Tests</span></a>
                 <ul class="dropdown-menu">
 
                     <li><a class="nav-link {{ MenuActive('test', 1) }}"
