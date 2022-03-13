@@ -571,4 +571,11 @@ public function agent_patient_tests(Request $request)
             'notifications' => $notifications,
         ], 200);
     }
+
+    public function balance(Request $request){
+        return response()->json([
+            'success' => true,
+            'balance' => currentBalance('agent', $request->user()->id),
+        ], 200);
+    }
 }

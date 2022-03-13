@@ -53,6 +53,7 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
 
 
     Route::get('/test', [ApiController::class, 'test']);
+    Route::get('/balance', [ApiController::class, 'balance']);
 
     Route::get('/doctor-categories', [ApiController::class, 'doc_cat']);
     Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
