@@ -28,7 +28,7 @@ class AgentTestsDataTable extends DataTable
         })
 
         ->addColumn('agent', function ($query) {
-            return $query->getAgent->name;
+            return $query->getAgent;
         })
 
         ->addColumn('status', function ($query) {
