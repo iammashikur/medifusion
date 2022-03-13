@@ -33,6 +33,7 @@
                                         <td>Tests</td>
                                         <td>Hospital</td>
                                         <td>Price</td>
+                                        <td>Patient Paid</td>
                                     </tr>
                                     @foreach ($test->getItems as $item)
                                         <tr>
@@ -41,8 +42,12 @@
                                                 {{$item->hospital_name}}
                                             </td>
                                             <td>
-                                                {{$item->price}} ৳
+                                                {{ json_decode($item->price)->main_price }} ৳
                                             </td>
+                                            <td>
+                                                {{ json_decode($item->price)->patient_paid }} ৳
+                                            </td>
+
                                         </tr>
                                     @endforeach
 
