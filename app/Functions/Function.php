@@ -53,7 +53,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
 
 
     if ($agent !== null) {
-        $agentCommission  = Agent::find($agent)->commission;
+        $agentCommission  = @Agent::find($agent)->commission ? @Agent::find($agent)->commission : AgentSetting::first()->default_commission;
     }else
     {
         $agentCommission = 0;
@@ -61,9 +61,9 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
 
 
     // test var
-    $appointmentFee = DoctorLocation::find($location)->consultation_fee;
-    $patientDiscount  = Doctor::find(DoctorLocation::find($location)->doctor_id)->discount;
-    $medicCommission  = Doctor::find(DoctorLocation::find($location)->doctor_id)->commission;
+    $appointmentFee = @DoctorLocation::find($location)->consultation_fee ? @DoctorLocation::find($location)->consultation_fee : 0;
+    $patientDiscount  = @Doctor::find(DoctorLocation::find($location)->doctor_id)->discount ? @Doctor::find(DoctorLocation::find($location)->doctor_id)->discount : 0;
+    $medicCommission  = @Doctor::find(DoctorLocation::find($location)->doctor_id)->commission ? @Doctor::find(DoctorLocation::find($location)->doctor_id)->commission : 0;
 
     $q = ($appointmentFee * $medicCommission) / 10000;
     $x = ($patientDiscount * $q);
@@ -145,17 +145,16 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
 
     if ($agent !== null) {
-        $agentCommission  = Agent::find($agent)->commission;
+        $agentCommission  = @Agent::find($agent)->commission ? @Agent::find($agent)->commission : AgentSetting::first()->default_commission;
     }else
     {
         $agentCommission = 0;
     }
 
-
     // test var
     $appointmentFee = $test_price;
-    $patientDiscount  = $testCategory->discount;
-    $medicCommission  = $testCategory->commission;
+    $patientDiscount  = @$testCategory->discount ? $testCategory->discount : 0;
+    $medicCommission  = @$testCategory->commission ? $testCategory->commission : 0;
 
     $q = ($appointmentFee * $medicCommission) / 10000;
     $x = ($patientDiscount * $q);
