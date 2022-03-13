@@ -33,7 +33,7 @@
 
             <li class="dropdown {{ MenuActive('doctor', 1) }}">
                 <a href="{{ route('doctor.index') }}" class="nav-link">
-                    <i class="fa fa-stethoscope"></i>
+                    <i  data-feather="user-check"></i>
                     <span>Doctors</span></a>
             </li>
 
@@ -56,7 +56,7 @@
 
             <li class="dropdown {{ MenuActive('patient', 1) }}">
                 <a href="{{ route('patient.index') }}" class="nav-link">
-                    <i class="fa fa-diagnoses"></i>
+                    <i data-feather="user"></i>
                     <span>Registered Users</span></a>
             </li>
 
@@ -109,7 +109,7 @@
 
             <li class="dropdown {{ MenuActive('referred-patient', 1) }}">
                 <a href="{{ route('referred-patient.index') }}" class="nav-link">
-                    <i class="fa fa-diagnoses"></i>
+                    <i data-feather="user"></i>
                     <span>Referred Patients</span></a>
             </li>
 
