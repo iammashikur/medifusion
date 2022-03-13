@@ -153,8 +153,8 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
     // test var
     $appointmentFee = $test_price;
-    $patientDiscount  = @$testCategory->discount ? $testCategory->discount : 0;
-    $medicCommission  = @$testCategory->commission ? $testCategory->commission : 0;
+    $patientDiscount  = $testCategory->discount;
+    $medicCommission  = $testCategory->commission;
 
     $q = ($appointmentFee * $medicCommission) / 10000;
     $x = ($patientDiscount * $q);
