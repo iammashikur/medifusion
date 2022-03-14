@@ -12,11 +12,9 @@ class AgentSettingsController extends Controller
 
     public function store(Request $request){
 
-
         $setting = AgentSetting::first();
         $setting->default_commission =  $request->default_commission;
         $setting->save();
-
         return redirect()->back();
 
     }

@@ -27,8 +27,8 @@
                 @csrf
                    <div class="form-group">
                      <label for="">Default Commission</label>
-                     <input type="text"
-                       class="form-control" name="default_commission" value="{{ App\Models\AgentSetting::first() ? App\Models\AgentSetting::first()->default_commission : 0}}">
+                     <input type="number"
+                       class="form-control" name="default_commission" value="{{ App\Models\AgentSetting::first()}}">
                    </div>
                    <button type="submit" class="btn btn-primary"> Update </button>
                </form>
