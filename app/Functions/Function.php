@@ -220,7 +220,9 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
 function currentBalance($type , $id){
 
-    return Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+'])->sum('amount');
+    $credit =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+'])->sum('amount');
+    $debit  =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '-'])->sum('amount');
+    return $credit - $debit;
 
 }
 

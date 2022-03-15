@@ -18,6 +18,7 @@ use App\Models\TestCategory;
 use App\Models\TestCommDisc;
 use App\Models\TestPrice;
 use App\Models\TestSubcategory;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 
 
@@ -70,7 +71,7 @@ class ApiController extends Controller
         }
 
         $patient = Patient::where(['phone' => $request->phone])
-        ->first();
+            ->first();
 
         if (!$patient) {
             $patient = new Patient();
@@ -184,7 +185,7 @@ class ApiController extends Controller
 
         $appointments = AgentAppointment::where('agent_id', $request->user()->id)->get();
 
-        foreach($appointments as $appointment){
+        foreach ($appointments as $appointment) {
             $appointment->details = Appointment::where('id', $appointment->appointment_id)->with('getDoctor', 'getPatient', 'getHospital', 'getStatus')->get();
             foreach ($appointment->details as $ad) {
                 $ad->location = $ad->getLocation;
@@ -195,7 +196,6 @@ class ApiController extends Controller
             'success' => true,
             'appointments' => $appointments,
         ], 200);
-
     }
 
     public function tests()
@@ -329,88 +329,88 @@ class ApiController extends Controller
 
 
 
-public function agent_patient_tests(Request $request)
-{
-
-
-    $patient = Patient::where(['phone' => $request->phone])
-        ->first();
-
-    if (!$patient) {
-        $patient = new Patient();
-    }
-
-    $patient->name = $request->name;
-    $patient->birth_date = $request->birth_date;
-    $patient->gender = $request->gender;
-    $patient->zilla = $request->zilla;
-    $patient->upazilla = $request->upazilla;
-    $patient->phone = $request->phone;
-    $patient->password = bcrypt('12345678');
-    $patient->save();
-
-
-
-
-    function random($len)
+    public function agent_patient_tests(Request $request)
     {
-        $char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $total = strlen($char) - 1;
-        $text = "";
-        for ($i = 0; $i < $len; $i++) {
-            $text = $text . $char[rand(0, $total)];
+
+
+        $patient = Patient::where(['phone' => $request->phone])
+            ->first();
+
+        if (!$patient) {
+            $patient = new Patient();
         }
-        return $text;
+
+        $patient->name = $request->name;
+        $patient->birth_date = $request->birth_date;
+        $patient->gender = $request->gender;
+        $patient->zilla = $request->zilla;
+        $patient->upazilla = $request->upazilla;
+        $patient->phone = $request->phone;
+        $patient->password = bcrypt('12345678');
+        $patient->save();
+
+
+
+
+        function random($len)
+        {
+            $char = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $total = strlen($char) - 1;
+            $text = "";
+            for ($i = 0; $i < $len; $i++) {
+                $text = $text . $char[rand(0, $total)];
+            }
+            return $text;
+        }
+
+        $test = new PatientTest();
+        $test->patient_id = $patient->id;
+        $test->test_uid = round(time() / 1000) . random(5);
+        $test->status_id = 0;
+        $test->hospital_id = 0;
+        $test->by_agent = 1;
+        $test->save();
+
+
+        foreach ($request->orderItems as $data) {
+
+            $data = (object) $data;
+            $item = new PatientTestItem();
+            $item->test_name = $data->testName;
+            $item->test_id = $data->test_id;
+            $item->patient_test_id = $test->id;
+            $item->hospital_id = $data->hospitalID;
+            $item->hospital_name = $data->hospitalName;
+            $item->price = $data->cat_id;
+            $item->save();
+
+            $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
+
+            $itemUp = PatientTestItem::find($item->id);
+            $itemUp->price = testPay($get_category, TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id, $request->user()->id);
+            $itemUp->save();
+        }
+
+
+        $agentAppointment = new AgentTest();
+        $agentAppointment->agent_id = $request->user()->id;
+        $agentAppointment->patient_id = $patient->id;
+        $agentAppointment->test_id   = $test->id;
+        $agentAppointment->save();
+
+
+
+
+
+
+        // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
+        // file_put_contents(public_path('data.json'), $data);
+
+        return response()->json([
+            'success' => true,
+            'test_uid' =>  $test->test_uid,
+        ], 200);
     }
-
-    $test = new PatientTest();
-    $test->patient_id = $patient->id;
-    $test->test_uid = round(time() / 1000) . random(5);
-    $test->status_id = 0;
-    $test->hospital_id = 0;
-    $test->by_agent = 1;
-    $test->save();
-
-
-    foreach ($request->orderItems as $data) {
-
-        $data = (object) $data;
-        $item = new PatientTestItem();
-        $item->test_name = $data->testName;
-        $item->test_id = $data->test_id;
-        $item->patient_test_id = $test->id;
-        $item->hospital_id = $data->hospitalID;
-        $item->hospital_name = $data->hospitalName;
-        $item->price = $data->cat_id;
-        $item->save();
-
-        $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
-
-        $itemUp = PatientTestItem::find($item->id);
-        $itemUp->price = testPay($get_category , TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id, $request->user()->id);
-        $itemUp->save();
-    }
-
-
-    $agentAppointment = new AgentTest();
-    $agentAppointment->agent_id = $request->user()->id;
-    $agentAppointment->patient_id = $patient->id;
-    $agentAppointment->test_id   = $test->id;
-    $agentAppointment->save();
-
-
-
-
-
-
-    // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
-    // file_put_contents(public_path('data.json'), $data);
-
-    return response()->json([
-        'success' => true,
-        'test_uid' =>  $test->test_uid,
-    ], 200);
-}
 
     public function patient_tests(Request $request)
     {
@@ -450,9 +450,8 @@ public function agent_patient_tests(Request $request)
 
             $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
             $itemUp = PatientTestItem::find($item->id);
-            $itemUp->price = testPay($get_category , TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id);
+            $itemUp->price = testPay($get_category, TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id);
             $itemUp->save();
-
         }
 
         // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
@@ -486,24 +485,23 @@ public function agent_patient_tests(Request $request)
     public function agent_tests(Request $request)
     {
 
-       $agentTest =  AgentTest::where(['agent_id' => $request->user()->id])->get();
+        $agentTest =  AgentTest::where(['agent_id' => $request->user()->id])->get();
 
-       foreach ($agentTest as $atest) {
+        foreach ($agentTest as $atest) {
 
-                $tests = PatientTest::where('id', $atest->test_id)->get();
-                $patient = Patient::find($atest->patient_id);
+            $tests = PatientTest::where('id', $atest->test_id)->get();
+            $patient = Patient::find($atest->patient_id);
 
-                foreach ($tests as $test) {
-                    $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
-                    $test->test_items = $test_items;
-                }
+            foreach ($tests as $test) {
+                $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
+                $test->test_items = $test_items;
+            }
 
-                $atest->details = $tests;
-                $atest->patient = $patient;
-       }
+            $atest->details = $tests;
+            $atest->patient = $patient;
+        }
 
-       return $agentTest;
-
+        return $agentTest;
     }
 
 
@@ -554,12 +552,31 @@ public function agent_patient_tests(Request $request)
         ], 200);
     }
 
-    public function test(Request $request)
+    public function withdraw(Request $request)
     {
-        return $request->user()->name;
+
+        $current = currentBalance('agent', $request->user()->name);
+
+        if ($request->amount <= $current) {
+
+            $wallet = new Wallet();
+            $wallet->amount =$request->amount;
+            $wallet->user_type = 'agent';
+            $wallet->user_id = $request->user()->name;
+            $wallet->transaction_type = '-';
+            $wallet->status = 0;
+            $wallet->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'withdraw requested',
+            ], 200);
+
+        }
     }
 
-    public function notifications(){
+    public function notifications()
+    {
 
         $notifications = PushNotification::all();
         foreach ($notifications as $value) {
@@ -572,7 +589,8 @@ public function agent_patient_tests(Request $request)
         ], 200);
     }
 
-    public function balance(Request $request){
+    public function balance(Request $request)
+    {
         return response()->json([
             'success' => true,
             'balance' => currentBalance('agent', $request->user()->id),
