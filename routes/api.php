@@ -51,7 +51,7 @@ Route::post('/agent/login', [AuthController::class, 'agent_login']);
 
 Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
 
-    Route::post('/withdraw/{amount}', [ApiController::class, 'withdraw']);
+    Route::post('/withdraw', [ApiController::class, 'withdraw']);
 
     Route::get('/balance', [ApiController::class, 'balance']);
 
