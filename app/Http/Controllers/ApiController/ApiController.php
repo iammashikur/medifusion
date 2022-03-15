@@ -572,7 +572,7 @@ class ApiController extends Controller
             $wallet = new Wallet();
             $wallet->amount =$request->amount;
             $wallet->user_type = 'agent';
-            $wallet->user_id = $request->user()->name;
+            $wallet->user_id = $request->user()->id;
             $wallet->transaction_type = '-';
             $wallet->status = 0;
             $wallet->save();
