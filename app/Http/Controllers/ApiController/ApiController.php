@@ -555,14 +555,17 @@ class ApiController extends Controller
     public function withdraw(Request $request)
     {
 
+        $current = currentBalance('agent', $request->user()->name);
+
         if (!$request->has('amount')) {
             return response()->json([
                 'success' => false,
                 'message' => 'amount missing',
+                'balance' => $current
             ], 200);
         }
 
-        $current = currentBalance('agent', $request->user()->name);
+
 
         if ($request->amount <= $current) {
 
@@ -577,6 +580,7 @@ class ApiController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'withdraw requested',
+                'balance' => $current
             ], 200);
 
         }
@@ -584,6 +588,7 @@ class ApiController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'amount is greater than balance.',
+                'balance' => $current
             ], 200);
         }
     }
