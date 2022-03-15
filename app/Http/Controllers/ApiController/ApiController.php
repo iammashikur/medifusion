@@ -448,7 +448,7 @@ class ApiController extends Controller
             $item->save();
 
 
-            $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
+            return $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
             $itemUp = PatientTestItem::find($item->id);
             $itemUp->price = testPay($get_category, TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id);
             $itemUp->save();

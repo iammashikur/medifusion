@@ -144,9 +144,6 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
 function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
 
-    return $testCategory;
-
-
     if ($agent !== null) {
         $agentCommission  = @Agent::find($agent)->commission ? @Agent::find($agent)->commission : AgentSetting::first()->default_commission;
     }else
