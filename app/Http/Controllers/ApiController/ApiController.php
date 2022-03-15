@@ -573,6 +573,12 @@ class ApiController extends Controller
             ], 200);
 
         }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'amount is greater than balance.',
+            ], 200);
+        }
     }
 
     public function notifications()
