@@ -555,7 +555,7 @@ class ApiController extends Controller
     public function withdraw(Request $request)
     {
 
-        $current = currentBalance('agent', $request->user()->name);
+        $current = currentBalance('agent', $request->user()->id);
 
         if (!$request->has('amount')) {
             return response()->json([
