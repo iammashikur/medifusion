@@ -2,15 +2,14 @@
 
 namespace App\DataTables;
 
-use App\Models\PushNotification;
-use Carbon\Carbon;
+use App\Models\Compounder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\Services\DataTable;
 
-class PushNotificationDataTable extends DataTable
+class CompounderDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,18 +21,29 @@ class PushNotificationDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('date', function ($query) {
-                return Carbon::parse($query->created_at)->format('l jS \of F Y h:i:s A');
-            });
+            ->addColumn('image', function($image){
+
+                $url=asset("/uploads/images/$image->avatar");
+                return '<img src='.$url.' border="0" width="100" class="img-rounded" align="center" />';
+
+
+            })
+
+            ->addColumn('action', function($action){
+                return '<a class="btn-sm btn-primary" href="'.route('compounder.edit', $action->id).'"><i class="far fa-edit"></i></a>
+                        <a class="btn-sm btn-danger delete" href="'.route('compounder.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
+            })
+
+           ->rawColumns(['image', 'action']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\PushNotification $model
+     * @param \App\Models\Compounder $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(PushNotification $model)
+    public function query(Compounder $model)
     {
         return $model->newQuery();
     }
@@ -46,14 +56,13 @@ class PushNotificationDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('pushnotification-table')
+                    ->setTableId('compounder-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(1)
                     ->buttons(
                         Button::make('create'),
-
 
                         Button::make('reset'),
 
@@ -70,9 +79,15 @@ class PushNotificationDataTable extends DataTable
         return [
 
             Column::make('id'),
-            Column::make('title'),
-            Column::make('description'),
-            Column::make('date')->width('200'),
+            Column::make('image'),
+            Column::make('name'),
+            Column::make('phone'),
+
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 
@@ -83,6 +98,6 @@ class PushNotificationDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'PushNotification_' . date('YmdHis');
+        return 'Compounder_' . date('YmdHis');
     }
 }

@@ -41,7 +41,6 @@ class PushNotificationController extends Controller
         $notification = new PushNotification();
 
         if ($request->hasFile('image')) {
-
             $imagePath         = MakeImage($request, 'image', public_path('/uploads/images/'));
             /** Save request data to db */
             $notification->image  = $imagePath;
@@ -54,8 +53,9 @@ class PushNotificationController extends Controller
         $notification->agent_id = $request->agent_id;
         $notification->save();
 
-        toast('Notification sent!', 'success')->width('300px')->padding('10px');
+        sendNotificationToSubsciber($request->title, $request->description, $imagePath);
 
+        toast('Notification sent!', 'success')->width('300px')->padding('10px');
         return redirect()->back();
 
     }

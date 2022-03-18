@@ -88,6 +88,12 @@
                     <span>Patient Tests</span></a>
             </li>
 
+            <li class="dropdown {{ MenuActive('compounder', 1) }}">
+                <a href="{{ route('compounder.index') }}" class="nav-link">
+                    <i data-feather="users"></i>
+                    <span>Compounders</span></a>
+            </li>
+
             <li class="dropdown {{ MenuActive('agent', 1) }}">
                 <a href="{{ route('agent.index') }}" class="nav-link">
                     <i data-feather="users"></i>

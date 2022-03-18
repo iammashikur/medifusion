@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Agent;
+use App\Models\AgentSetting;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
@@ -8,6 +9,63 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
+
+function sendNotificationToSubsciber($title, $desc, $p_cat_image)
+{
+    $content      = array(
+        "en" => $desc,
+    );
+    $headings = array(
+        "en" => $title,
+    );
+
+    $hashes_array = array();
+
+    array_push($hashes_array, array(
+        "id" => "like-button",
+        "text" => "Like",
+        "icon" => "http://i.imgur.com/N8SN8ZS.png",
+        "url" => "https://yoursite.com"
+    ));
+
+    array_push($hashes_array, array());
+    $fields = array(
+        'app_id' => "680413e3-cee6-4ad2-a9f6-318c23bae953", // env
+        'included_segments' => array(
+            'All' // all means all people // eta variable hisebe use koro
+          // eta control korbe agent ke dibe naki
+        ),
+        'data' => array(
+            "post_type" => "" ,
+            "id" => "" ,
+        ),
+        'contents' => $content,
+        'headings' => $headings,
+        'big_picture' => $p_cat_image
+
+    );
+
+    $fields = json_encode($fields);
+    print("\nJSON sent:\n");
+    print($fields);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charset=utf-8',
+        'Authorization: Basic YWVkM2QzNjctZjY5Yi00ZGUxLTk5ZjgtNWUwODM0MmVjZjNm' //env
+    ));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return $response;
+}
 
 
 // Active Menu Button
@@ -66,12 +124,13 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $medicCommission  = @Doctor::find(DoctorLocation::find($location)->doctor_id)->commission ? @Doctor::find(DoctorLocation::find($location)->doctor_id)->commission : 0;
 
     $q = ($appointmentFee * $medicCommission) / 10000;
-    $x = ($patientDiscount * $q);
+    $x = floor($patientDiscount * $q);
     $amountToPay = $appointmentFee - $x;
 
-    $agentGets = $q * $agentCommission;
-    $medicGets = $q * (100 - $patientDiscount - $agentCommission);
+    $agentGets = ceil($q * $agentCommission);
+    $medicGets = ceil($q * 100) - $patientDiscount - $agentCommission;
     $doctorGets  = $amountToPay - ($medicGets + $agentGets);
+
 
     // Medic
     $medicGetsInsert = new Wallet();
@@ -152,16 +211,16 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     }
 
     // test var
-    $appointmentFee = $test_price;
+    $testFee = $test_price;
     $patientDiscount  = @$testCategory->discount ? $testCategory->discount : 0;
     $medicCommission  = @$testCategory->commission ? $testCategory->commission : 0;
 
-    $q = ($appointmentFee * $medicCommission) / 10000;
-    $x = ($patientDiscount * $q);
-    $amountToPay = $appointmentFee - $x;
+    $q = ($testFee * $medicCommission) / 10000;
+    $x = floor($patientDiscount * $q);
+    $amountToPay = $testFee - $x;
 
-    $agentGets = $q * $agentCommission;
-    $medicGets = $q * (100 - $patientDiscount - $agentCommission);
+    $agentGets = ceil($q * $agentCommission);
+    $medicGets = ceil($q * 100) - $patientDiscount - $agentCommission;
     $hospitalGets  = $amountToPay - ($medicGets + $agentGets);
 
     //Medic
@@ -209,7 +268,7 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
     return [
 
-        'main_price'   => $appointmentFee,
+        'main_price'   => $testFee,
         'patient_paid' => $amountToPay,
         'hospital_earned' => $hospitalGets,
         'medic_earned' => $medicGets,

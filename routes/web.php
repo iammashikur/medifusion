@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\AgentPayController;
 use App\Http\Controllers\Admin\AgentSettingsController;
 use App\Http\Controllers\Admin\ClientPayController;
+use App\Http\Controllers\Admin\CompounderController;
 use App\Http\Controllers\Admin\DoctorLocationController;
 use App\Http\Controllers\Admin\DoctorReceiveController;
 use App\Http\Controllers\Admin\HospitalReceiveController;
@@ -62,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('location', LocationController::class);
     Route::resource('agent', AgentController::class);
     Route::resource('agent-settings', AgentSettingsController::class);
+    Route::resource('compounder', CompounderController::class);
 
 
     Route::resource('agent-pay', AgentPayController::class);

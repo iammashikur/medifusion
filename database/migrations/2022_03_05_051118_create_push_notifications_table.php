@@ -22,6 +22,7 @@ class CreatePushNotificationsTable extends Migration
             $table->text('link')->nullable();
             $table->text('user_id')->nullable();
             $table->text('agent_id')->nullable();
+            $table->integer('type')->nullable();
 
             $table->timestamps();
         });
