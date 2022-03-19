@@ -79,7 +79,5 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
 Route::post('/compounder/login', [AuthController::class, 'compounder_login']);
 
 Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
-
     Route::post('/logout', [AuthController::class, 'logout']);
-
 });
