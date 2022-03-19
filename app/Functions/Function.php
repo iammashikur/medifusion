@@ -30,7 +30,7 @@ function sendNotificationToSubsciber($title, $desc, $p_cat_image)
 
     array_push($hashes_array, array());
     $fields = array(
-        'app_id' => "680413e3-cee6-4ad2-a9f6-318c23bae953", // env
+        'app_id' => env('ONESIGNAL_APP_ID '), // env
         'included_segments' => array(
             'All' // all means all people // eta variable hisebe use koro
           // eta control korbe agent ke dibe naki
@@ -53,7 +53,7 @@ function sendNotificationToSubsciber($title, $desc, $p_cat_image)
     curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json; charset=utf-8',
-        'Authorization: Basic YWVkM2QzNjctZjY5Yi00ZGUxLTk5ZjgtNWUwODM0MmVjZjNm' //env
+        'Authorization: Basic '. env('ONESIGNAL_API_KEY ') //env
     ));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
