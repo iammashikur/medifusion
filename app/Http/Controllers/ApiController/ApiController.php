@@ -502,6 +502,10 @@ class ApiController extends Controller
             $atest->patient = $patient;
         }
 
+        if ($agentTest == null) {
+            return [];
+        }
+
         return $agentTest;
     }
 
