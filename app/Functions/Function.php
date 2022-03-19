@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
 
-function sendNotificationToSubsciber($title, $desc, $p_cat_image)
+function sendNotificationToSubsciber($title, $desc, $user_type, $p_cat_image = "")
 {
     $content      = array(
         "en" => $desc,
@@ -29,16 +29,14 @@ function sendNotificationToSubsciber($title, $desc, $p_cat_image)
     ));
 
     array_push($hashes_array, array());
+
     $fields = array(
-        'app_id' => env('ONESIGNAL_APP_ID '), // env
-        'included_segments' => array(
-            'All' // all means all people // eta variable hisebe use koro
-          // eta control korbe agent ke dibe naki
-        ),
-        'data' => array(
-            "post_type" => "" ,
-            "id" => "" ,
-        ),
+        'app_id' => env('ONESIGNAL_APP_ID'), // env
+        'included_segments' => array($user_type),
+        // 'data' => array(
+        //     "post_type" => "" ,
+        //     "id" => "" ,
+        // ),
         'contents' => $content,
         'headings' => $headings,
         'big_picture' => $p_cat_image
@@ -47,13 +45,15 @@ function sendNotificationToSubsciber($title, $desc, $p_cat_image)
 
     $fields = json_encode($fields);
     print("\nJSON sent:\n");
-    print($fields);
+
+
+
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json; charset=utf-8',
-        'Authorization: Basic '. env('ONESIGNAL_API_KEY ') //env
+        'Authorization: Basic '. env('ONESIGNAL_API_KEY') //env
     ));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
@@ -64,7 +64,11 @@ function sendNotificationToSubsciber($title, $desc, $p_cat_image)
     $response = curl_exec($ch);
     curl_close($ch);
 
-    return $response;
+
+
+
+
+
 }
 
 

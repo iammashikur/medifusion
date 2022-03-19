@@ -73,12 +73,12 @@ $page_title = 'Send Push Notification';
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Send To</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="type" required>
+                                <select class="form-control" name="user_type" required>
                                     <option value="">--- Select ---</option>
-                                    <option value="1">Every one</option>
-                                    <option value="2">Agent only</option>
-                                    <option value="3">User only</option>
-                                    <option value="4">Compunder only</option>
+                                    <option value="ALL">Every one</option>
+                                    <option value="AGENT">Agent only</option>
+                                    <option value="USER">User only</option>
+                                    {{-- <option value="4">Compunder only</option> --}}
                                 </select>
                             </div>
                         </div>

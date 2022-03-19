@@ -53,7 +53,9 @@ class PushNotificationController extends Controller
         $notification->agent_id = $request->agent_id;
         $notification->save();
 
-        sendNotificationToSubsciber($request->title, $request->description, $imagePath);
+
+
+        sendNotificationToSubsciber($request->title, $request->description, $request->user_type, @$imagePath);
 
         toast('Notification sent!', 'success')->width('300px')->padding('10px');
         return redirect()->back();
