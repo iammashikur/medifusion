@@ -500,11 +500,6 @@ class ApiController extends Controller
 
             $atest->details = $tests;
             $atest->patient = $patient;
-
-        }
-
-        if ($agentTest == null) {
-            return [];
         }
 
         return $agentTest;
@@ -616,7 +611,6 @@ class ApiController extends Controller
     public function agent(Request $request)
     {
         $agent = Agent::find($request->id);
-
         return response()->json([
             'success' => true,
             'agent' => $agent,

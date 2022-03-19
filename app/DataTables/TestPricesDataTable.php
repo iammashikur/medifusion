@@ -83,7 +83,6 @@ class TestPricesDataTable extends DataTable
             Column::make('category'),
             Column::make('test'),
             Column::make('price'),
-            Column::make('discount_price'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

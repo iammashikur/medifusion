@@ -16,7 +16,6 @@ class CreateTestPricesTable extends Migration
         Schema::create('test_prices', function (Blueprint $table) {
             $table->id();
             $table->integer('price');
-            $table->integer('discount_price');
             $table->integer('hospital_id');
             $table->integer('test_id');
             $table->timestamps();
