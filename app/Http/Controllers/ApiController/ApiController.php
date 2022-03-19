@@ -366,7 +366,7 @@ class ApiController extends Controller
         $test = new PatientTest();
         $test->patient_id = $patient->id;
         $test->test_uid = round(time() / 1000) . random(5);
-        $test->status_id = 0;
+        $test->status_id = 1;
         $test->hospital_id = 0;
         $test->by_agent = 1;
         $test->save();
@@ -425,7 +425,7 @@ class ApiController extends Controller
         $test = new PatientTest();
         $test->patient_id = $request->user()->id;
         $test->test_uid = round(time() / 1000) . random(5);
-        $test->status_id = 0;
+        $test->status_id = 1;
         $test->hospital_id = 0;
         $test->by_agent = 0;
         $test->save();
