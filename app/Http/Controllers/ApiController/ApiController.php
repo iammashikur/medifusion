@@ -500,6 +500,7 @@ class ApiController extends Controller
 
             $atest->details = $tests;
             $atest->patient = $patient;
+
         }
 
         if ($agentTest == null) {
