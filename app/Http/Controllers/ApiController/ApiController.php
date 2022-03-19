@@ -462,9 +462,9 @@ class ApiController extends Controller
     public function my_tests(Request $request)
     {
 
-        $tests = PatientTest::where('patient_id', $request->user()->id)->get();
+        $tests = PatientTest::where('patient_id', $request->user()->id)->with('getStatus')->get();
         foreach ($tests as $test) {
-            $test_items = PatientTestItem::where('patient_test_id', $test->id)->with('getStatus')->get();
+            $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
             foreach ($test_items as $key) {
 
 
@@ -486,11 +486,11 @@ class ApiController extends Controller
 
         foreach ($agentTest as $atest) {
 
-            $tests = PatientTest::where('id', $atest->test_id)->get();
+            $tests = PatientTest::where('id', $atest->test_id)->with('getStatus')->get();
             $patient = Patient::find($atest->patient_id);
 
             foreach ($tests as $test) {
-                $test_items = PatientTestItem::where('patient_test_id', $test->id)->with('getStatus')->getget();
+                $test_items = PatientTestItem::where('patient_test_id', $test->id)->getget();
                 $test->test_items = $test_items;
             }
 
