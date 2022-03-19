@@ -610,7 +610,8 @@ class ApiController extends Controller
 
     public function agent(Request $request)
     {
-        $agent = Agent::first($request->id);
+        $agent = Agent::find($request->id);
+
         $agent->avatar = asset($agent->avatar);
 
         return response()->json([
