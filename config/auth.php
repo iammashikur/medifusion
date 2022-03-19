@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'agents',
         ],
+        'compounder' => [
+            'driver' => 'session',
+            'provider' => 'compounders',
+        ],
     ],
 
     /*
@@ -81,6 +85,11 @@ return [
         'agents' => [
             'driver' => 'eloquent',
             'model' => App\Models\Agent::class,
+        ],
+
+        'compounders' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Compounder::class,
         ],
 
         // 'users' => [

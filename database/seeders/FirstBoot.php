@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\AppointmentStatus;
 use App\Models\DoctorSpecialization;
 use App\Models\Gender;
+use App\Models\PatientTestStatus;
 use App\Models\TransactionType;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -52,10 +53,18 @@ class FirstBoot extends Seeder
         AppointmentStatus::insert(
             [
                 ['id' => 1, 'status' => 'pending'],
-                ['id' => 2, 'status' => 'running'],
-                ['id' => 3, 'status' => 'completed'],
-                ['id' => 4, 'status' => 'missed'],
-                ['id' => 5, 'status' => 'cencelled']
+                ['id' => 2, 'status' => 'confirmed'],
+                ['id' => 3, 'status' => 'denided'],
+                ['id' => 4, 'status' => 'cancelled'],
+                ['id' => 5, 'status' => 'completed']
+            ]
+        );
+
+        // Appointment Statuses
+        PatientTestStatus::insert(
+            [
+                ['id' => 1, 'status' => 'pending'],
+                ['id' => 2, 'status' => 'completed'],
             ]
         );
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\CompounderDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Compounder;
+use App\Models\CompounderDoctor;
+use App\Models\CompounderHospital;
 use App\Models\Gender;
 use Illuminate\Http\Request;
 
@@ -41,6 +43,12 @@ class CompounderController extends Controller
     public function store(Request $request)
     {
 
+
+
+
+
+
+
         $compounder = new Compounder();
 
         $compounder->name = $request->name;
@@ -57,6 +65,20 @@ class CompounderController extends Controller
         $compounder->zilla = $request->zilla;
         $compounder->upazilla = $request->upazilla;
         $compounder->save();
+
+        foreach($request->doctors as $key => $doctor){
+            $ComDoctor = new CompounderDoctor();
+            $ComDoctor->compounder_id = $compounder->id;
+            $ComDoctor->doctor_id = $doctor;
+            $ComDoctor->save();
+        }
+
+        foreach($request->hospitals as $key => $hospital){
+            $ComHospital = new CompounderHospital();
+            $ComHospital->compounder_id = $compounder->id;
+            $ComHospital->hospital_id = $hospital;
+            $ComHospital->save();
+        }
 
         toast('Compounder Added!', 'success')->width('300px')->padding('10px');
         return redirect()->route('compounder.index');
@@ -113,6 +135,24 @@ class CompounderController extends Controller
         $compounder->zilla = $request->zilla;
         $compounder->upazilla = $request->upazilla;
         $compounder->save();
+
+
+        CompounderDoctor::where('compounder_id',$compounder->id)->delete();
+        foreach($request->doctors as $key => $doctor){
+            $ComDoctor = new CompounderDoctor();
+            $ComDoctor->compounder_id = $compounder->id;
+            $ComDoctor->doctor_id = $doctor;
+            $ComDoctor->save();
+        }
+
+        CompounderHospital::where('compounder_id',$compounder->id)->delete();
+
+        foreach($request->hospitals as $key => $hospital){
+            $ComHospital = new CompounderHospital();
+            $ComHospital->compounder_id = $compounder->id;
+            $ComHospital->hospital_id = $hospital;
+            $ComHospital->save();
+        }
 
         toast('Compounder Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('compounder.index');

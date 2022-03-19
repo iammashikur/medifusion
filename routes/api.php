@@ -24,6 +24,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/notifications', [ApiController::class, 'notifications']);
+Route::get('/agent/{id}', [ApiController::class, 'agent']);
 
 
 // Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
@@ -75,3 +76,10 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
 });
 
 
+Route::post('/compounder/login', [AuthController::class, 'compounder_login']);
+
+Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+});

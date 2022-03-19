@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agent;
 use App\Models\AgentAppointment;
 use App\Models\AgentTest;
 use App\Models\Appointment;
@@ -605,6 +606,18 @@ class ApiController extends Controller
             'success' => true,
             'notifications' => $notifications,
         ], 200);
+    }
+
+    public function agent(Request $request)
+    {
+        $agent = Agent::first($request->id);
+        $agent->avatar = asset($agent->avatar);
+
+        return response()->json([
+            'success' => true,
+            'agent' => $agent,
+        ], 200);
+
     }
 
     public function balance(Request $request)

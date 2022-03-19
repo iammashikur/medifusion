@@ -26,6 +26,7 @@ class CreateAgentsTable extends Migration
             $table->string('bkash')->nullable();
             $table->string('nagad')->nullable();
             $table->integer('commission')->nullable();
+            $table->integer('status')->nullable();
             $table->text('bank_details')->nullable();
             $table->timestamps();
         });

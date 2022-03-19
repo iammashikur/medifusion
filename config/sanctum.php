@@ -48,6 +48,6 @@ return [
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
     ],
 
-    'guard' => ['patient','agent'],
+    'guard' => ['patient','agent', 'compounder'],
 
 ];

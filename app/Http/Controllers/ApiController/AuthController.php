@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Agent;
+use App\Models\Compounder;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        
+
 
         if (Patient::where('phone', $request->phone)->exists()) {
             return response()->json([
@@ -72,6 +73,24 @@ class AuthController extends Controller
     public function agent_login(Request $request)
     {
         $user = Agent::where('phone', $request->phone)->first();
+        if (@Hash::check($request->password, $user->password)) {
+            $user->tokens()->where('tokenable_id', $user->id)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Agent Successfully logged in!',
+                'token' => $user->createToken('tokens')->plainTextToken,
+                'user_data' => $user,
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'Invalid login details'
+        ], 401);
+    }
+
+    public function compounder_login(Request $request)
+    {
+        $user = Compounder::where('phone', $request->phone)->first();
         if (@Hash::check($request->password, $user->password)) {
             $user->tokens()->where('tokenable_id', $user->id)->delete();
             return response()->json([

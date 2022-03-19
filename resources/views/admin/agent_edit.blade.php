@@ -1,6 +1,6 @@
 @php
-    $page_type = 'Admin';
-        $page_title = 'Edit Agent';
+$page_type = 'Admin';
+$page_title = 'Edit Agent';
 @endphp
 @extends('admin.layouts.master')
 
@@ -73,7 +73,8 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mobile</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="phone" value="{{ $agent->phone }}" class="form-control" required>
+                                <input type="text" name="phone" value="{{ $agent->phone }}" class="form-control"
+                                    required>
                             </div>
                         </div>
 
@@ -82,21 +83,24 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Billing Address</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="billing_address" value="{{ $agent->billing_address }}" class="form-control" required>
+                                <input type="text" name="billing_address" value="{{ $agent->billing_address }}"
+                                    class="form-control" required>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Zilla</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="zilla" value="{{ $agent->zilla }}" class="form-control" required>
+                                <input type="text" name="zilla" value="{{ $agent->zilla }}" class="form-control"
+                                    required>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Upazilla</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="upazilla" value="{{ $agent->upazilla }}" class="form-control" required>
+                                <input type="text" name="upazilla" value="{{ $agent->upazilla }}" class="form-control"
+                                    required>
                             </div>
                         </div>
 
@@ -122,16 +126,30 @@
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Commission (<span id="commission">{{ $agent->commission }}</span>%)</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Commission (<span
+                                    id="commission">{{ $agent->commission }}</span>%)</label>
                             <div class="col-sm-12 col-md-7">
-                              <input type="range" name="commission" class="form-control" min="0" max="100" value="{{ $agent->commission }}" onInput="$('#commission').html($(this).val())" required>
+                                <input type="range" name="commission" class="form-control" min="0" max="100"
+                                    value="{{ $agent->commission }}" onInput="$('#commission').html($(this).val())"
+                                    required>
                             </div>
-                          </div>
+                        </div>
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password (Optional)</label>
                             <div class="col-sm-12 col-md-7">
                                 <input type="text" name="password" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control selectric" name="status" required>
+                                    <option value="">---Select---</option>
+                                    <option value="0" @if ($agent->status == 0) selected @endif>Inactive</option>
+                                    <option value="1" @if ($agent->status == 1) selected @endif>Active</option>
+                                </select>
                             </div>
                         </div>
 

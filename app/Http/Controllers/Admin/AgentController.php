@@ -61,6 +61,7 @@ class AgentController extends Controller
         $agent->nagad = $request->nagad;
         $agent->bank_details = $request->bank_details;
         $agent->commission = $request->commission;
+        $agent->status = $request->status;
         $agent->save();
 
         toast('Agent Added!', 'success')->width('300px')->padding('10px');
@@ -121,6 +122,7 @@ class AgentController extends Controller
         $agent->nagad = $request->nagad;
         $agent->bank_details = $request->bank_details;
         $agent->commission = $request->commission;
+        $agent->status = $request->status;
         $agent->save();
 
         toast('Agent Updated!', 'success')->width('300px')->padding('10px');

@@ -94,6 +94,30 @@
                             </div>
                         </div>
 
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Doctors</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="doctors[]" multiple="multiple" required>
+                                    @foreach (App\Models\Doctor::all() as $item)
+                                        <option @if(App\Models\CompounderDoctor::where(['compounder_id' => $compounder->id, 'doctor_id' => $item->id,])->count()) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospitals</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="hospitals[]" multiple="multiple" required>
+
+                                    @foreach (App\Models\Hospital::all() as $item)
+                                        <option @if(App\Models\CompounderHospital::where(['compounder_id' => $compounder->id, 'hospital_id' => $item->id,])->count()) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password (Optional)</label>
