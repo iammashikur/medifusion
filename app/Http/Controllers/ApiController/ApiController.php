@@ -490,7 +490,7 @@ class ApiController extends Controller
             $patient = Patient::find($atest->patient_id);
 
             foreach ($tests as $test) {
-                $test_items = PatientTestItem::where('patient_test_id', $test->id)->getget();
+                $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
                 $test->test_items = $test_items;
             }
 
