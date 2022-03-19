@@ -602,7 +602,15 @@ class ApiController extends Controller
         ], 200);
     }
 
+    public function agent(Request $request)
+    {
+        $agent = Agent::find($request->id);
 
+        return response()->json([
+            'success' => true,
+            'agent' => $agent,
+        ], 200);
+    }
 
     public function balance(Request $request)
     {
