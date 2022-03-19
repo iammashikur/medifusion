@@ -24,8 +24,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/notifications', [ApiController::class, 'notifications']);
-Route::get('/agent/{id}', [ApiController::class, 'agent']);
-
 
 // Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
 // Route::get('/doctors', [ApiController::class, 'doctors']);
@@ -67,7 +65,6 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
 
     Route::get('/test-categories', [ApiController::class, 'test_category']);
 
-
     Route::get('/test-by-cat/{id}', [ApiController::class, 'test_by_cat']);
 
     Route::post('/patient-tests', [ApiController::class, 'agent_patient_tests']);
@@ -77,6 +74,8 @@ Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
 });
+
+Route::get('/agent/{id}', [ApiController::class, 'agent']);
 
 
 Route::post('/compounder/login', [AuthController::class, 'compounder_login']);
