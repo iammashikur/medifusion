@@ -239,13 +239,12 @@ class ApiController extends Controller
 
     public function test_category()
     {
-
-
         $category = TestCategory::all();
 
         return response()->json([
             'success' => true,
             'test_categories' => @$category,
+
         ], 200);
     }
 
@@ -398,10 +397,6 @@ class ApiController extends Controller
         $agentAppointment->patient_id = $patient->id;
         $agentAppointment->test_id   = $test->id;
         $agentAppointment->save();
-
-
-
-
 
 
         // $data = json_encode($request->all(), JSON_PRETTY_PRINT);
@@ -601,22 +596,13 @@ class ApiController extends Controller
         foreach ($notifications as $value) {
             $value->image = asset($value->image);
         }
-
         return response()->json([
             'success' => true,
             'notifications' => $notifications,
         ], 200);
     }
 
-    public function agent(Request $request)
-    {
-        $agent = Agent::find($request->id);
-        return response()->json([
-            'success' => true,
-            'agent' => $agent,
-        ], 200);
 
-    }
 
     public function balance(Request $request)
     {
