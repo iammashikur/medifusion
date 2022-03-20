@@ -20,6 +20,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('hospital_id');
             $table->timestamp('appointment_date')->nullable();
             $table->text('appointment_fee');
+            $table->text('serial')->nullable();
             $table->integer('status_id');
             $table->string('location')->nullable();
             $table->boolean('by_agent')->nullable();

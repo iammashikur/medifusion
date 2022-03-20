@@ -52,6 +52,12 @@ Address :  {{$appointment->getLocation->address}}
                           <input type="datetime-local" class="form-control" name="appointment_date" value="{{  date('Y-m-d\TH:i', strtotime($appointment->appointment_date)) }}" aria-describedby="helpId" placeholder="">
                         </div>
 
+                        <div class="form-group mb-2">
+                            <label for="">Serial No.</label>
+                            <input type="text" class="form-control" name="serial" id=""
+                             value="{{$appointment->serial}}">
+                          </div>
+
 
                         <div class="form-group">
                           <label for="">Status</label>

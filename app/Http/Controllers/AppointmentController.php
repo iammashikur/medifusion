@@ -74,6 +74,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::findOrFail($appointment->id);
         $appointment->appointment_date = $request->appointment_date;
         $appointment->status_id = $request->status_id;
+        $appointment->serial = $request->serial;
         $appointment->save();
 
         toast('Appointment Updated!', 'success')->width('300px')->padding('10px');

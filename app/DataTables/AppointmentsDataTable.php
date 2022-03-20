@@ -30,12 +30,23 @@ class AppointmentsDataTable extends DataTable
                 return $appointment->getDoctor->name;
             })
 
+            ->addColumn('serial', function (Appointment $appointment) {
+                if ($appointment->serial == null) {
+                    return 'pending';
+                }
+                return $appointment->serial;
+            })
+
             ->addColumn('location', function ($query) {
                 return $query->getLocation->name. '<br/>' . $query->getLocation->address;
             })
 
             ->addColumn('appointment_date', function (Appointment $appointment) {
-                return Carbon::parse($appointment->appointment_date)->format('l jS \of F Y h:i:s A');
+                return Carbon::parse($appointment->appointment_date)->format('l jS \of F Y');
+            })
+
+            ->addColumn('appointment_time', function (Appointment $appointment) {
+                return Carbon::parse($appointment->appointment_date)->format('h:i:s A');
             })
 
             ->addColumn('status', function (Appointment $appointment) {
@@ -101,7 +112,9 @@ class AppointmentsDataTable extends DataTable
             Column::make('doctor')->width('70'),
             Column::make('patient')->width('70'),
             Column::make('location')->width('100'),
-            Column::make('appointment_date')->width('70'),
+            Column::make('appointment_date')->width('70')->title('Date'),
+            Column::make('appointment_time')->width('70')->title('Time'),
+            Column::make('serial')->width('70')->title('Serial No.'),
             Column::make('status')->width('70'),
             Column::computed('action')
                 ->exportable(false)
