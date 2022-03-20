@@ -120,7 +120,7 @@ class AppointmentsDataTable extends DataTable
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
+                ->addClass('text-center')->width('70'),
 
 
         ];
