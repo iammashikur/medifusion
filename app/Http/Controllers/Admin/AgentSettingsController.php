@@ -13,6 +13,14 @@ class AgentSettingsController extends Controller
     public function store(Request $request){
 
         $setting = AgentSetting::first();
+
+        if(!$setting){
+            AgentSetting::insert([
+                'default_commission' => $request->default_commission
+            ]);
+        }
+
+
         $setting->default_commission =  $request->default_commission;
         $setting->save();
         return redirect()->back();

@@ -62,8 +62,8 @@ class CompounderController extends Controller
         $compounder->gender = $request->gender;
         $compounder->phone = $request->phone;
         $compounder->password = bcrypt($request->password);
-        $compounder->zilla = $request->zilla;
-        $compounder->upazilla = $request->upazilla;
+        $compounder->district = $request->district;
+        $compounder->thana = $request->thana;
         $compounder->save();
 
         foreach($request->doctors as $key => $doctor){
@@ -132,8 +132,8 @@ class CompounderController extends Controller
             $compounder->password = bcrypt($request->password);
         }
 
-        $compounder->zilla = $request->zilla;
-        $compounder->upazilla = $request->upazilla;
+        $compounder->district = $request->district;
+        $compounder->thana = $request->thana;
         $compounder->save();
 
 

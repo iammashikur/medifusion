@@ -81,8 +81,8 @@ class ApiController extends Controller
         $patient->name = $request->name;
         $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
-        $patient->zilla = $request->zilla;
-        $patient->upazilla = $request->upazilla;
+        $patient->district = $request->district;
+        $patient->thana = $request->thana;
         $patient->blood_group = $request->blood_group;
         $patient->phone = $request->phone;
         $patient->password = bcrypt('12345678');
@@ -343,8 +343,8 @@ class ApiController extends Controller
         $patient->name = $request->name;
         $patient->birth_date = $request->birth_date;
         $patient->gender = $request->gender;
-        $patient->zilla = $request->zilla;
-        $patient->upazilla = $request->upazilla;
+        $patient->district = $request->district;
+        $patient->thana = $request->thana;
         $patient->phone = $request->phone;
         $patient->password = bcrypt('12345678');
         $patient->save();
@@ -516,12 +516,12 @@ class ApiController extends Controller
             $user->name = $request->name;
         }
 
-        if ($request->has('zilla')) {
-            $user->zilla = $request->zilla;
+        if ($request->has('district')) {
+            $user->district = $request->district;
         }
 
-        if ($request->has('upazilla')) {
-            $user->upazilla = $request->upazilla;
+        if ($request->has('thana')) {
+            $user->thana = $request->thana;
         }
 
         if ($request->has('password')) {

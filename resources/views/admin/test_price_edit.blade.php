@@ -56,23 +56,24 @@
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Test</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">District</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="test_id" id="" disabled>
-                                    <option> -- select -- </option>
-
-                                    @foreach (App\Models\TestSubcategory::all() as $item)
-
-                                        <option
-
-                                        @if ($item->id == $testPrice->test_id)
-                                        selected
-                                    @endif
-
-                                        value="{{ $item->id }}">{{ $item->getParent->name }} &rarr;
-                                            {{ $item->name }} </option>
-
+                                <select class="form-control" name="category" disabled>
+                                    <option value="">---Category---</option>
+                                    @foreach (App\Models\TestCategory::all() as $item)
+                                        <option @if ($item->id == App\Models\TestSubCategory::find($testPrice->id)->getParent->id) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thana</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="test" disabled>
+                                    <option selected value="{{ $testPrice->thana_id }}">
+                                        {{ App\Models\TestSubCategory::find($testPrice->id)->name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -115,6 +116,58 @@
     <!-- Page Specific JS File -->
     <script src="{{ url('assets/admin/js/page/create-post.js') }}"></script>
     <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
+
+    <script>
+
+
+        $(document).ready(function() {
+            var categoryID = $('select[name="category"] option:selected').val();
+            $.ajax({
+                url: '{{ url('test-by-category') }}/' + categoryID,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $('select[name="test"]').empty();
+                    $.each(data, function(key, value) {
+                        var selected = value.id == {{$testPrice->id}} ? 'selected' : '';
+                        $('select[name="test"]').append('<option '+ selected +' value="' + value.id +
+                            '">' +
+                            value.name + '</option>');
+                    });
+                }
+            });
+
+        });
+
+
+
+        $('select[name="category"]').on('change', function() {
+            var categoryID = $(this).val();
+            if (categoryID) {
+                $.ajax({
+                    url: '{{ url('test-by-category') }}/' + categoryID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+
+                        console.log(data);
+
+                        $('select[name="test"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="test"]').append('<option value="' + value.id +
+                                '">' +
+                                value.name + '</option>');
+                        });
+
+
+                    }
+                });
+            } else {
+                $('select[name="test"]').empty();
+            }
+        });
+    </script>
 
 
 

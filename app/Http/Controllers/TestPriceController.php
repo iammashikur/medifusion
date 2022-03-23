@@ -44,7 +44,7 @@ class TestPriceController extends Controller
 
         $price = new TestPrice();
         $price->hospital_id = $request->hospital;
-        $price->test_id = $request->test_id;
+        $price->test_id = $request->test;
         $price->price = $request->price;
         //$price->discount_price = $request->discount_price;
         $price->save();
@@ -89,7 +89,6 @@ class TestPriceController extends Controller
         $testPrice->price = $request->price;
         //$testPrice->discount_price = $request->discount_price;
         $testPrice->save();
-
         toast('Test Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('test-price.index');
     }

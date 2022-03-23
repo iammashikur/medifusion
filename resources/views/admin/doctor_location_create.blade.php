@@ -1,6 +1,6 @@
 @php
-    $page_type = 'Admin';
-        $page_title = 'Add Location';
+$page_type = 'Admin';
+$page_title = 'Add Location';
 @endphp
 @extends('admin.layouts.master')
 
@@ -53,6 +53,27 @@
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location Name</label>
                             <div class="col-sm-12 col-md-7">
                                 <textarea type="text" name="name" class="form-control" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">District</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="district" id="">
+                                    <option value="">---District---</option>
+                                    @foreach (App\Models\District::all() as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thana</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="thana" id="">
+                                    <option value="">---Thana---</option>
+                                </select>
                             </div>
                         </div>
 
@@ -110,4 +131,31 @@
     <!-- Page Specific JS File -->
     <script src="{{ url('assets/admin/js/page/create-post.js') }}"></script>
     <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
+
+    <script>
+        $('select[name="district"]').on('change', function() {
+            var districtID = $(this).val();
+            if (districtID) {
+                $.ajax({
+                    url: '{{ url('thana-by-district') }}/' + districtID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+
+                        console.log(data);
+
+                        $('select[name="thana"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="thana"]').append('<option value="' + value.id + '">' +
+                                value.name + '</option>');
+                        });
+
+
+                    }
+                });
+            } else {
+                $('select[name="thana"]').empty();
+            }
+        });
+    </script>
 @endpush

@@ -1,6 +1,6 @@
 @php
-    $page_type = 'Admin';
-        $page_title = 'Edit Location';
+$page_type = 'Admin';
+$page_title = 'Edit Location';
 @endphp
 @extends('admin.layouts.master')
 
@@ -33,7 +33,8 @@
 
                 <div class="card-body">
 
-                    <form action="{{ route('doctor-location.update', $location->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('doctor-location.update', $location->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -43,9 +44,8 @@
                                 <select class="form-control" name="doctor_id" id="">
                                     <option> -- select -- </option>
                                     @foreach (App\Models\Doctor::all() as $item)
-                                        <option @if ($location->doctor_id == $item->id)
-                                            selected
-                                        @endif value="{{ $item->id }}">{{ $item->name }} </option>
+                                        <option @if ($location->doctor_id == $item->id) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -57,6 +57,30 @@
                                 <textarea type="text" name="name" class="form-control" required>{{ $location->name }}</textarea>
                             </div>
                         </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">District</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="district" id="">
+                                    <option value="">---District---</option>
+                                    @foreach (App\Models\District::all() as $item)
+                                        <option @if ($item->id == $location->district_id) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thana</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="thana" id="">
+                                    <option selected value="{{ $location->thana_id }}">
+                                        {{ App\Models\PoliceStation::find($location->thana_id)->name }}</option>
+                                </select>
+                            </div>
+                        </div>
+
 
 
                         <div class="form-group row mb-4">
@@ -72,21 +96,24 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Start Time</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="time" name="start_time" class="form-control" value="{{ $location->start_time }}" required>
+                                <input type="time" name="start_time" class="form-control"
+                                    value="{{ $location->start_time }}" required>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">End Time</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="time" name="end_time" class="form-control" value="{{ $location->end_time }}" required>
+                                <input type="time" name="end_time" class="form-control"
+                                    value="{{ $location->end_time }}" required>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Consultation Fee</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="number" name="consultation_fee" class="form-control" value="{{ $location->consultation_fee }}" required>
+                                <input type="number" name="consultation_fee" class="form-control"
+                                    value="{{ $location->consultation_fee }}" required>
                             </div>
                         </div>
 
@@ -114,4 +141,56 @@
     <!-- Page Specific JS File -->
     <script src="{{ url('assets/admin/js/page/create-post.js') }}"></script>
     <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
+
+    <script>
+
+
+        $(document).ready(function() {
+            var districtID = $('select[name="district"] option:selected').val();
+            $.ajax({
+                url: '{{ url('thana-by-district') }}/' + districtID,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $('select[name="thana"]').empty();
+                    $.each(data, function(key, value) {
+                        var selected = value.id == {{$location->thana_id}} ? 'selected' : '';
+                        $('select[name="thana"]').append('<option '+ selected +' value="' + value.id +
+                            '">' +
+                            value.name + '</option>');
+                    });
+                }
+            });
+
+        });
+
+
+
+        $('select[name="district"]').on('change', function() {
+            var districtID = $(this).val();
+            if (districtID) {
+                $.ajax({
+                    url: '{{ url('thana-by-district') }}/' + districtID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+
+                        console.log(data);
+
+                        $('select[name="thana"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="thana"]').append('<option value="' + value.id +
+                                '">' +
+                                value.name + '</option>');
+                        });
+
+
+                    }
+                });
+            } else {
+                $('select[name="thana"]').empty();
+            }
+        });
+    </script>
 @endpush

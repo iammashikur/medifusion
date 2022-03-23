@@ -81,25 +81,32 @@ $page_title = 'Edit Agent';
 
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Billing Address</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">District</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="billing_address" value="{{ $agent->billing_address }}"
-                                    class="form-control" required>
+                                <select class="form-control" name="district" id="">
+                                    <option value="">---District---</option>
+                                    @foreach (App\Models\District::all() as $item)
+                                        <option @if ($item->id == $agent->district) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Zilla</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thana</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="zilla" value="{{ $agent->zilla }}" class="form-control"
-                                    required>
+                                <select class="form-control" name="thana" id="">
+                                    <option selected value="{{ $agent->thana }}">
+                                        {{ App\Models\PoliceStation::find($agent->thana)->name }}</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Upazilla</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thana</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="upazilla" value="{{ $agent->upazilla }}" class="form-control"
+                                <input type="text" name="thana" value="{{ $agent->thana }}" class="form-control"
                                     required>
                             </div>
                         </div>
@@ -179,7 +186,59 @@ $page_title = 'Edit Agent';
     <script>
         // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function() {
-            $('.location').select2();
+            $('.agent').select2();
         });
     </script>
+
+<script>
+
+
+    $(document).ready(function() {
+        var districtID = $('select[name="district"] option:selected').val();
+        $.ajax({
+            url: '{{ url('thana-by-district') }}/' + districtID,
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                $('select[name="thana"]').empty();
+                $.each(data, function(key, value) {
+                    var selected = value.id == {{$agent->thana}} ? 'selected' : '';
+                    $('select[name="thana"]').append('<option '+ selected +' value="' + value.id +
+                        '">' +
+                        value.name + '</option>');
+                });
+            }
+        });
+
+    });
+
+
+
+    $('select[name="district"]').on('change', function() {
+        var districtID = $(this).val();
+        if (districtID) {
+            $.ajax({
+                url: '{{ url('thana-by-district') }}/' + districtID,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+
+                    console.log(data);
+
+                    $('select[name="thana"]').empty();
+                    $.each(data, function(key, value) {
+                        $('select[name="thana"]').append('<option value="' + value.id +
+                            '">' +
+                            value.name + '</option>');
+                    });
+
+
+                }
+            });
+        } else {
+            $('select[name="thana"]').empty();
+        }
+    });
+</script>
 @endpush

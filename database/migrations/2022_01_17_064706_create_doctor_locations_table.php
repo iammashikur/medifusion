@@ -17,6 +17,8 @@ class CreateDoctorLocationsTable extends Migration
             $table->id();
             $table->integer('doctor_id');
             $table->string('name');
+            $table->text('district_id');
+            $table->text('thana_id');
             $table->text('address');
             $table->time('start_time');
             $table->time('end_time');

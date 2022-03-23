@@ -1,11 +1,10 @@
 @php
-    $page_type = 'Admin';
-        $page_title = 'Add Test Price';
+$page_type = 'Admin';
+$page_title = 'Add Test Price';
 @endphp
 @extends('admin.layouts.master')
 
 @push('styles')
-
     <link rel="stylesheet" href="{{ url('assets/admin/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
     <link rel="stylesheet" href="{{ url('assets/admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ url('assets/admin/css/components.css') }}">
@@ -18,7 +17,6 @@
 @endpush
 
 @section('content')
-
     <div class="main-content">
         <div class="section">
             @include('admin.partials.error')
@@ -45,9 +43,19 @@
                                     <option> -- select -- </option>
 
                                     @foreach (App\Models\Hospital::all() as $item)
-
                                         <option value="{{ $item->id }}">{{ $item->name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="category">
+                                    <option> -- select -- </option>
+                                    @foreach (App\Models\TestCategory::all() as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -56,14 +64,8 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Test</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="test_id" id="">
+                                <select class="form-control" name="test">
                                     <option> -- select -- </option>
-
-                                    @foreach (App\Models\TestSubcategory::all() as $item)
-
-                                        <option value="{{ $item->id }}">{{ $item->getParent->name }}   &rarr;    {{ $item->name }} </option>
-
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -103,7 +105,6 @@
 @endsection
 
 @push('scripts')
-
     <script src="{{ url('assets/admin/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
     <script src="{{ url('assets/admin/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ url('assets/admin/bundles/ckeditor/ckeditor.js') }}"></script>
@@ -111,6 +112,31 @@
     <script src="{{ url('assets/admin/js/page/create-post.js') }}"></script>
     <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
 
+    <script>
+        $('select[name="category"]').on('change', function() {
+            var categoryID = $(this).val();
+            if (categoryID) {
+                $.ajax({
+                    url: '{{ url('test-by-category') }}/' + categoryID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+
+                        console.log(data);
+
+                        $('select[name="test"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="test"]').append('<option value="' + value.id +
+                                '">' +
+                                value.name + '</option>');
+                        });
 
 
+                    }
+                });
+            } else {
+                $('select[name="test"]').empty();
+            }
+        });
+    </script>
 @endpush

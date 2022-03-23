@@ -29,12 +29,22 @@ class AgentDataTable extends DataTable
 
             })
 
+            ->addColumn('status', function($agent){
+                $status =  $agent->status;
+                if ($status == 1) {
+                    return '<a> Active </a>';
+                }
+                else{
+                    return '<a> Inactive </a>';
+                }
+            })
+
             ->addColumn('action', function($action){
                 return '<a class="btn-sm btn-primary" href="'.route('agent.edit', $action->id).'"><i class="far fa-edit"></i></a>
                         <a class="btn-sm btn-danger delete" href="'.route('agent.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
             })
 
-           ->rawColumns(['image', 'action']);
+           ->rawColumns(['image', 'action', 'status']);
     }
 
     /**
@@ -82,7 +92,7 @@ class AgentDataTable extends DataTable
             Column::make('image'),
             Column::make('name'),
             Column::make('phone'),
-
+            Column::make('status'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

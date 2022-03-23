@@ -43,6 +43,10 @@ class HospitalController extends Controller
 
         $hospital = new Hospital();
         $hospital->name = $request->name;
+
+        $hospital->district_id = $request->district;
+        $hospital->thana_id = $request->thana;
+
         $hospital->address = $request->address;
         $hospital->phone = $request->phone;
         $hospital->save();
@@ -97,6 +101,10 @@ class HospitalController extends Controller
     {
         $hospital = Hospital::findOrFail($id);
         $hospital->name = $request->name;
+
+        $hospital->district_id = $request->district;
+        $hospital->thana_id = $request->thana;
+
         $hospital->address = $request->address;
         $hospital->phone = $request->phone;
         $hospital->save();

@@ -55,8 +55,8 @@ class AgentController extends Controller
         $agent->phone = $request->phone;
         $agent->password = bcrypt($request->password);
         $agent->billing_address = $request->billing_address;
-        $agent->zilla = $request->zilla;
-        $agent->upazilla = $request->upazilla;
+        $agent->district = $request->district;
+        $agent->thana = $request->thana;
         $agent->bkash = $request->bkash;
         $agent->nagad = $request->nagad;
         $agent->bank_details = $request->bank_details;
@@ -112,12 +112,13 @@ class AgentController extends Controller
         $agent->gender = $request->gender;
         $agent->phone = $request->phone;
 
-        if ($request->has('password')) {
+        if ($request->password) {
             $agent->password = bcrypt($request->password);
         }
+
         $agent->billing_address = $request->billing_address;
-        $agent->zilla = $request->zilla;
-        $agent->upazilla = $request->upazilla;
+        $agent->district = $request->district;
+        $agent->thana = $request->thana;
         $agent->bkash = $request->bkash;
         $agent->nagad = $request->nagad;
         $agent->bank_details = $request->bank_details;

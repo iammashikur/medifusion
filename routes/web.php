@@ -26,6 +26,11 @@ use App\Http\Controllers\TestCategoryController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestPriceController;
 use App\Http\Controllers\TestSubCategoryController;
+use App\Models\District;
+use App\Models\PoliceStation;
+use App\Models\TestSubcategory;
+use Facade\FlareClient\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +45,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('thana-by-district/{id}', function(Request $request){
+    return District::find($request->id)->policeStations;
+});
+Route::get('test-by-category/{id}', function(Request $request){
+    return TestSubcategory::where(['category_id' => $request->id])->get();
+});
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -70,9 +80,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('client-pay', ClientPayController::class);
     Route::resource('doctor-receive', DoctorReceiveController::class);
     Route::resource('hospital-receive', HospitalReceiveController::class);
-
-
     Route::resource('push-notification', PushNotificationController::class);
+
+
 
 });
 

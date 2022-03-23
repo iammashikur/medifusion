@@ -89,4 +89,6 @@
 <!-- Page Specific JS File -->
 <script src="{{ url('assets/admin/js/page/create-post.js') }}"></script>
 <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
+
+
 @endpush

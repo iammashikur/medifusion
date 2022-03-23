@@ -111,10 +111,11 @@
                   <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Discount (<span id="discount">0</span>%)</label>
                     <div class="col-sm-12 col-md-7">
-                      <input type="range" name="discount" class="form-control" min="0" max="100" value="0" onInput="$('#discount').html($(this).val())" required>
+                      <input type="range" name="discount" class="form-control" min="0"
+                      max="{{ @App\Models\AgentSetting::first()->default_commission ? 95 - @App\Models\AgentSetting::first()->default_commission : 100  }}"
+                      value="0" onInput="$('#discount').html($(this).val())" required>
                     </div>
                   </div>
-
 
                   <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>

@@ -44,6 +44,9 @@ class DoctorLocationController extends Controller
             $location->name = $request->name;
             $location->address = $request->address;
 
+            $location->district_id = $request->district;
+            $location->thana_id = $request->thana;
+
             $location->start_time = $request->start_time;
             $location->end_time = $request->end_time;
             $location->consultation_fee = $request->consultation_fee;
@@ -56,6 +59,10 @@ class DoctorLocationController extends Controller
         $location = new DoctorLocation();
         $location->doctor_id = $request->doctor_id;
         $location->name = $request->name;
+
+        $location->district_id = $request->district;
+        $location->thana_id = $request->thana;
+
         $location->address = $request->address;
 
         $location->start_time = $request->start_time;
@@ -104,6 +111,10 @@ class DoctorLocationController extends Controller
         $location = DoctorLocation::findOrFail($id);
         $location->doctor_id = $request->doctor_id;
         $location->name = $request->name;
+
+        $location->district_id = $request->district;
+        $location->thana_id = $request->thana;
+
         $location->address = $request->address;
 
         $location->start_time = $request->start_time;

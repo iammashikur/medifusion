@@ -66,8 +66,8 @@ class PatientsDataTable extends DataTable
             Column::make('name'),
             Column::make('birth_date'),
             Column::make('phone'),
-            Column::make('zilla'),
-            Column::make('upazilla'),
+            Column::make('district'),
+            Column::make('thana'),
             Column::make('blood_group'),
             Column::make('created_at')->title('Registration Date'),
 

@@ -1,6 +1,6 @@
 @php
-    $page_type = 'Admin';
-        $page_title = 'Edit Compounder';
+$page_type = 'Admin';
+$page_title = 'Edit Compounder';
 @endphp
 @extends('admin.layouts.master')
 
@@ -33,7 +33,8 @@
 
                 <div class="card-body">
 
-                    <form action="{{ route('compounder.update', $compounder->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('compounder.update', $compounder->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -51,7 +52,8 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Name</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="name" value="{{ $compounder->name }}" class="form-control" required>
+                                <input type="text" name="name" value="{{ $compounder->name }}" class="form-control"
+                                    required>
                             </div>
                         </div>
 
@@ -73,33 +75,42 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Mobile</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="phone" value="{{ $compounder->phone }}" class="form-control" required>
-                            </div>
-                        </div>
-
-
-
-
-                        <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Zilla</label>
-                            <div class="col-sm-12 col-md-7">
-                                <input type="text" name="zilla" value="{{ $compounder->zilla }}" class="form-control" required>
+                                <input type="text" name="phone" value="{{ $compounder->phone }}" class="form-control"
+                                    required>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Upazilla</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">District</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="upazilla" value="{{ $compounder->upazilla }}" class="form-control" required>
+                                <select class="form-control" name="district" id="">
+                                    <option value="">---District---</option>
+                                    @foreach (App\Models\District::all() as $item)
+                                        <option @if ($item->id == $compounder->district) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thana</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="thana" id="">
+                                    <option selected value="{{ $compounder->thana }}">
+                                        {{ App\Models\PoliceStation::find($compounder->thana)->name }}</option>
+                                </select>
+                            </div>
+                        </div>
+
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Doctors</label>
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control" name="doctors[]" multiple="multiple" required>
                                     @foreach (App\Models\Doctor::all() as $item)
-                                        <option @if(App\Models\CompounderDoctor::where(['compounder_id' => $compounder->id, 'doctor_id' => $item->id,])->count()) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option @if (App\Models\CompounderDoctor::where(['compounder_id' => $compounder->id, 'doctor_id' => $item->id])->count()) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -111,7 +122,8 @@
                                 <select class="form-control" name="hospitals[]" multiple="multiple" required>
 
                                     @foreach (App\Models\Hospital::all() as $item)
-                                        <option @if(App\Models\CompounderHospital::where(['compounder_id' => $compounder->id, 'hospital_id' => $item->id,])->count()) selected @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option @if (App\Models\CompounderHospital::where(['compounder_id' => $compounder->id, 'hospital_id' => $item->id])->count()) selected @endif
+                                            value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
 
                                 </select>
@@ -154,5 +166,58 @@
         $(document).ready(function() {
             $('.location').select2();
         });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function() {
+            var districtID = $('select[name="district"] option:selected').val();
+            $.ajax({
+                url: '{{ url('thana-by-district') }}/' + districtID,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    $('select[name="thana"]').empty();
+                    $.each(data, function(key, value) {
+                        var selected = value.id == {{ $compounder->thana }} ? 'selected' : '';
+                        $('select[name="thana"]').append('<option ' + selected + ' value="' +
+                            value.id +
+                            '">' +
+                            value.name + '</option>');
+                    });
+                }
+            });
+
+        });
+
+
+
+        $('select[name="district"]').on('change', function() {
+            var districtID = $(this).val();
+            if (districtID) {
+                $.ajax({
+                    url: '{{ url('thana-by-district') }}/' + districtID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+
+                        console.log(data);
+
+                        $('select[name="thana"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="thana"]').append('<option value="' + value.id +
+                                '">' +
+                                value.name + '</option>');
+                        });
+
+                    }
+                });
+            } else {
+                $('select[name="thana"]').empty();
+            }
+        });
+
     </script>
 @endpush
