@@ -162,7 +162,7 @@ $page_title = 'Add Location';
         $('select[name="thana"]').on('change', function() {
             let district = $('select[name="district"]').html();
             let thana = $('select[name="thana"]').html();
-            $('select[name="name"]').val(thana + ', ' + district);
+            $('input[name="name"]').val(thana + ', ' + district);
         });
     </script>
 @endpush
