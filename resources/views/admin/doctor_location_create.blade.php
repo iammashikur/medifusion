@@ -50,13 +50,6 @@ $page_title = 'Add Location';
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location Name</label>
-                            <div class="col-sm-12 col-md-7">
-                                <input type="text" name="name" class="form-control" readonly />
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">District</label>
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control" name="district" id="">
@@ -159,10 +152,6 @@ $page_title = 'Add Location';
             }
         });
 
-        $('select[name="thana"]').on('change', function() {
-            let district = $('select[name="district"]').html();
-            let thana = $('select[name="thana"]').html();
-            $('input[name="name"]').val(thana + ', ' + district);
-        });
+
     </script>
 @endpush

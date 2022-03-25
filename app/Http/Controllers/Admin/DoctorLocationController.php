@@ -41,7 +41,7 @@ class DoctorLocationController extends Controller
 
             $location = DoctorLocation::where(['doctor_id' => $request->doctor_id, 'name' => $request->name])->first();
             $location->doctor_id = $request->doctor_id;
-            $location->name = $request->name;
+
             $location->address = $request->address;
 
             $location->district_id = $request->district;
@@ -58,7 +58,7 @@ class DoctorLocationController extends Controller
 
         $location = new DoctorLocation();
         $location->doctor_id = $request->doctor_id;
-        $location->name = $request->name;
+
 
         $location->district_id = $request->district;
         $location->thana_id = $request->thana;
@@ -110,7 +110,6 @@ class DoctorLocationController extends Controller
 
         $location = DoctorLocation::findOrFail($id);
         $location->doctor_id = $request->doctor_id;
-        $location->name = $request->name;
 
         $location->district_id = $request->district;
         $location->thana_id = $request->thana;
