@@ -52,7 +52,7 @@ $page_title = 'Add Location';
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location Name</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="text" name="name" class="form-control" readonly/>
+                                <input type="text" name="name" class="form-control" readonly />
                             </div>
                         </div>
 
@@ -146,7 +146,8 @@ $page_title = 'Add Location';
 
                         $('select[name="thana"]').empty();
                         $.each(data, function(key, value) {
-                            $('select[name="thana"]').append('<option value="' + value.id + '">' +
+                            $('select[name="thana"]').append('<option value="' + value.id +
+                                '">' +
                                 value.name + '</option>');
                         });
 
@@ -160,9 +161,8 @@ $page_title = 'Add Location';
 
         $('select[name="thana"]').on('change', function() {
             let district = $('select[name="district"]').html();
-           let thana = $('select[name="thana"]').html();
-
-           alert(thana+ ', ' +district);
+            let thana = $('select[name="thana"]').html();
+            $('select[name="name"]').val(thana + ', ' + district);
         });
     </script>
 @endpush
