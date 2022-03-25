@@ -382,11 +382,8 @@ class ApiController extends Controller
             $item->patient_test_id = $test->id;
             $item->hospital_id = $data->hospitalID;
             $item->hospital_name = $data->hospitalName;
-            $item->price = $data->cat_id;
             $item->save();
-
             $get_category = TestCommDisc::where(['hospital_id' => $data->hospitalID, 'test_category_id' => $data->cat_id])->first();
-
             $itemUp = PatientTestItem::find($item->id);
             $itemUp->price = testPay($get_category, TestPrice::where(['hospital_id' => $data->hospitalID, 'test_id' => $itemUp->test_id])->first()->price, $test->id, $request->user()->id);
             $itemUp->save();
@@ -441,7 +438,6 @@ class ApiController extends Controller
             $item->patient_test_id = $test->id;
             $item->hospital_id = $data->hospitalID;
             $item->hospital_name = $data->hospitalName;
-            $item->price = $data->cat_id;
             $item->save();
 
 

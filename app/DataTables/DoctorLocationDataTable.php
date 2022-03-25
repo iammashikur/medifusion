@@ -34,14 +34,14 @@ class DoctorLocationDataTable extends DataTable
                 return Carbon::parse($query->end_time)->format('h:i:s A');
               })
 
-              ->addColumn('hospital', function($query){
+              ->addColumn('address', function($query){
                 return @$query->getHospital->name;
               })
               ->addColumn('action', function($query){
                 return '<a class="btn-sm btn-primary" href="'.route('doctor-location.edit', $query->id).'"><i class="far fa-edit"></i></a>
                         <a class="btn-sm btn-danger delete" href="'.route('doctor-location.destroy', $query->id).'"><i class="far fa-trash-alt"></i></a>';
             })
-            ->rawColumns(['doctor', 'hospital', 'action', 'start_time', 'end_time']);
+            ->rawColumns(['doctor', 'address', 'action', 'start_time', 'end_time']);
     }
 
     /**
@@ -88,7 +88,7 @@ class DoctorLocationDataTable extends DataTable
 
             Column::make('id'),
             Column::make('doctor'),
-            Column::make('hospital'),
+            Column::make('address'),
             Column::make('start_time'),
             Column::make('end_time'),
             Column::make('consultation_fee'),
