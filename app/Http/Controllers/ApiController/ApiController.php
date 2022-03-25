@@ -346,6 +346,7 @@ class ApiController extends Controller
         $patient->district = $request->district;
         $patient->thana = $request->thana;
         $patient->phone = $request->phone;
+        $patient->blood_group = $request->blood_group;
         $patient->referred_by_id = $request->user()->id;
         $patient->password = bcrypt('12345678');
         $patient->save();
