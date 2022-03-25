@@ -26,7 +26,7 @@ class ClientPayDataTable extends DataTable
             ->eloquent($query)
 
             ->addColumn('balance', function ($action) {
-                return currentBalance('patient' , $action->id). ' ৳';
+                return '৳ '.currentBalance('patient' , $action->id);
             })
 
             ->addColumn('action', function ($action) {

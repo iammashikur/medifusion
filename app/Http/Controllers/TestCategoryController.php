@@ -15,7 +15,7 @@ class TestCategoryController   extends Controller
      */
     public function index(TestCategoriesDataTable $dataTables)
     {
-        return $dataTables->render('admin.test_all');
+        return $dataTables->render('admin.test_category_all');
     }
 
     /**

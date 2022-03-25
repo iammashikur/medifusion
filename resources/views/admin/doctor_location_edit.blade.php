@@ -54,7 +54,7 @@ $page_title = 'Edit Location';
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location Name</label>
                             <div class="col-sm-12 col-md-7">
-                                <textarea type="text" name="name" class="form-control" required>{{ $location->name }}</textarea>
+                                <input type="text" name="name" class="form-control" value="{{ $location->name }}"/>
                             </div>
                         </div>
 

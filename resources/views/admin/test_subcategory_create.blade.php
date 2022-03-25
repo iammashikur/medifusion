@@ -1,6 +1,6 @@
 @php
     $page_type = 'Admin';
-        $page_title = 'Add Test Subcategory';
+        $page_title = 'Add Test Name';
 @endphp
 @extends('admin.layouts.master')
 
@@ -25,7 +25,7 @@
 
         <div class="card card-primary">
             <div class="card-header" style="border-bottom-color: #d0d0d0">
-                <h4>Add Test Subcategory</h4>
+                <h4>Add Test Name</h4>
                 <div class="card-header-action">
                     <a href="{{ route('test-subcategory.index') }}" class="btn btn-warning">Go Back</a>
                 </div>
@@ -71,7 +71,7 @@
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                   <div class="col-sm-12 col-md-7">
-                    <button class="btn btn-primary">Add Test Subcategory</button>
+                    <button class="btn btn-primary">Add Test Name</button>
                   </div>
                 </div>
              </form>

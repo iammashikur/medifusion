@@ -1,6 +1,6 @@
 @php
 $page_type = 'Admin';
-$page_title = 'Add Test Price';
+$page_title = 'Add Hospital Test';
 @endphp
 @extends('admin.layouts.master')
 
@@ -24,7 +24,7 @@ $page_title = 'Add Test Price';
 
             <div class="card card-primary">
                 <div class="card-header" style="border-bottom-color: #d0d0d0">
-                    <h4>Add Test Price</h4>
+                    <h4>Add Hospital Test</h4>
                     <div class="card-header-action">
                         <a href="{{ route('test-price.index') }}" class="btn btn-warning">Go Back</a>
                     </div>
@@ -94,7 +94,7 @@ $page_title = 'Add Test Price';
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                             <div class="col-sm-12 col-md-7">
-                                <button class="btn btn-primary">Add Test Price</button>
+                                <button class="btn btn-primary">Add Hospital Test</button>
                             </div>
                         </div>
                     </form>

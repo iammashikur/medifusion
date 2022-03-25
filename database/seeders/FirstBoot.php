@@ -54,7 +54,7 @@ class FirstBoot extends Seeder
             [
                 ['id' => 1, 'status' => 'pending'],
                 ['id' => 2, 'status' => 'confirmed'],
-                ['id' => 3, 'status' => 'denided'],
+                ['id' => 3, 'status' => 'denied'],
                 ['id' => 4, 'status' => 'cancelled'],
                 ['id' => 5, 'status' => 'completed']
             ]
@@ -65,6 +65,7 @@ class FirstBoot extends Seeder
             [
                 ['id' => 1, 'status' => 'pending'],
                 ['id' => 2, 'status' => 'completed'],
+                ['id' => 3, 'status' => 'cancelled'],
             ]
         );
 

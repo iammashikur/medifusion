@@ -49,7 +49,6 @@ class ApiController extends Controller
     {
 
 
-
         if (!$request->filled('doctor_id')) {
             return response()->json([
                 'success' => false,
@@ -84,6 +83,7 @@ class ApiController extends Controller
         $patient->district = $request->district;
         $patient->thana = $request->thana;
         $patient->blood_group = $request->blood_group;
+        $patient->referred_by_id = $request->user()->id;
         $patient->phone = $request->phone;
         $patient->password = bcrypt('12345678');
         $patient->save();
@@ -346,6 +346,7 @@ class ApiController extends Controller
         $patient->district = $request->district;
         $patient->thana = $request->thana;
         $patient->phone = $request->phone;
+        $patient->referred_by_id = $request->user()->id;
         $patient->password = bcrypt('12345678');
         $patient->save();
 
@@ -440,7 +441,7 @@ class ApiController extends Controller
             $item->patient_test_id = $test->id;
             $item->hospital_id = $data->hospitalID;
             $item->hospital_name = $data->hospitalName;
-            $item->price = 0;
+            $item->price = $data->cat_id;
             $item->save();
 
 

@@ -42,10 +42,10 @@
                                                 {{$item->hospital_name}}
                                             </td>
                                             <td>
-                                                {{ json_decode($item->price)->main_price }} ৳
+                                                ৳ {{ json_decode($item->price)->main_price }}
                                             </td>
                                             <td>
-                                                {{ json_decode($item->price)->patient_paid }} ৳
+                                                ৳ {{ json_decode($item->price)->patient_paid }}
                                             </td>
 
                                         </tr>

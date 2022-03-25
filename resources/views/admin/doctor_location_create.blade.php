@@ -52,7 +52,7 @@ $page_title = 'Add Location';
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Location Name</label>
                             <div class="col-sm-12 col-md-7">
-                                <textarea type="text" name="name" class="form-control" required></textarea>
+                                <input type="text" name="name" class="form-control" readonly/>
                             </div>
                         </div>
 
@@ -156,6 +156,13 @@ $page_title = 'Add Location';
             } else {
                 $('select[name="thana"]').empty();
             }
+        });
+
+        $('select[name="thana"]').on('change', function() {
+            let district = $('select[name="district"]').val();
+           let thana = $('select[name="thana"]').val();
+
+           alert(thana+ ', ' +district);
         });
     </script>
 @endpush

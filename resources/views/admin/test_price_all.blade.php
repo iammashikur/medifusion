@@ -1,6 +1,6 @@
 @php
     $page_type = 'Admin';
-        $page_title = 'Test Prices';
+        $page_title = 'Hospital Tests';
 @endphp
 @extends('admin.layouts.master')
 
@@ -10,7 +10,7 @@
     <div class="section">
         <div class="card card-primary">
             <div class="card-header" style="border-bottom-color: #d0d0d0">
-                <h4>Test Prices</h4>
+                <h4>Hospital Tests</h4>
 
             </div>
             <div class="card-body" style="overflow-x: auto">

@@ -75,9 +75,9 @@
                 <ul class="dropdown-menu">
 
                     <li><a class="nav-link {{ MenuActive('test', 1) }}"
-                            href="{{ route('test-category.index') }}">Category</a></li>
-                    <li><a class="nav-link" href="{{ route('test-subcategory.index') }}">Test</a></li>
-                    <li><a class="nav-link" href="{{ route('test-price.index') }}">Price</a></li>
+                            href="{{ route('test-category.index') }}">Add Test Category</a></li>
+                    <li><a class="nav-link" href="{{ route('test-subcategory.index') }}">Add Test Name</a></li>
+                    <li><a class="nav-link" href="{{ route('test-price.index') }}">Add Hospital Test</a></li>
 
                 </ul>
             </li>
@@ -146,7 +146,7 @@
                         data-feather="dollar-sign"></i><span>Payments</span></a>
                 <ul class="dropdown-menu">
                     <li><a class="nav-link" href="{{ route('agent-pay.index') }}">Agent Pay</a></li>
-                    <li><a class="nav-link" href="{{ route('client-pay.index') }}">Client Pay</a></li>
+                    <li><a class="nav-link" href="{{ route('client-pay.index') }}">Patient Pay</a></li>
                     <li><a class="nav-link" href="{{ route('doctor-receive.index') }}">Doctor Receive</a></li>
                     <li><a class="nav-link" href="{{ route('hospital-receive.index') }}">Hospital Receive</a></li>
                 </ul>
