@@ -159,8 +159,8 @@ $page_title = 'Add Location';
         });
 
         $('select[name="thana"]').on('change', function() {
-            let district = $('select[name="district"]').val();
-           let thana = $('select[name="thana"]').val();
+            let district = $('select[name="district"]').html();
+           let thana = $('select[name="thana"]').html();
 
            alert(thana+ ', ' +district);
         });
