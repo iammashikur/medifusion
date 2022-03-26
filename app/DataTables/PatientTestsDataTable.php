@@ -23,7 +23,7 @@ class PatientTestsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('created_at', function ($query) {
-                return Carbon::parse($query->appointment_date)->format('l jS \of F Y h:i:s A');
+                return Carbon::parse($query->created_at)->format('l jS \of F Y h:i:s A');
             })
             ->addColumn('patient', function ($query) {
                 return $query->getPatient->name;

@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Patient;
+use Carbon\Carbon;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -21,7 +22,13 @@ class PatientsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+
+            ->addColumn('birth_date', function ($created_at) {
+                return Carbon::parse($created_at->birth_date)->format('Y-m-d');
+            })
+
             ->addColumn('action', 'patients.action');
+
     }
 
     /**
