@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DoctorReceiveController;
 use App\Http\Controllers\Admin\HospitalReceiveController;
 use App\Http\Controllers\Admin\PushNotificationController;
 use App\Http\Controllers\Admin\TestCommDiscController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminRoleController;
 use App\Http\Controllers\AgentAppointmentController;
@@ -76,6 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('compounder', CompounderController::class);
 
 
+    Route::resource('transaction', TransactionController::class);
     Route::resource('agent-pay', AgentPayController::class);
     Route::resource('client-pay', ClientPayController::class);
     Route::resource('doctor-receive', DoctorReceiveController::class);

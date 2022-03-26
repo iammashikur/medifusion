@@ -141,6 +141,13 @@
                     <span>Report</span></a>
             </li> --}}
 
+
+            <li class="dropdown {{ MenuActive('transaction', 1) }}">
+                <a href="{{ route('transaction.index') }}" class="nav-link">
+                    <i data-feather="percent"></i>
+                    <span>Transactions</span></a>
+            </li>
+
             <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="dollar-sign"></i><span>Payments</span></a>
