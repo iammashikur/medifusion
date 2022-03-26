@@ -21,7 +21,7 @@ use App\Models\TestPrice;
 use App\Models\TestSubcategory;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 
 class ApiController extends Controller
 {
@@ -565,7 +565,7 @@ class ApiController extends Controller
         if ($request->amount <= $current) {
 
             $wallet = new Wallet();
-            $wallet->amount =$request->amount;
+            $wallet->amount = $request->amount;
             $wallet->user_type = 'agent';
             $wallet->user_id = $request->user()->id;
             $wallet->transaction_type = '-';
@@ -577,9 +577,7 @@ class ApiController extends Controller
                 'message' => 'withdraw requested',
                 'balance' => $current
             ], 200);
-
-        }
-        else{
+        } else {
             return response()->json([
                 'success' => false,
                 'message' => 'amount is greater than balance.',
@@ -616,6 +614,28 @@ class ApiController extends Controller
         return response()->json([
             'success' => true,
             'balance' => currentBalance('agent', $request->user()->id),
+        ], 200);
+    }
+
+    public function change_password(Request $request)
+    {
+        $user = Patient::where(['phone' => $request->phone])->first();
+        if ($user) {
+            $user->password = bcrypt($request->password);
+            $user->save();
+            if (@Hash::check($request->password, $user->password)) {
+                $user->tokens()->where('tokenable_id', $user->id)->delete();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Password Successfully changed!',
+                    'token' => $user->createToken('tokens')->plainTextToken,
+                    'user_data' => $user,
+                ], 200);
+            }
+        }
+        return response()->json([
+            'success' => false,
+            'balance' => 'Phone number does not exist!',
         ], 200);
     }
 }

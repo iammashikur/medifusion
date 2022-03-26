@@ -28,6 +28,8 @@ Route::get('/notifications', [ApiController::class, 'notifications']);
 // Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
 // Route::get('/doctors', [ApiController::class, 'doctors']);
 
+Route::get('/change-password', [ApiController::class, 'change_password']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/doctor-categories', [ApiController::class, 'doc_cat']);
