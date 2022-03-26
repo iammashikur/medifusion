@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\AgentAppointmentDataTable;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AgentAppointmentController extends Controller
 {
@@ -77,6 +78,12 @@ class AgentAppointmentController extends Controller
         $appointment->appointment_date = $request->appointment_date;
         $appointment->status_id = $request->status_id;
         $appointment->save();
+
+        if ($request->status_id == 5) {
+            DB::table('wallets')->where(['appointment_id' => $appointment->id])->update([
+                'status' => 1,
+            ]);
+        }
 
         toast('Appointment Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('agent-appointment.index');
