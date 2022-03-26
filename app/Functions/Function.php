@@ -177,7 +177,7 @@ function appointmentPay($appointmentId, $location, $agent = null) {
     $medicGetsInsert->user_id = Appointment::find($appointmentId)->patient_id;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
-    $medicGetsInsert->status = 1;
+    $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
 
 
@@ -248,7 +248,7 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
 
-    // Doctor
+    // Patient
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $x;
     $medicGetsInsert->user_type = 'patient';
