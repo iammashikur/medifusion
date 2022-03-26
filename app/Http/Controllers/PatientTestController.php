@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PatientTestsDataTable;
 use App\Models\PatientTest;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PatientTestController extends Controller
 {
@@ -74,6 +76,14 @@ class PatientTestController extends Controller
         $test = PatientTest::find($id);
         $test->status_id = $request->status;
         $test->save();
+
+        if ($request->status == 2) {
+            DB::table('wallets')->where(['test_id' => $test->id])->update([
+                'status' => 1,
+            ]);
+        }
+
+
 
         return redirect()->route('patient-test.index');
     }
