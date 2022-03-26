@@ -137,20 +137,12 @@ function appointmentPay($appointmentId, $location, $agent = null) {
     $doctorGets  = $amountToPay - ($medicGets + $agentGets);
 
 
-    // Medic
-    $medicGetsInsert = new Wallet();
-    $medicGetsInsert->amount = $medicGets;
-    $medicGetsInsert->user_type = 'medic';
-    $medicGetsInsert->user_id = 0;
-    $medicGetsInsert->transaction_type = '+';
-    $medicGetsInsert->appointment_id = $appointmentId;
-    $medicGetsInsert->status = 0;
 
 
     // Doctor to Medic
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $medicGets;
-    $medicGetsInsert->user_type = 'doctor_to_medic';
+    $medicGetsInsert->user_type = 'medic';
     $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
@@ -231,7 +223,7 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
      //Test to Medic
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $medicGets;
-    $medicGetsInsert->user_type = 'hospital_to_medic';
+    $medicGetsInsert->user_type = 'medic';
     $medicGetsInsert->user_id = $testCategory->hospital_id;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->test_id = $test_id;

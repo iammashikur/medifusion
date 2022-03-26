@@ -24,7 +24,7 @@ class DoctorReceiveDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('pending_balance', function ($action) {
-                return  '৳ '.currentBalance('doctor_to_medic' , $action->id);
+                return  '৳ '.currentBalance('medic' , $action->id);
             })
 
             ->addColumn('action', function ($action) {
