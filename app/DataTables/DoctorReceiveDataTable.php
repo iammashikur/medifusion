@@ -104,6 +104,7 @@ class DoctorReceiveDataTable extends DataTable
     protected function getColumns()
     {
         return [
+
             Column::make('id'),
             Column::make('name'),
             Column::make('pending_balance')->title('All-time Balance'),
