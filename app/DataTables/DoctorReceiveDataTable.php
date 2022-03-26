@@ -110,7 +110,7 @@ class DoctorReceiveDataTable extends DataTable
             Column::make('given_balance'),
             Column::make('current_due'),
             Column::make('user_appointments'),
-            Column::make('appointments_by_agent'),
+            Column::make('appointments_by_agent')->title('Agent Appointments'),
 
         ];
     }
