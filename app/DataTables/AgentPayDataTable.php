@@ -39,7 +39,7 @@ class AgentPayDataTable extends DataTable
                 $data =  AgentAppointment::where(['agent_id' => $action->id])->get();
                 $count = 0;
                 foreach ($data as $value) {
-                    $count += Appointment::where(['id' => $value->test_id, 'status_id' => 5])->count();
+                    $count += Appointment::where(['id' => $value->appointment_id, 'status_id' => 5])->count();
                 }
                 return $count;
 
