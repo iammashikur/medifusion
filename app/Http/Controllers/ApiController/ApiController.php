@@ -635,7 +635,7 @@ class ApiController extends Controller
         }
         return response()->json([
             'success' => false,
-            'balance' => 'Phone number does not exist!',
+            'message' => 'Phone number does not exist!',
         ], 200);
     }
 }
