@@ -41,17 +41,26 @@ class TransactionController extends Controller
         $transaction = new Wallet();
         $transaction->user_type = $request->user_type;
         $transaction->user_id = $request->user_id;
-
         $transaction->transaction_type = $request->transaction_type;
         $transaction->amount = $request->amount;
         $transaction->status = 1;
         $transaction->save();
 
 
+        if ($request->user_type == 'hospital' || $request->user_type == 'doctor') {
+            if ($request->transaction_type == '-') {
+                $transaction = new Wallet();
+                $transaction->user_type = 'medic';
+                $transaction->user_id = 0;
+                $transaction->transaction_type = '+';
+                $transaction->amount = $request->amount;
+                $transaction->status = 1;
+                $transaction->save();
+            }
+        }
+
         toast('Transaction Successful!', 'success')->width('350px')->padding('10px');
         return redirect()->back();
-
-
     }
 
     /**
