@@ -60,7 +60,7 @@ class TransactionController extends Controller
         }
 
         toast('Transaction Successful!', 'success')->width('350px')->padding('10px');
-        return redirect()->back();
+        return redirect()->route('transaction.index');
     }
 
     /**
