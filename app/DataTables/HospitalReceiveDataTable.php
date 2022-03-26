@@ -27,15 +27,15 @@ class HospitalReceiveDataTable extends DataTable
 
 
             ->addColumn('pending_balance', function ($action) {
-                return  '৳ '.alltimeBalance('doctor' , $action->id);
+                return  '৳ '.alltimeBalance('hospital' , $action->id);
             })
 
             ->addColumn('given_balance', function ($action) {
-                return  '৳ '.withdrawBalance('doctor' , $action->id);
+                return  '৳ '.withdrawBalance('hospital' , $action->id);
             })
 
             ->addColumn('current_due', function ($action) {
-                return  '৳ '.currentBalance('doctor' , $action->id);
+                return  '৳ '.currentBalance('hospital' , $action->id);
             })
 
             ->addColumn('tests', function ($action) {
