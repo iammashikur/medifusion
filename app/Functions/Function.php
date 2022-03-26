@@ -275,6 +275,14 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
 }
 
+function withdrawBalance($type , $id){
+    return Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '-', 'status' => 1])->sum('amount');
+}
+
+function alltimeBalance($type , $id){
+    return Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+', 'status' => 1])->sum('amount');
+}
+
 function currentBalance($type , $id){
 
     $credit =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+', 'status' => 1])->sum('amount');

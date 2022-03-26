@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\TransactionDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -36,6 +37,20 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+
+        $transaction = new Wallet();
+        $transaction->user_type = $request->user_type;
+        $transaction->user_id = $request->user_id;
+
+        $transaction->transaction_type = $request->transaction_type;
+        $transaction->amount = $request->amount;
+        $transaction->status = 1;
+        $transaction->save();
+
+
+        toast('Transaction Successful!', 'success')->width('350px')->padding('10px');
+        return redirect()->back();
+
 
     }
 

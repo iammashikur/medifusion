@@ -29,6 +29,14 @@ class ClientPayDataTable extends DataTable
                 return '৳ '.currentBalance('patient' , $action->id);
             })
 
+            ->addColumn('alltime_balance', function ($action) {
+                return '৳ '.alltimeBalance('patient' , $action->id);
+            })
+
+            ->addColumn('withdraw_balance', function ($action) {
+                return '৳ '.withdrawBalance('patient' , $action->id);
+            })
+
             ->addColumn('action', function ($action) {
                 return '';
             })
@@ -88,7 +96,13 @@ class ClientPayDataTable extends DataTable
 
             Column::make('id')->width(50),
             Column::make('name'),
-            Column::make('balance'),
+
+
+            Column::make('alltime_balance')->title('All-time Balance'),
+            Column::make('withdraw_balance'),
+            Column::make('balance')->title('Current Balance'),
+
+
             Column::make('appointments'),
             Column::make('tests'),
             // Column::computed('action')

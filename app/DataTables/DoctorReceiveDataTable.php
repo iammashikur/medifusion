@@ -23,8 +23,18 @@ class DoctorReceiveDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+
+
             ->addColumn('pending_balance', function ($action) {
-                return  '৳ '.currentBalance('medic' , $action->id);
+                return  '৳ '.alltimeBalance('doctor' , $action->id);
+            })
+
+            ->addColumn('given_balance', function ($action) {
+                return  '৳ '.withdrawBalance('doctor' , $action->id);
+            })
+
+            ->addColumn('current_due', function ($action) {
+                return  '৳ '.currentBalance('doctor' , $action->id);
             })
 
             ->addColumn('action', function ($action) {
@@ -96,7 +106,9 @@ class DoctorReceiveDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('pending_balance'),
+            Column::make('pending_balance')->title('All-time Balance'),
+            Column::make('given_balance'),
+            Column::make('current_due'),
             Column::make('user_appointments'),
             Column::make('appointments_by_agent'),
 

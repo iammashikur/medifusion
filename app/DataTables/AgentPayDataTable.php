@@ -26,8 +26,18 @@ class AgentPayDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+
+
             ->addColumn('balance', function ($action) {
                 return '৳ '.currentBalance('agent' , $action->id);
+            })
+
+            ->addColumn('alltime_balance', function ($action) {
+                return '৳ '.alltimeBalance('agent' , $action->id);
+            })
+
+            ->addColumn('withdraw_balance', function ($action) {
+                return '৳ '.withdrawBalance('agent' , $action->id);
             })
 
             ->addColumn('action', function ($action) {
@@ -55,7 +65,7 @@ class AgentPayDataTable extends DataTable
                 return $count;
             })
 
-            ->rawColumns([ 'action', 'balance','tests','appointments']);
+            ->rawColumns([ 'action', 'balance', 'withdraw_balance', 'tests','appointments']);
     }
 
     /**
@@ -101,7 +111,9 @@ class AgentPayDataTable extends DataTable
         return [
             Column::make('id')->width(50),
             Column::make('name'),
-            Column::make('balance'),
+            Column::make('alltime_balance')->title('All-time Balance'),
+            Column::make('withdraw_balance'),
+            Column::make('balance')->title('Current Balance'),
             Column::make('appointments'),
             Column::make('tests'),
         ];

@@ -26,41 +26,64 @@ $page_title = 'Create Transaction';
                 <div class="card-header" style="border-bottom-color: #d0d0d0">
                     <h4>Create Transaction</h4>
                     <div class="card-header-action">
-                        <a href="{{ route('test-price.index') }}" class="btn btn-warning">Go Back</a>
+                        <a href="{{ route('transaction.index') }}" class="btn btn-warning">Go Back</a>
                     </div>
                 </div>
-
                 <div class="card-body">
 
-                    <form action="{{ route('test-price.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('transaction.store') }}" method="POST" enctype="multipart/form-data">
+
                         @csrf
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">User Type</label>
+                            <div class="col-sm-12 col-md-7">
+                                <select class="form-control" name="user_type" required>
+
+                                    <option> -- select -- </option>
+                                    <option value="agent"> Agent </option>
+                                    <option value="patient"> Patient </option>
+                                    <option value="doctor"> Doctor </option>
+                                    <option value="hospital"> Hospital </option>
+                                    <option value="medic"> Medic </option>
+
+                                </select>
+                            </div>
+                        </div>
+
 
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospital</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">User </label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="hospital" id="">
+                                <select class="form-control" name="user_id" required>
                                     <option> -- select -- </option>
-
-                                    @foreach (App\Models\Hospital::all() as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }} </option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Transaction Type</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="category">
+                                <select class="form-control" name="transaction_type" required>
                                     <option> -- select -- </option>
-                                    @foreach (App\Models\TestCategory::all() as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
+
+                                    <option value="-"> Debit </option>
+                                    <option value="+"> Credit </option>
+
                                 </select>
                             </div>
                         </div>
 
+
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Amount</label>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="form-group">
+                                    <input type="number"
+                                    class="form-control" name="amount" required>
+                                </div>
+                            </div>
+                        </div>
 
 
 
@@ -91,29 +114,28 @@ $page_title = 'Create Transaction';
     <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
 
     <script>
-        $('select[name="category"]').on('change', function() {
-            var categoryID = $(this).val();
-            if (categoryID) {
+        $('select[name="user_type"]').on('change', function() {
+            var userType = $(this).val();
+            if (userType) {
                 $.ajax({
-                    url: '{{ url('test-by-category') }}/' + categoryID,
+                    url: '{{ url('user-by-type') }}/' + userType,
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
 
                         console.log(data);
 
-                        $('select[name="test"]').empty();
+                        $('select[name="user_id"]').empty();
                         $.each(data, function(key, value) {
-                            $('select[name="test"]').append('<option value="' + value.id +
+                            $('select[name="user_id"]').append('<option value="' + value.id +
                                 '">' +
                                 value.name + '</option>');
                         });
 
-
                     }
                 });
             } else {
-                $('select[name="test"]').empty();
+                $('select[name="user_id"]').empty();
             }
         });
     </script>

@@ -27,7 +27,11 @@ use App\Http\Controllers\TestCategoryController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestPriceController;
 use App\Http\Controllers\TestSubCategoryController;
+use App\Models\Agent;
 use App\Models\District;
+use App\Models\Doctor;
+use App\Models\Hospital;
+use App\Models\Patient;
 use App\Models\PoliceStation;
 use App\Models\TestSubcategory;
 use Facade\FlareClient\Http\Response;
@@ -46,12 +50,43 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('thana-by-district/{id}', function(Request $request){
+Route::get('thana-by-district/{id}', function (Request $request) {
     return District::find($request->id)->policeStations;
 });
-Route::get('test-by-category/{id}', function(Request $request){
+Route::get('test-by-category/{id}', function (Request $request) {
     return TestSubcategory::where(['category_id' => $request->id])->get();
 });
+Route::get('user-by-type/{type}', function (Request $request) {
+
+    switch ($request->type) {
+        case 'medic':
+            return response()->json([
+                [
+                    'name' => 'Medic',
+                    'id' =>   0
+                ]
+            ]);
+            break;
+        case 'hospital':
+            return @Hospital::all();
+            break;
+        case 'patient':
+            return @Patient::all();
+            break;
+        case 'agent':
+            return @Agent::all();
+            break;
+        case 'doctor':
+            return @Doctor::all();
+            break;
+
+        default:
+            # code...
+            break;
+    }
+});
+
+
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -83,9 +118,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('doctor-receive', DoctorReceiveController::class);
     Route::resource('hospital-receive', HospitalReceiveController::class);
     Route::resource('push-notification', PushNotificationController::class);
-
-
-
 });
 
 Auth::routes();
