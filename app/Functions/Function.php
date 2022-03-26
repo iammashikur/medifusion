@@ -111,7 +111,7 @@ $percentToAmount = fn ($amount, $percent) => ($percent / 100) * $amount;
 
 
 // Payment
-function appointmentPay ($appointmentId, $location, $agent = null) {
+function appointmentPay($appointmentId, $location, $agent = null) {
 
 
     if ($agent !== null) {
@@ -132,7 +132,7 @@ function appointmentPay ($appointmentId, $location, $agent = null) {
     $amountToPay = $appointmentFee - $x;
 
     $agentGets = ceil($q * $agentCommission);
-    $medicGets = ceil($q * 100) - $patientDiscount - $agentCommission;
+    $medicGets = ceil($q * 100) - $x - $agentGets;
     $doctorGets  = $amountToPay - ($medicGets + $agentGets);
 
 
