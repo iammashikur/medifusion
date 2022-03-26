@@ -6,6 +6,7 @@ use App\DataTables\AgentTestsDataTable;
 use App\DataTables\PatientTestsDataTable;
 use App\Models\PatientTest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AgentTestController extends Controller
 {
@@ -75,6 +76,12 @@ class AgentTestController extends Controller
         $test = PatientTest::find($id);
         $test->status_id = $request->status;
         $test->save();
+
+        if ($request->status == 2) {
+            DB::table('wallets')->where(['test_id' => $test->id])->update([
+                'status' => 1,
+            ]);
+        }
 
         return redirect()->back();
     }
