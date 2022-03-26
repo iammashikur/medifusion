@@ -638,4 +638,26 @@ class ApiController extends Controller
             'message' => 'Phone number does not exist!',
         ], 200);
     }
+
+    public function cancel_appointment(Request $request)
+    {
+        $appointment = Appointment::find($request->appointment_id);
+        $appointment->status = 4;
+        $appointment->save();
+
+
+        if ($appointment) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Appointment cancelled!',
+            ], 200);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Appointment not found!',
+        ], 200);
+
+
+
+    }
 }
