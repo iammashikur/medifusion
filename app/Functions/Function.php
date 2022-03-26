@@ -228,17 +228,6 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $medicGets = ceil($q * 100) - $x - $agentGets;
     $hospitalGets  = $amountToPay - ($medicGets + $agentGets);
 
-    //Medic
-    $medicGetsInsert = new Wallet();
-    $medicGetsInsert->amount = $medicGets;
-    $medicGetsInsert->user_type = 'medic';
-    $medicGetsInsert->user_id = 0;
-    $medicGetsInsert->transaction_type = '+';
-    $medicGetsInsert->test_id = $test_id;
-    $medicGetsInsert->status = 0;
-    $medicGetsInsert->save();
-
-
      //Test to Medic
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $medicGets;
