@@ -5,6 +5,7 @@ use App\Models\AgentSetting;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
+use App\Models\PatientTest;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -257,6 +258,18 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $medicGetsInsert->test_id = $test_id;
     $medicGetsInsert->status = 0;
     $medicGetsInsert->save();
+
+    // Doctor
+    $medicGetsInsert = new Wallet();
+    $medicGetsInsert->amount = $x;
+    $medicGetsInsert->user_type = 'patient';
+    $medicGetsInsert->user_id = PatientTest::find($test_id)->patient_id;
+    $medicGetsInsert->transaction_type = '+';
+    $medicGetsInsert->test_id = $test_id;
+    $medicGetsInsert->status = 0;
+    $medicGetsInsert->save();
+
+
 
 
     if ($agentGets > 0) {
