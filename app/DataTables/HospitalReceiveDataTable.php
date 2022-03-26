@@ -38,16 +38,28 @@ class HospitalReceiveDataTable extends DataTable
                 return  '৳ '.currentBalance('hospital' , $action->id);
             })
 
-            ->addColumn('tests', function ($action) {
+            ->addColumn('user_tests', function ($action) {
                 $data = PatientTestItem::where(['hospital_id' => $action->id])->get();
                 $count = 0;
                 foreach ($data as $value) {
-                    $count += PatientTest::where(['id' => $value->patient_test_id, 'status_id' => 3])->count();
+                    $count += PatientTest::where(['id' => $value->patient_test_id, 'status_id' => 2, 'by_agent' => 0])->count();
                 }
 
                 return $count;
 
             })
+
+            ->addColumn('agent_tests', function ($action) {
+                $data = PatientTestItem::where(['hospital_id' => $action->id])->get();
+                $count = 0;
+                foreach ($data as $value) {
+                    $count += PatientTest::where(['id' => $value->patient_test_id, 'status_id' => 2, 'by_agent' => 1])->count();
+                }
+
+                return $count;
+
+            })
+
 
 
 
@@ -101,7 +113,8 @@ class HospitalReceiveDataTable extends DataTable
             Column::make('pending_balance')->title('All-time Balance'),
             Column::make('given_balance'),
             Column::make('current_due'),
-            Column::make('tests'),
+            Column::make('user_tests'),
+            Column::make('agent_tests'),
         ];
     }
 
