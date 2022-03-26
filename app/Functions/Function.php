@@ -277,28 +277,28 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
 
 function currentBalance($type , $id){
 
-    $credit =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+'])->sum('amount');
-    $debit  =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '-'])->sum('amount');
+    $credit =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+', 'status' => 1])->sum('amount');
+    $debit  =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '-', 'status' => 1])->sum('amount');
     return $credit - $debit;
 
 }
 
 function medicBalance(){
-    return Wallet::where(['user_type' => 'medic', 'transaction_type' => '+'])->sum('amount');
+    return Wallet::where(['user_type' => 'medic', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
 
 function doctorRevenue(){
-    return Wallet::where(['user_type' => 'doctor', 'transaction_type' => '+'])->sum('amount');
+    return Wallet::where(['user_type' => 'doctor', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
 
 function hospitalRevenue(){
-    return Wallet::where(['user_type' => 'hospital', 'transaction_type' => '+'])->sum('amount');
+    return Wallet::where(['user_type' => 'hospital', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
 function agentRevenue(){
-    return Wallet::where(['user_type' => 'agent', 'transaction_type' => '+'])->sum('amount');
+    return Wallet::where(['user_type' => 'agent', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
 
