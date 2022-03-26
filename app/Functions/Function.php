@@ -224,7 +224,7 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $amountToPay = $testFee - $x;
 
     $agentGets = ceil($q * $agentCommission);
-    $medicGets = ceil($q * 100) - $patientDiscount - $agentCommission;
+    $medicGets = ceil($q * 100) - $x - $agentGets;
     $hospitalGets  = $amountToPay - ($medicGets + $agentGets);
 
     //Medic
