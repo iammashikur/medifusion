@@ -34,7 +34,7 @@ class DoctorReceiveDataTable extends DataTable
             ->addColumn('appointments_by_agent', function ($action) {
 
 
-                $count = Appointment::where(['doctor_id' => $action->id, 'status_id' => 3, 'by_agent' => 1])->count();
+                $count = Appointment::where(['doctor_id' => $action->id, 'status_id' => 5, 'by_agent' => 1])->count();
 
                 return $count;
 
@@ -43,7 +43,7 @@ class DoctorReceiveDataTable extends DataTable
             ->addColumn('user_appointments', function ($action) {
 
 
-                $count = Appointment::where(['doctor_id' => $action->id, 'status_id' => 3, 'by_agent' => 0])->count();
+                $count = Appointment::where(['doctor_id' => $action->id, 'status_id' => 5, 'by_agent' => 0])->count();
 
                 return $count;
 

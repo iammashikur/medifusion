@@ -32,7 +32,7 @@ class HospitalReceiveDataTable extends DataTable
                 $data = PatientTestItem::where(['hospital_id' => $action->id])->get();
                 $count = 0;
                 foreach ($data as $value) {
-                    $count += PatientTest::where(['id' => $value->patient_test_id, 'status_id' => 1])->count();
+                    $count += PatientTest::where(['id' => $value->patient_test_id, 'status_id' => 3])->count();
                 }
 
                 return $count;
