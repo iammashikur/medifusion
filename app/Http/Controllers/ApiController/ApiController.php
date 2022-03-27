@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Agent;
 use App\Models\AgentAppointment;
 use App\Models\AgentTest;
+use App\Models\AgentWithdraw;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
@@ -562,13 +563,13 @@ class ApiController extends Controller
 
         if ($request->amount <= $current) {
 
-            $wallet = new Wallet();
-            $wallet->amount = $request->amount;
-            $wallet->user_type = 'agent';
-            $wallet->user_id = $request->user()->id;
-            $wallet->transaction_type = '-';
-            $wallet->status = 1;
-            $wallet->save();
+
+            $withdraw = new AgentWithdraw();
+            $withdraw->agent_id  = $request->agent_id;
+            $withdraw->status  = 1;
+            $withdraw->withdraw_method  = $request->withdraw_method;
+            $withdraw->account_details  = $request->account_details;
+            $withdraw->save();
 
             return response()->json([
                 'success' => true,
