@@ -640,7 +640,7 @@ class ApiController extends Controller
     public function cancel_appointment(Request $request)
     {
         $appointment = Appointment::find($request->appointment_id);
-        $appointment->status = 4;
+        $appointment->status_id = 4;
         $appointment->save();
 
 
@@ -654,8 +654,5 @@ class ApiController extends Controller
             'success' => false,
             'message' => 'Appointment not found!',
         ], 200);
-
-
-
     }
 }
