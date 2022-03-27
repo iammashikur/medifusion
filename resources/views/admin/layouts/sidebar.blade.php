@@ -148,6 +148,12 @@
                     <span>Transactions</span></a>
             </li>
 
+            <li class="dropdown {{ MenuActive('agent-withdraw', 1) }}">
+                <a href="{{ route('agent-withdraw.index') }}" class="nav-link">
+                    <i data-feather="percent"></i>
+                    <span>Agent Withdraw</span></a>
+            </li>
+
             <li class="dropdown">
                 <a href="#" class="menu-toggle nav-link has-dropdown"><i
                         data-feather="dollar-sign"></i><span>Payments</span></a>

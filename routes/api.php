@@ -28,6 +28,8 @@ Route::get('/notifications', [ApiController::class, 'notifications']);
 // Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
 // Route::get('/doctors', [ApiController::class, 'doctors']);
 
+
+
 Route::post('/change-password', [ApiController::class, 'change_password']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -54,6 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/agent/login', [AuthController::class, 'agent_login']);
 
 Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
+
 
     Route::post('/withdraw', [ApiController::class, 'withdraw']);
 

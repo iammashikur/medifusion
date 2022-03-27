@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\AgentPayController;
 use App\Http\Controllers\Admin\AgentSettingsController;
+use App\Http\Controllers\Admin\AgentWithdrawController;
 use App\Http\Controllers\Admin\ClientPayController;
 use App\Http\Controllers\Admin\CompounderController;
 use App\Http\Controllers\Admin\DoctorLocationController;
@@ -113,6 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::resource('transaction', TransactionController::class);
+    Route::resource('agent-withdraw', AgentWithdrawController::class);
     Route::resource('agent-pay', AgentPayController::class);
     Route::resource('client-pay', ClientPayController::class);
     Route::resource('doctor-receive', DoctorReceiveController::class);

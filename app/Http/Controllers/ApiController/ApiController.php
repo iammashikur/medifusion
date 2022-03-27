@@ -560,8 +560,6 @@ class ApiController extends Controller
             ], 200);
         }
 
-
-
         if ($request->amount <= $current) {
 
             $wallet = new Wallet();
@@ -569,7 +567,7 @@ class ApiController extends Controller
             $wallet->user_type = 'agent';
             $wallet->user_id = $request->user()->id;
             $wallet->transaction_type = '-';
-            $wallet->status = 0;
+            $wallet->status = 1;
             $wallet->save();
 
             return response()->json([
