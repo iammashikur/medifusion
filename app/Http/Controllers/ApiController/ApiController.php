@@ -565,8 +565,9 @@ class ApiController extends Controller
 
 
             $withdraw = new AgentWithdraw();
-            $withdraw->agent_id  = $request->agent_id;
+            $withdraw->agent_id  = $request->user()->id;
             $withdraw->status  = 1;
+            $withdraw->amount  = $request->amount;
             $withdraw->withdraw_method  = $request->withdraw_method;
             $withdraw->account_details  = $request->account_details;
             $withdraw->save();
