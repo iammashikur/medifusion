@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cancel-appointment', [ApiController::class, 'cancel_appointment']);
 
 
+
     Route::get('/doctor-by-cat/{id}', [ApiController::class, 'doc_by_cat']);
     Route::get('/doctors', [ApiController::class, 'doctors']);
     Route::post('/fix-appointment', [ApiController::class, 'fix_appointment']);
