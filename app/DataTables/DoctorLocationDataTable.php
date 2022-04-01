@@ -42,9 +42,7 @@ class DoctorLocationDataTable extends DataTable
                 return $query->getThana->name;
             })
 
-              ->addColumn('address', function($query){
-                return @$query->getHospital->name;
-              })
+
               ->addColumn('action', function($query){
                 return '<a class="btn-sm btn-primary" href="'.route('doctor-location.edit', $query->id).'"><i class="far fa-edit"></i></a>
                         <a class="btn-sm btn-danger delete" href="'.route('doctor-location.destroy', $query->id).'"><i class="far fa-trash-alt"></i></a>';
