@@ -34,6 +34,14 @@ class DoctorLocationDataTable extends DataTable
                 return Carbon::parse($query->end_time)->format('h:i:s A');
               })
 
+              ->addColumn('district', function ($created_at) {
+                return $created_at->getDistrict->name;
+            })
+
+            ->addColumn('thana', function ($created_at) {
+                return $created_at->getThana->name;
+            })
+
               ->addColumn('address', function($query){
                 return @$query->getHospital->name;
               })

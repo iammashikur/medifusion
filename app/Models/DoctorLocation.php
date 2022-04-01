@@ -16,4 +16,12 @@ class DoctorLocation extends Model
     public function getHospital(){
         return $this->hasOne(Hospital::class, 'id', 'hospital_id');
     }
+
+    public function getDistrict(){
+        return $this->hasOne(District::class, 'id', 'district');
+    }
+
+    public function getThana(){
+        return $this->hasOne(PoliceStation::class, 'id', 'thana');
+    }
 }
