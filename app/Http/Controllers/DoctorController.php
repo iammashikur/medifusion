@@ -49,7 +49,12 @@ class DoctorController extends Controller
 
         $doctor = new Doctor();
         /** Save image on dir */
-        $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
+
+        if ($request->hasFile('avatar')) {
+            $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
+        }else {
+            $imagePath         = '/assets/admin/img/logo.png';
+        }
         /** Save request data to db */
         $doctor->avatar      = $imagePath;
         $doctor->name      = $request->name;

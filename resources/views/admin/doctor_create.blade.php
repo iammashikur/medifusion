@@ -44,7 +44,7 @@
                   <div class="col-sm-12 col-md-7">
                     <div id="image-preview" class="image-preview" style="background-image: url(); background-size: cover; background-position: center center;">
                       <label for="image-upload" id="image-label">Choose File</label>
-                      <input type="file" name="avatar" id="image-upload" required/>
+                      <input type="file" name="avatar" id="image-upload"/>
                     </div>
                   </div>
                 </div>
@@ -121,10 +121,9 @@
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                     <div class="col-sm-12 col-md-7">
                       <select class="form-control selectric" name="status" required>
-                        <option value="">---Select---</option>
 
-                        <option value="0">Inactive</option>
                         <option value="1">Active</option>
+                        <option value="0">Inactive</option>
 
                       </select>
                     </div>

@@ -134,9 +134,8 @@
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                             <div class="col-sm-12 col-md-7">
                               <select class="form-control selectric" name="status" required>
-                                <option value="">---Select---</option>
-                                <option value="0" @if ($doctor->status == 0) selected @endif>Inactive</option>
                                 <option value="1" @if ($doctor->status == 1) selected @endif>Active</option>
+                                <option value="0" @if ($doctor->status == 0) selected @endif>Inactive</option>
                               </select>
                             </div>
                           </div>
