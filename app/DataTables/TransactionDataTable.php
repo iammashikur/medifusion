@@ -55,6 +55,14 @@ class TransactionDataTable extends DataTable
                 }
             })
 
+            ->addColumn('source', function ($appointment){
+                if ($appointment->appointment_id) {
+                    return 'Appointment: '.$appointment->appointment_id;
+                }else if ($appointment->test_id) {
+                    return 'Test: '.$appointment->test_id;
+                }
+            })
+
             ->addColumn('transaction_type', function ($query) {
                 return $query->transaction_type == '-' ? 'Debit' : 'Credit';
             })
@@ -109,6 +117,7 @@ class TransactionDataTable extends DataTable
             Column::make('account_holder_name'),
             Column::make('transaction_type'),
             Column::make('amount'),
+            Column::make('source'),
             Column::make('created_at'),
         ];
     }
