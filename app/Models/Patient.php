@@ -23,5 +23,14 @@ class Patient extends Model
         return $this->hasMany(Appointment::class, 'patient_is', 'id');
     }
 
+    public function getDistrict(){
+        return $this->hasOne(District::class, 'id', 'district');
+    }
+
+    public function getThana(){
+        return $this->hasOne(PoliceStation::class, 'id', 'thana');
+    }
+
+
 
 }
