@@ -34,8 +34,6 @@ class PatientsDataTable extends DataTable
             ->addColumn('thana', function ($created_at) {
                 return $created_at->getThana->name;
             });
-
-
     }
 
     /**
