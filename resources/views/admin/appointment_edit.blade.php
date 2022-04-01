@@ -39,7 +39,7 @@
 
                         <div class="form-group mb-2">
                             <label for="">Location</label>
-                            <Textarea type="text" class="form-control h-100" name="" id="" aria-describedby="helpId" rows="5"
+                            <Textarea type="text" class="form-control h-100" name="" id="" aria-describedby="helpId" rows="6"
                             disabled>District : {{$appointment->getLocation->getDistrict->name}}
 Thana : {{$appointment->getLocation->getThana->name}}
 Address :  {{$appointment->getLocation->address}}
