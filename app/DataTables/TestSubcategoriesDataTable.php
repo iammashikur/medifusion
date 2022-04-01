@@ -26,12 +26,20 @@ class TestSubcategoriesDataTable extends DataTable
                 return $category->getParent->name;
             })
 
+            ->addColumn('image', function($image){
+
+                $url=asset("/uploads/images/$image->image");
+                return '<img src='.$url.' border="0" width="100" class="img-rounded" align="center" />';
+
+
+            })
+
             ->addColumn('action', function($action){
                 return '<a class="btn-sm btn-primary" href="'.route('test-subcategory.edit', $action->id).'"><i class="far fa-edit"></i></a>
                         <a class="btn-sm btn-danger delete" href="'.route('test-subcategory.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
             })
 
-           ->rawColumns(['action']);
+           ->rawColumns(['action','image']);
     }
 
     /**
@@ -76,6 +84,7 @@ class TestSubcategoriesDataTable extends DataTable
             Column::make('id'),
             Column::make('name'),
             Column::make('category'),
+            Column::make('image'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
