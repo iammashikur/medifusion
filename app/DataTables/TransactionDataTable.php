@@ -63,12 +63,13 @@ class TransactionDataTable extends DataTable
                         return 'Agent Appointment: '.$query->appointment_id;
                     }
                     return 'Appointment: '.$query->appointment_id;
-
                 }else if ($query->test_id) {
                     if (PatientTest::find($query->test_id)->by_agent) {
                         return 'Agent Test: '.$query->test_id;
                     }
                     return 'Test: '.$query->test_id;
+                }else{
+                    return 'Agent Withdraw';
                 }
             })
 
