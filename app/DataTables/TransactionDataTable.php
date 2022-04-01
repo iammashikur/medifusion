@@ -3,9 +3,11 @@
 namespace App\DataTables;
 
 use App\Models\Agent;
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Hospital;
 use App\Models\Patient;
+use App\Models\PatientTest;
 use App\Models\Transaction;
 use App\Models\Wallet;
 use Yajra\DataTables\Html\Button;
@@ -55,11 +57,18 @@ class TransactionDataTable extends DataTable
                 }
             })
 
-            ->addColumn('source', function ($appointment){
-                if ($appointment->appointment_id) {
-                    return 'Appointment: '.$appointment->appointment_id;
-                }else if ($appointment->test_id) {
-                    return 'Test: '.$appointment->test_id;
+            ->addColumn('source', function ($query){
+                if ($query->appointment_id) {
+                    if (Appointment::find($query->appointment_id)->by_agent) {
+                        return 'Agent Appointment: '.$query->appointment_id;
+                    }
+                    return 'Appointment: '.$query->appointment_id;
+
+                }else if ($query->test_id) {
+                    if (PatientTest::find($query->test_id)->by_agent) {
+                        return 'Agent Test: '.$query->test_id;
+                    }
+                    return 'Test: '.$query->test_id;
                 }
             })
 
