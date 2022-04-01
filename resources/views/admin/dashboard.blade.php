@@ -107,8 +107,10 @@
                                   foreach (App\Models\Patient::where('referred_by_id' , null)->get() as $user) {
                                       if (App\Models\Appointment::where(['status' => 5, 'patient_id' => $user->id])->count() >= 1 ) {
                                           $patient += $patient;
+                                      }else if (App\Models\PatientTest::where(['status' => 2, 'patient_id' => $user->id])->count() >= 1 )
+                                      {
+                                        $patient += $patient;
                                       }
-
                                   }
 
 
