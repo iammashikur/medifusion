@@ -9,7 +9,19 @@ use Laravel\Sanctum\HasApiTokens;
 class Patient extends Model
 {
     use HasApiTokens, HasFactory;
+
+
     public function getAgent(){
         return $this->hasOne(Agent::class, 'id', 'referred_by_id');
     }
+
+    public function getTest(){
+        return $this->hasMany(PatientTest::class, 'patient_id', 'id');
+    }
+
+    public function getAppointment(){
+        return $this->hasMany(Appointment::class, 'patient_is', 'id');
+    }
+
+
 }
