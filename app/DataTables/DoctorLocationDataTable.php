@@ -34,12 +34,12 @@ class DoctorLocationDataTable extends DataTable
                 return Carbon::parse($query->end_time)->format('h:i:s A');
               })
 
-              ->addColumn('district', function ($created_at) {
-                return $created_at->getDistrict->name;
+              ->addColumn('district', function ($query) {
+                return $query->getDistrict->name;
             })
 
-            ->addColumn('thana', function ($created_at) {
-                return $created_at->getThana->name;
+            ->addColumn('thana', function ($query) {
+                return $query->getThana->name;
             })
 
               ->addColumn('address', function($query){
@@ -97,6 +97,8 @@ class DoctorLocationDataTable extends DataTable
             Column::make('id'),
             Column::make('doctor'),
             Column::make('address'),
+            Column::make('district'),
+            Column::make('thana'),
             Column::make('start_time'),
             Column::make('end_time'),
             Column::make('consultation_fee'),
