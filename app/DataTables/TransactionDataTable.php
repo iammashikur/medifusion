@@ -70,7 +70,7 @@ class TransactionDataTable extends DataTable
      */
     public function query(Wallet $model)
     {
-        return $model->newQuery();
+        return Wallet::where(['status' => 1]);
     }
 
     /**

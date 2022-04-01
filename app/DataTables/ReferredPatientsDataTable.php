@@ -24,6 +24,13 @@ class ReferredPatientsDataTable extends DataTable
             ->eloquent($query)
             ->addColumn('agent', function($query){
                 return $query->getAgent->name;
+            })
+            ->addColumn('district', function ($created_at) {
+                return $created_at->getDistrict->name;
+            })
+
+            ->addColumn('thana', function ($created_at) {
+                return $created_at->getThana->name;
             });
     }
 
