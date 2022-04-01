@@ -79,7 +79,7 @@ class ReferredPatientsDataTable extends DataTable
             Column::make('thana'),
             Column::make('blood_group'),
             Column::make('agent'),
-            Column::make('updated_at')->title('Registration Date'),
+            Column::make('updated_at')->title('Date'),
         ];
     }
 
