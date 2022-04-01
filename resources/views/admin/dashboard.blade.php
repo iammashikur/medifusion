@@ -102,18 +102,15 @@
                                   <h5 class="font-12">Patients</h5>
 
                                   @php
-
                                   $patient = 0;
                                   foreach (App\Models\Patient::where('referred_by_id' , null)->get() as $user) {
                                       if (App\Models\Appointment::where(['status_id' => 5, 'patient_id' => $user->id])->count() >= 1 ) {
-                                          $patient += $patient;
+                                          $patient += 1;
                                       }else if (App\Models\PatientTest::where(['status_id' => 2, 'patient_id' => $user->id])->count() >= 1 )
                                       {
-                                        $patient += $patient;
+                                        $patient += 1;
                                       }
                                   }
-
-
                                   @endphp
 
 
@@ -143,7 +140,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
                                     <h5 class="font-12">Appointments</h5>
-                                    <h2 class="mb-3 font-18">{{ $appointments->where('status_id', 5)->count() }}</h2>
+                                    <h2 class="mb-3 font-18">{{ $appointments->where(['status_id'=> 5, 'by_agent' => null])->count() }}</h2>
                                   </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
@@ -158,6 +155,30 @@
                   </a>
               </div>
 
+              <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="">
+                    <div class="card">
+                        <div class="card-statistic-4">
+                          <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                <div class="card-content">
+                                  <h5 class="font-12">Agent Appointments</h5>
+                                  <h2 class="mb-3 font-18">{{ $appointments->where(['status_id' => 5, 'by_agent' => 1])->count() }}</h2>
+                                </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
+                                <div class="banner-img">
+                                  <img style="max-width: 65px" class="" src="{{ asset('uploads/icons/date.png') }}" alt="">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
 
               <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <a href="">
@@ -168,7 +189,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                                   <div class="card-content">
                                     <h5 class="font-12">User Tests</h5>
-                                    <h2 class="mb-3 font-18">{{ $usertest->where('status_id', 2)->count() }}</h2>
+                                    <h2 class="mb-3 font-18">{{ $usertest->where(['status_id' => 2, 'by_agent' => null])->count() }}</h2>
                                   </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
@@ -182,6 +203,32 @@
                       </div>
                   </a>
               </div>
+
+              <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <a href="">
+                    <div class="card">
+                        <div class="card-statistic-4">
+                          <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                <div class="card-content">
+                                  <h5 class="font-12">Agent Tests</h5>
+                                  <h2 class="mb-3 font-18">{{ $usertest->where(['status_id' => 2, 'by_agent' => 1])->count() }}</h2>
+                                </div>
+                              </div>
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0 d-flex align-items-center justify-content-center text-center">
+                                <div class="banner-img">
+                                  <img style="max-width: 55px" class="" src="{{ asset('uploads/icons/check-list.png') }}" alt="">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
 
               <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <a href="">
