@@ -143,10 +143,11 @@ $page_title = 'Add Agent';
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control selectric" name="status" required>
-                                    <option value="">---Select---</option>
 
-                                    <option value="0">Inactive</option>
+
                                     <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+
 
                                 </select>
                             </div>
