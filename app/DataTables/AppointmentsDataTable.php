@@ -49,6 +49,14 @@ class AppointmentsDataTable extends DataTable
                 return Carbon::parse($appointment->appointment_date)->format('h:i:s A');
             })
 
+            ->addColumn('source', function (Appointment $appointment) {
+                if ($appointment->appointment_id) {
+                    return 'Appointment: '.$appointment->appointment_id;
+                }else if ($appointment->test_id) {
+                    return 'Test: '.$appointment->test_id;
+                }
+            })
+
             ->addColumn('status', function (Appointment $appointment) {
                 if ($appointment->status_id == 1) {
                     return '<button class="btn btn-warning btn-sm">' . $appointment->getStatus->status . '</button>';
@@ -66,7 +74,7 @@ class AppointmentsDataTable extends DataTable
                 return '<a class="btn-sm btn-primary" href="' . route('appointment.edit', $action->id) . '"><i class="far fa-edit"></i> Edit</a>';
             })
 
-            ->rawColumns(['patient', 'doctor', 'status', 'action', 'location']);
+            ->rawColumns(['patient', 'doctor', 'status', 'action', 'location', 'source']);
     }
 
     /**
@@ -116,6 +124,7 @@ class AppointmentsDataTable extends DataTable
             Column::make('appointment_time')->width('70')->title('Time'),
             Column::make('serial')->width('70')->title('Serial No.'),
             Column::make('status')->width('70'),
+            Column::make('source')->width('100'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
