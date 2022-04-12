@@ -92,5 +92,7 @@ Route::get('/agent/{id}', [ApiController::class, 'agent']);
 Route::post('/compounder/login', [AuthController::class, 'compounder_login']);
 
 Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
+
+
     Route::post('/logout', [AuthController::class, 'logout']);
 });
