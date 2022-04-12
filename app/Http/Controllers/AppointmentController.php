@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\AppointmentsDataTable;
+use App\Models\AgentAppointment;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -79,9 +80,16 @@ class AppointmentController extends Controller
         $appointment->save();
 
         if ($request->status_id == 2) {
+
+            if($appointment->by_agent == 1){
+                $notification_id = AgentAppointment::where('appointment_id')->first()->notification_id;
+            }else{
+                $notification_id = $appointment->getPatient->notification_id;
+            }
+
             $title = "Your appointment has been fixed!";
             $content = "Your serial no. $request->serial, Doctor Name: ". $appointment->getDoctor->name;
-            sendNotificationToUser($title, $content, 'USER' , null , $appointment->getPatient->notification_id);
+            sendNotificationToUser($title, $content, 'USER' , null , $notification_id);
         }
 
         if ($request->status_id == 5) {
