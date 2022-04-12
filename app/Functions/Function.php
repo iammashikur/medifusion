@@ -90,7 +90,7 @@ function sendNotificationToUser($title, $desc, $user_type, $p_cat_image = "",$in
     $fields = array(
         'app_id' => env('ONESIGNAL_APP_ID'), // env
         'contents' => $content,
-        'include_player_ids' => $include_player_ids,
+        'include_player_ids' => array($include_player_ids),
         'headings' => $headings,
         'big_picture' => $p_cat_image
 
