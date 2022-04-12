@@ -89,11 +89,6 @@ function sendNotificationToUser($title, $desc, $user_type, $p_cat_image = "",$in
 
     $fields = array(
         'app_id' => env('ONESIGNAL_APP_ID'), // env
-        'included_segments' => array($user_type),
-        // 'data' => array(
-        //     "post_type" => "" ,
-        //     "id" => "" ,
-        // ),
         'contents' => $content,
         'include_player_ids' => $include_player_ids,
         'headings' => $headings,
