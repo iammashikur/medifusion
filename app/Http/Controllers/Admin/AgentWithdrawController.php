@@ -83,6 +83,11 @@ class AgentWithdrawController extends Controller
 
         if ($agent_withdraw->status == 3) {
 
+
+            $title = "Your balance withdraw is successful.";
+            $content = "Text: TrxID: $request->trx_id
+            Current Balance: ".currentBalance('agent', $agent_withdraw->agent_id);
+            sendNotificationToUser($title, $content, 'AGENT' , null , Agent::find($agent_withdraw->agent_id)->notification_id);
             $transaction = new Wallet();
             $transaction->user_type = 'agent';
             $transaction->user_id = $agent_withdraw->agent_id;

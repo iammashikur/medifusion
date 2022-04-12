@@ -79,6 +79,9 @@ class AppointmentController extends Controller
         $appointment->save();
 
         if ($request->status_id == 5) {
+            $title = "Your appointment has been fixed!";
+            $content = "Your serial no. $request->serial, Doctor Name: ". $appointment->getDoctor->name;
+            sendNotificationToUser($title, $content, 'USER' , null , $appointment->getPatient->notification_id);
             DB::table('wallets')->where(['appointment_id' => $appointment->id])->update([
                 'status' => 1,
             ]);

@@ -657,4 +657,18 @@ class ApiController extends Controller
             'message' => 'Appointment not found!',
         ], 200);
     }
+
+    public function change_notification_id(Request $request)
+    {
+
+        $agent = Agent::find($request->user()->id);
+        $agent->notification_id = $request->notification_id;
+        $agent->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Notification ID Updated!',
+        ], 200);
+
+    }
 }

@@ -65,12 +65,65 @@ function sendNotificationToSubsciber($title, $desc, $user_type, $p_cat_image = "
     $response = curl_exec($ch);
     curl_close($ch);
 
+}
+
+function sendNotificationToUser($title, $desc, $user_type, $p_cat_image = "",$include_player_ids)
+{
+    $content      = array(
+        "en" => $desc,
+    );
+    $headings = array(
+        "en" => $title,
+    );
+
+    $hashes_array = array();
+
+    array_push($hashes_array, array(
+        "id" => "like-button",
+        "text" => "Like",
+        "icon" => "http://i.imgur.com/N8SN8ZS.png",
+        "url" => "https://yoursite.com"
+    ));
+
+    array_push($hashes_array, array());
+
+    $fields = array(
+        'app_id' => env('ONESIGNAL_APP_ID'), // env
+        'included_segments' => array($user_type),
+        // 'data' => array(
+        //     "post_type" => "" ,
+        //     "id" => "" ,
+        // ),
+        'contents' => $content,
+        'include_player_ids' => $include_player_ids,
+        'headings' => $headings,
+        'big_picture' => $p_cat_image
+
+    );
+
+    $fields = json_encode($fields);
+    print("\nJSON sent:\n");
 
 
 
 
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/json; charset=utf-8',
+        'Authorization: Basic '. env('ONESIGNAL_API_KEY') //env
+    ));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
 
 }
+
 
 
 // Active Menu Button

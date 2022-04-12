@@ -59,6 +59,8 @@ Route::post('/agent/login', [AuthController::class, 'agent_login']);
 Route::middleware('auth:sanctum')->prefix('agent')->group(function () {
 
 
+    Route::post('/change-notification-id', [ApiController::class, 'change_notification_id']);
+
     Route::post('/withdraw', [ApiController::class, 'withdraw']);
 
     Route::get('/balance', [ApiController::class, 'balance']);
