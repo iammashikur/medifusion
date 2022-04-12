@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\AppointmentsDataTable;
+use App\Models\Agent;
 use App\Models\AgentAppointment;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -82,7 +83,7 @@ class AppointmentController extends Controller
         if ($request->status_id == 2) {
 
             if($appointment->by_agent == 1){
-                $notification_id = AgentAppointment::where('appointment_id')->first()->notification_id;
+                $notification_id = Agent::find(AgentAppointment::where('appointment_id')->first()->agent_id)->notification_id;
             }else{
                 $notification_id = $appointment->getPatient->notification_id;
             }
