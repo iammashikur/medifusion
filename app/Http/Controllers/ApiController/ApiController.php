@@ -8,6 +8,8 @@ use App\Models\AgentAppointment;
 use App\Models\AgentTest;
 use App\Models\AgentWithdraw;
 use App\Models\Appointment;
+use App\Models\CompounderDoctor;
+use App\Models\CompounderHospital;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
 use App\Models\DoctorSpecialization;
@@ -671,4 +673,92 @@ class ApiController extends Controller
         ], 200);
 
     }
+
+    public function compounder_doctors(Request $request){
+
+        $doctors = [];
+
+        foreach(CompounderDoctor::where(['compounder_id' => $request->user()->id])->get() as $doc){
+            $doctors = @Doctor::find($doc->doctor_id);
+        }
+
+        return response()->json([
+            'success' => true,
+            'doctors' => $doctors,
+        ], 200);
+
+    }
+    public function compounder_hospitals(Request $request){
+
+        $hospitals = [];
+
+        foreach(CompounderHospital::where(['compounder_id' => $request->user()->id])->get() as $doc){
+            $hospitals = @Doctor::find($doc->hospital_id);
+        }
+
+        return response()->json([
+            'success' => true,
+            'hospitals' => $hospitals,
+        ], 200);
+
+    }
+
+    public function compounder_appointments(Request $request){
+
+        $appointments = Appointment::where('doctor_id', $request->id)->with('getDoctor', 'getHospital', 'getStatus')->get();
+
+        foreach ($appointments as $value) {
+            $value->location = $value->getLocation;
+        }
+
+        return response()->json([
+            'success' => true,
+            'appointments' => $appointments,
+        ], 200);
+
+    }
+
+    public function compounder_tests(Request $request){
+
+        $tests = PatientTest::where('hospital_id', $request->id)->with('getStatus')->get();
+        foreach ($tests as $test) {
+            $test_items = PatientTestItem::where('patient_test_id', $test->id)->get();
+            foreach ($test_items as $key) {
+                $key->location = Hospital::find($key->hospital_id);
+                $key->image = @TestSubcategory::find($key->test_id)->image;
+            }
+            $test->test_items = $test_items;
+        }
+
+        return $tests;
+
+    }
+
+    public function compounder_appointment_update(Request $request){
+
+        $appointment = Appointment::find($request->id);
+        $appointment->status_id = $request->status;
+        $appointment->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Appointment Updated',
+        ], 200);
+
+    }
+
+    public function compounder_test_update(Request $request){
+
+        $appointment = PatientTest::find($request->id);
+        $appointment->status_id = $request->status;
+        $appointment->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Test Updated',
+        ], 200);
+
+    }
+
+
 }
