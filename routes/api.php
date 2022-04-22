@@ -94,5 +94,14 @@ Route::post('/compounder/login', [AuthController::class, 'compounder_login']);
 Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
 
 
+    Route::get('/doctors',[ApiController::class, 'compounder_doctors']);
+    Route::get('/hospitals',[ApiController::class, 'compounder_hospitals']);
+    Route::get('/appointments/{id}',[ApiController::class, 'compounder_appointments']);
+    Route::get('/tests/{id}',[ApiController::class, 'compounder_tests']);
+    Route::post('/update-appointment/{id}',[ApiController::class, 'compounder_appointment_update']);
+    Route::post('/update-test/{id}',[ApiController::class, 'compounder_test_update']);
+
     Route::post('/logout', [AuthController::class, 'logout']);
+
+
 });
