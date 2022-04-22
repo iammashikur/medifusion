@@ -679,7 +679,7 @@ class ApiController extends Controller
         $doctors = [];
 
         foreach(CompounderDoctor::where(['compounder_id' => $request->user()->id])->get() as $doc){
-            $doctors = @Doctor::find($doc->doctor_id);
+            $doctors[] = @Doctor::find($doc->doctor_id);
         }
 
         return response()->json([
@@ -693,7 +693,7 @@ class ApiController extends Controller
         $hospitals = [];
 
         foreach(CompounderHospital::where(['compounder_id' => $request->user()->id])->get() as $doc){
-            $hospitals = @Doctor::find($doc->hospital_id);
+            $hospitals[] = @Doctor::find($doc->hospital_id);
         }
 
         return response()->json([
