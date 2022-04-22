@@ -749,9 +749,9 @@ class ApiController extends Controller
 
     public function compounder_test_update(Request $request){
 
-        $appointment = PatientTest::find($request->id);
-        $appointment->status_id = $request->status;
-        $appointment->save();
+        $test = PatientTest::find($request->id);
+        $test->status_id = $request->status;
+        $test->save();
 
         return response()->json([
             'success' => true,
