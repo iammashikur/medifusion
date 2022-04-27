@@ -671,14 +671,14 @@ class ApiController extends Controller
             'success' => true,
             'message' => 'Notification ID Updated!',
         ], 200);
-
     }
 
-    public function compounder_doctors(Request $request){
+    public function compounder_doctors(Request $request)
+    {
 
         $doctors = [];
 
-        foreach(CompounderDoctor::where(['compounder_id' => $request->user()->id])->get() as $doc){
+        foreach (CompounderDoctor::where(['compounder_id' => $request->user()->id])->get() as $doc) {
             $doctors[] = @Doctor::find($doc->doctor_id);
         }
 
@@ -686,24 +686,39 @@ class ApiController extends Controller
             'success' => true,
             'doctors' => $doctors,
         ], 200);
-
     }
-    public function compounder_hospitals(Request $request){
+    public function compounder_hospitals(Request $request)
+    {
 
         $hospitals = [];
 
-        foreach(CompounderHospital::where(['compounder_id' => $request->user()->id])->get() as $doc){
+        foreach (CompounderHospital::where(['compounder_id' => $request->user()->id])->get() as $doc) {
             $hospitals[] = @Doctor::find($doc->hospital_id);
+        }
+
+        foreach ($hospitals as $hs) {
+
+            $tests = PatientTest::with('getStatus')->get();
+            foreach ($tests as $test) {
+                $test_items = PatientTestItem::where('hospital_id', $hs->id)->get();
+                foreach ($test_items as $key) {
+                    $key->location = Hospital::find($key->hospital_id);
+                    $key->image = @TestSubcategory::find($key->test_id)->image;
+                }
+                $test->test_items = $test_items;
+            }
+
+            $hs->tests = $tests;
         }
 
         return response()->json([
             'success' => true,
             'hospitals' => $hospitals,
         ], 200);
-
     }
 
-    public function compounder_appointments(Request $request){
+    public function compounder_appointments(Request $request)
+    {
 
         $appointments = Appointment::where('doctor_id', $request->id)->with('getDoctor', 'getHospital', 'getStatus')->get();
 
@@ -715,10 +730,10 @@ class ApiController extends Controller
             'success' => true,
             'appointments' => $appointments,
         ], 200);
-
     }
 
-    public function compounder_tests(Request $request){
+    public function compounder_tests(Request $request)
+    {
 
         $tests = PatientTest::with('getStatus')->get();
         foreach ($tests as $test) {
@@ -731,10 +746,10 @@ class ApiController extends Controller
         }
 
         return $tests;
-
     }
 
-    public function compounder_appointment_update(Request $request){
+    public function compounder_appointment_update(Request $request)
+    {
 
         $appointment = Appointment::find($request->id);
         $appointment->status_id = $request->status;
@@ -744,10 +759,10 @@ class ApiController extends Controller
             'success' => true,
             'message' => 'Appointment Updated',
         ], 200);
-
     }
 
-    public function compounder_test_update(Request $request){
+    public function compounder_test_update(Request $request)
+    {
 
         $test = PatientTest::find($request->id);
         $test->status_id = $request->status;
@@ -757,8 +772,5 @@ class ApiController extends Controller
             'success' => true,
             'message' => 'Test Updated',
         ], 200);
-
     }
-
-
 }
