@@ -682,6 +682,17 @@ class ApiController extends Controller
             $doctors[] = @Doctor::find($doc->doctor_id);
         }
 
+    foreach($doctors as $doc)
+    {
+        $appointments = Appointment::where('doctor_id', $doc->id)->with('getDoctor', 'getHospital', 'getStatus')->get();
+
+        foreach ($appointments as $value) {
+            $value->location = $value->getLocation;
+        }
+
+        $doc->appointments = $appointments;
+    }
+
         return response()->json([
             'success' => true,
             'doctors' => $doctors,
