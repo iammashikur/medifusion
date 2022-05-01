@@ -768,6 +768,10 @@ class ApiController extends Controller
         $appointment = Appointment::find($request->id);
         $appointment->status_id = $request->status;
 
+        if ($appointment->status) {
+            $appointment->status = $request->status;
+        }
+
         if ($appointment->serial) {
             $appointment->serial = $request->serial;
         }
