@@ -703,8 +703,8 @@ class ApiController extends Controller
 
         $hospitals = [];
 
-        foreach (CompounderHospital::where(['compounder_id' => $request->user()->id])->get() as $doc) {
-            $hospitals[] = @Doctor::find($doc->hospital_id);
+        foreach (CompounderHospital::where(['compounder_id' => $request->user()->id])->get() as $hos) {
+            $hospitals[] = @Hospital::find($hos->hospital_id);
         }
 
         foreach ($hospitals as $hs) {
@@ -764,6 +764,15 @@ class ApiController extends Controller
 
         $appointment = Appointment::find($request->id);
         $appointment->status_id = $request->status;
+
+        if ($appointment->serial) {
+            $appointment->serial = $request->serial;
+        }
+
+        if ($appointment->appointment_date) {
+            $appointment->appointment_date = $request->appointment_date;
+        }
+
         $appointment->save();
 
         return response()->json([

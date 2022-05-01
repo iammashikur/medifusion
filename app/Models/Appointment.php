@@ -21,7 +21,6 @@ class Appointment extends Model
         return $this->hasOne(Hospital::class, 'id', 'hospital_id');
     }
 
-
     public function getStatus(){
         return $this->hasOne(AppointmentStatus::class, 'id', 'status_id');
     }
