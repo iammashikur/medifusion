@@ -59,7 +59,7 @@ class ApiController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Agent not exists!',
-            ], 404);
+            ], 420);
            }
         }
 
