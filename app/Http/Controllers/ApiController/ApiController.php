@@ -52,6 +52,12 @@ class ApiController extends Controller
     public function agent_fix_appointment(Request $request)
     {
 
+        if ($request->has('other_agent_phone')) {
+           if (Agent::where('phone', $request->other_agent_phone)->count()) {
+                $request->user()->id = Agent::where('phone', $request->other_agent_phone)->first()->id;
+           }
+        }
+
 
         if (!$request->filled('doctor_id')) {
             return response()->json([
