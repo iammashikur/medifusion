@@ -772,6 +772,13 @@ class ApiController extends Controller
 
         $appointment = Appointment::find($request->id);
 
+        if (!$appointment) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Not Found!',
+            ], 404);
+        }
+
         if ($request->status) {
             $appointment->status_id = $request->status;
         }
