@@ -732,7 +732,7 @@ class ApiController extends Controller
         }
 
         foreach ($hospitals as $hs) {
-                $test_items = PatientTestItem::where('hospital_id', $hs->id)->select('test_id', DB::raw('count(*) as total'))->groupBy('test_id')->get();
+                $test_items = PatientTestItem::where('hospital_id', $hs->id)->select('*', DB::raw('count(*) as total'))->groupBy('test_id')->get();
                 $hs->tests = $test_items;
         }
 
