@@ -732,7 +732,7 @@ class ApiController extends Controller
         }
 
         foreach ($hospitals as $hs) {
-                $test_items = PatientTestItem::where('hospital_id', $hs->id)->get()->groupBy('test_id');
+                $test_items = PatientTestItem::where('hospital_id', $hs->id)->get()->groupBy('patient_test_id');
                 $hs->tests = $test_items;
         }
 
