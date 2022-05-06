@@ -732,8 +732,17 @@ class ApiController extends Controller
         }
 
         foreach ($hospitals as $hs) {
+
+
                 $test_items = PatientTestItem::where('hospital_id', $hs->id)->get()->groupBy('patient_test_id');
-                $hs->tests = $test_items;
+
+                $data = [];
+
+                foreach($test_items as $key => $it){
+                    $data[] = ['test' => PatientTest::where('id',$key)->with('getStatus','getPatient','getItems')->first()];
+                }
+
+                $hs->testst = $data;
         }
 
         return response()->json([
