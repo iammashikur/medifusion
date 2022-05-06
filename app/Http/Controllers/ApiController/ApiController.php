@@ -773,7 +773,7 @@ class ApiController extends Controller
     {
         $tests = PatientTest::with('getStatus')->get();
         foreach ($tests as $test) {
-            $test_items = PatientTestItem::where('hospital_id', $request->id)->get();
+            $test_items = PatientTestItem::where('patient_test_id', $request->id)->get();
             foreach ($test_items as $key) {
                 $key->location = Hospital::find($key->hospital_id);
                 $key->image = @TestSubcategory::find($key->test_id)->image;
