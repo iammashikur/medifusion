@@ -755,7 +755,6 @@ class ApiController extends Controller
 
     public function compounder_tests(Request $request)
     {
-
         $tests = PatientTest::with('getStatus')->get();
         foreach ($tests as $test) {
             $test_items = PatientTestItem::where('hospital_id', $request->id)->get();
@@ -765,7 +764,6 @@ class ApiController extends Controller
             }
             $test->test_items = $test_items;
         }
-
         return $tests;
     }
 
@@ -773,17 +771,15 @@ class ApiController extends Controller
     {
 
         $appointment = Appointment::find($request->id);
-        $appointment->status_id = $request->status;
 
-        if ($appointment->status) {
-            $appointment->status = $request->status;
+        if ($request->status) {
+            $appointment->status_id = $request->status;
         }
-
-        if ($appointment->serial) {
+        if ($request->serial) {
             $appointment->serial = $request->serial;
         }
 
-        if ($appointment->appointment_date) {
+        if ($request->appointment_date) {
             $appointment->appointment_date = $request->appointment_date;
         }
 
