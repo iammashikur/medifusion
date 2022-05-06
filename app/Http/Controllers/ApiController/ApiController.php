@@ -347,6 +347,17 @@ class ApiController extends Controller
     public function agent_patient_tests(Request $request)
     {
 
+        if ($request->has('other_agent_phone')) {
+            if (Agent::where('phone', $request->other_agent_phone)->count()) {
+                 $request->user()->id = Agent::where('phone', $request->other_agent_phone)->first()->id;
+            }else{
+             return response()->json([
+                 'success' => false,
+                 'message' => 'Agent not exists!',
+             ], 420);
+            }
+         }
+
 
         $patient = Patient::where(['phone' => $request->phone])
             ->first();
