@@ -44,7 +44,7 @@ class PatientTestsDataTable extends DataTable
             })
 
             ->addColumn('status', function ($query) {
-                return $query->getStatus->status;
+                return @$query->getStatus->status;
             })
 
             ->addColumn('action', function ($action) {
