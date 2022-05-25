@@ -81,9 +81,9 @@ class AgentAppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Appointment $appointment, Request $request)
+    public function update($id, Request $request)
     {
-        $appointment = Appointment::findOrFail($appointment->id);
+        $appointment = Appointment::findOrFail($id);
         $appointment->appointment_date = $request->appointment_date;
         $appointment->status_id = $request->status_id;
         $appointment->serial = $request->serial;
