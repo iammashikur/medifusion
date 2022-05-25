@@ -31,8 +31,19 @@ class PatientsDataTable extends DataTable
                 return $created_at->getDistrict->name;
             })
 
+
             ->addColumn('thana', function ($created_at) {
                 return $created_at->getThana->name;
+            })
+
+            ->addColumn('status', function ($query) {
+                $status = $query->status;
+                if ($status == 0) {
+                    return '<a href="'.route('user.ban',['id' => $query->id]).'" class="btn btn-danger btn-sm">  Banned </a>';
+                }
+                else{
+                    return '<a href="'.route('user.unban',['id' => $query->id]).'" class="btn btn-success btn-sm">  Active </a>';
+                }
             });
     }
 

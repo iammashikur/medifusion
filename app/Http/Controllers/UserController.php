@@ -131,6 +131,26 @@ class UserController extends Controller
                         ->with('success','User updated successfully');
     }
 
+    public function ban($request)
+    {
+
+        DB::table('patients')->where(['id' => $request->id])->update([
+            'status' => 0,
+        ]);
+
+        return redirect()->route('users.index')->with('success','User updated successfully');
+    }
+
+    public function unban($request)
+    {
+
+        DB::table('patients')->where(['id' => $request->id])->update([
+            'status' => 1,
+        ]);
+
+        return redirect()->route('users.index')->with('success','User updated successfully');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

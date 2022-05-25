@@ -26,6 +26,7 @@ class CreatePatientsTable extends Migration
             $table->string('notification_id')->nullable();
             $table->string('password')->nullable();
             $table->integer('referred_by_id')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
 
