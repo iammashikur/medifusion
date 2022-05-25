@@ -31,7 +31,6 @@ class TransactionDataTable extends DataTable
 
 
             ->filterColumn('user_type', function ($query, $keywords) {
-
                 $query->where('user_type', 'LIKE', "%$keywords%");
 
              })
@@ -41,8 +40,12 @@ class TransactionDataTable extends DataTable
 
             })
 
+            ->filterColumn('account_holder_name', function ($query, $keywords) {
+                $query->where('account_holder', 'LIKE', "%$keywords%");
+            })
+
             ->addColumn('account_holder_name', function ($query) {
-                return $query->account_holder_name;
+                return $query->account_holder;
             })
 
             ->addColumn('source', function ($query){

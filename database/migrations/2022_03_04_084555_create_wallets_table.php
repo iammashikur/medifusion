@@ -17,6 +17,7 @@ class CreateWalletsTable extends Migration
             $table->id();
             $table->string('user_type');
             $table->integer('user_id')->nullable();
+            $table->string('account_holder')->nullable();
             $table->string('transaction_type');
             $table->string('amount');
             $table->boolean('status');
