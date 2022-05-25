@@ -12,4 +12,16 @@ class Wallet extends Model
     public function getUser(){
         return $this->hasOne(Patient::class, 'id', 'user_id');
     }
+
+    public function getAgent(){
+        return $this->hasOne(Agent::class, 'id', 'user_id');
+    }
+
+    public function getDoctor(){
+        return $this->hasOne(Doctor::class, 'id', 'user_id');
+    }
+
+    public function getHospital(){
+        return $this->hasOne(Hospital::class, 'id', 'user_id');
+    }
 }
