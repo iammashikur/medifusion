@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body" style="overflow-x: auto">
 
-                    <form action="{{ route('agent-appointment.update', $appointment) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('agent-appointment.update', $appointment->id) }}" method="POST" enctype="multipart/form-data">
 
                         @csrf
                         @method('PUT')
@@ -37,10 +37,27 @@
                         </div>
 
 
+                        <div class="form-group mb-2">
+                            <label for="">Location</label>
+                            <Textarea type="text" class="form-control h-100" name="" id="" aria-describedby="helpId" rows="6"
+                            disabled>District : {{$appointment->getLocation->getDistrict->name}}
+Thana : {{$appointment->getLocation->getThana->name}}
+Address :  {{$appointment->getLocation->address}}
+                            </Textarea>
+
+                          </div>
+
+
                         <div class="form-group mb-3">
                           <label for="">Appointment Date</label>
                           <input type="datetime-local" class="form-control" name="appointment_date" value="{{  date('Y-m-d\TH:i', strtotime($appointment->appointment_date)) }}" aria-describedby="helpId" placeholder="">
                         </div>
+
+                        <div class="form-group mb-2">
+                            <label for="">Serial No.</label>
+                            <input type="text" class="form-control" name="serial" id=""
+                             value="{{$appointment->serial}}">
+                          </div>
 
 
                         <div class="form-group">
