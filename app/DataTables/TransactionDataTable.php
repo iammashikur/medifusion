@@ -35,7 +35,7 @@ class TransactionDataTable extends DataTable
 
             ->filterColumn('account_holder_name', function ($query, $keywords) {
 
-                $query->with('getUser')->whereHas('patients', function($q) use($keywords){
+                $query->with('getUser')->whereHas('getUser', function($q) use($keywords){
                     $q->where('name', 'LIKE', "%$keywords%");
                 })->get();
 
