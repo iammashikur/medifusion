@@ -114,6 +114,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('agent', AgentController::class);
     Route::resource('agent-settings', AgentSettingsController::class);
     Route::resource('compounder', CompounderController::class);
+
+
     Route::resource('transaction', TransactionController::class);
     Route::resource('agent-withdraw', AgentWithdrawController::class);
     Route::resource('agent-pay', AgentPayController::class);
@@ -123,6 +125,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('push-notification', PushNotificationController::class);
 
     Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 
     Route::get('user-ban', [UserController::class, 'ban'])->name('user.ban');
     Route::get('user-unban', [UserController::class, 'unban'])->name('user.ban');
