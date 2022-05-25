@@ -34,27 +34,30 @@ class TransactionDataTable extends DataTable
             })
 
             ->addColumn('account_holder_name', function ($query) {
-                switch ($query->user_type) {
-                    case 'medic':
-                        return 'Medic';
-                        break;
-                    case 'hospital':
-                        return @Hospital::find($query->user_id)->name;
-                        break;
-                    case 'patient':
-                        return @Patient::find($query->user_id)->name;
-                        break;
-                    case 'agent':
-                        return @Agent::find($query->user_id)->name;
-                        break;
-                    case 'doctor':
-                        return @Doctor::find($query->user_id)->name;
-                        break;
 
-                    default:
-                        # code...
-                        break;
-                }
+                return @$query->getUser->name;
+
+                // switch ($query->user_type) {
+                //     case 'medic':
+                //         return 'Medic';
+                //         break;
+                //     case 'hospital':
+                //         return @Hospital::find($query->user_id)->name;
+                //         break;
+                //     case 'patient':
+                //         return @Patient::find($query->user_id)->name;
+                //         break;
+                //     case 'agent':
+                //         return @Agent::find($query->user_id)->name;
+                //         break;
+                //     case 'doctor':
+                //         return @Doctor::find($query->user_id)->name;
+                //         break;
+
+                //     default:
+                //         # code...
+                //         break;
+                // }
             })
 
             ->addColumn('source', function ($query){
@@ -88,7 +91,7 @@ class TransactionDataTable extends DataTable
      */
     public function query(Wallet $model)
     {
-        return Wallet::where(['status' => 1]);
+        return Wallet::with('getUser')->where(['status' => 1]);
     }
 
     /**
