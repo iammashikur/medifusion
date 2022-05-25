@@ -70,7 +70,7 @@ class AgentAppointmentController extends Controller
     {
 
         $appointment = Appointment::findOrFail($id);
-        return view('admin.appointment_edit', compact('appointment'));
+        return view('admin.agent_appointment_edit', compact('appointment'));
 
     }
 
