@@ -66,11 +66,12 @@ class AgentAppointmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Appointment $appointment)
+    public function edit($id)
     {
 
-        $appointment = Appointment::findOrFail($appointment->id);
+        $appointment = Appointment::findOrFail($id);
         return view('admin.appointment_edit', compact('appointment'));
+
     }
 
     /**
