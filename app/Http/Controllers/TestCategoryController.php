@@ -59,8 +59,6 @@ class TestCategoryController   extends Controller
         $category->name = $request->name;
 
 
-
-        $category->hospital_id = auth()->user()->hospital_id;
         $category->save();
         toast('Specialization Created!', 'success')->width('300px')->padding('10px');
         return redirect()->route('test-category.index');
@@ -109,7 +107,6 @@ class TestCategoryController   extends Controller
 
         $category->name = $request->name;
 
-        $category->hospital_id = auth()->user()->hospital_id;
         $category->save();
         toast('Test Category Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('test-category.index');
