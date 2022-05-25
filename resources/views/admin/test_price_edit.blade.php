@@ -38,6 +38,21 @@
                         @csrf
 
                         @method('PUT')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospital</label>
                             <div class="col-sm-12 col-md-7">
@@ -56,24 +71,22 @@
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">District</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="category" disabled>
-                                    <option value="">---Category---</option>
+                                <select class="form-control" name="category">
+                                    <option> -- select -- </option>
                                     @foreach (App\Models\TestCategory::all() as $item)
-                                        <option @if ($item->id == App\Models\TestSubcategory::find($testPrice->id)) selected @endif
-                                            value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thana</label>
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Test</label>
                             <div class="col-sm-12 col-md-7">
-                                <select class="form-control" name="test" disabled>
-                                    <option selected value="{{ $testPrice->thana_id }}">
-                                        {{ App\Models\TestSubcategory::find($testPrice->id)->name }}</option>
+                                <select class="form-control" name="test">
+                                    <option> -- select -- </option>
                                 </select>
                             </div>
                         </div>
@@ -83,17 +96,16 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Price</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="number" name="price" class="form-control" value="{{ $testPrice->price }}" required>
+                                <input type="number" name="price" class="form-control" required>
                             </div>
                         </div>
 
                         {{-- <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Discount Price</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="number" name="discount_price" class="form-control"  value="{{ $testPrice->discount_price }}"  required>
+                                <input type="number" name="discount_price" class="form-control" required>
                             </div>
                         </div> --}}
-
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
