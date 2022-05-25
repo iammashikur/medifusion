@@ -63,7 +63,7 @@ class AgentAppointmentDataTable extends DataTable
 
 
             ->addColumn('action', function ($action) {
-                return '<a class="btn-sm btn-primary" href="' . route('appointment.edit', $action->id) . '"><i class="far fa-edit"></i> Edit</a>';
+                return '<a class="btn-sm btn-primary" href="' . route('agent-appointment.edit', $action->id) . '"><i class="far fa-edit"></i> Edit</a>';
             })
 
             ->rawColumns(['patient', 'doctor', 'status', 'action', 'location']);
