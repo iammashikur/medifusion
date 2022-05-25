@@ -58,19 +58,7 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        if ($request->hasFile('avatar')) {
-            $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
-        }else {
-            $imagePath         = '/assets/admin/img/logo.png';
-        }
-
-
-
         $input = $request->all();
-
-        foreach($input as $inp){
-            $inp->avatar = $imagePath;
-        }
 
         $input['password'] = Hash::make($input['password']);
 
@@ -124,16 +112,9 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        if ($request->hasFile('avatar')) {
-            $imagePath         = MakeImage($request, 'avatar', public_path('/uploads/images/'));
-        }else {
-            $imagePath         = User::find($id)->avatar;
-        }
+
         $input = $request->all();
 
-        foreach($input as $inp){
-            $inp->avatar = $imagePath;
-        }
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
