@@ -39,10 +39,10 @@ class PatientsDataTable extends DataTable
             ->addColumn('status', function ($query) {
                 $status = $query->status;
                 if ($status == '0') {
-                    return '<a href="'.route('user.ban',['id' => $query->id]).'" class="btn btn-danger btn-sm">  Banned </a>';
+                    return '<a href="'.route('user.unban',['id' => $query->id]).'" class="btn btn-danger btn-sm">  Banned </a>';
                 }
                 else{
-                    return '<a href="'.route('user.unban',['id' => $query->id]).'" class="btn btn-success btn-sm">  Active </a>';
+                    return '<a href="'.route('user.ban',['id' => $query->id]).'" class="btn btn-success btn-sm">  Active </a>';
                 }
             })
 
