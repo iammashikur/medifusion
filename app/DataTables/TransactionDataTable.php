@@ -35,36 +35,52 @@ class TransactionDataTable extends DataTable
 
             ->filterColumn('account_holder_name', function ($query, $keywords) {
 
-                switch ($query->user_type) {
-                    case 'medic':
-                        return 'Medic';
-                        break;
-                    case 'hospital':
-                        $query->with('getHospital')->whereHas('getHospital', function($q) use($keywords){
-                            $q->where('name', 'LIKE', "%$keywords%");
-                        })->get();
-                        break;
-                    case 'patient':
-                        $query->with('getUser')->whereHas('getUser', function($q) use($keywords){
-                            $q->where('name', 'LIKE', "%$keywords%");
-                        })->get();
-                        break;
-                    case 'agent':
-                        $query->with('getAgent')->whereHas('getAgent', function($q) use($keywords){
-                            $q->where('name', 'LIKE', "%$keywords%");
-                        })->get();
-                        break;
-                    case 'doctor':
-                        $query->with('getDoctor')->whereHas('getDoctor', function($q) use($keywords){
-                            $q->where('name', 'LIKE', "%$keywords%");
-                        })->get();
-                        break;
 
-                    default:
-                        # code...
-                        break;
+                $user = Wallet::with('getUser')->whereHas('getUser', function($q) use($keywords){
+                    $q->where('name', 'LIKE', "%$keywords%");
+                });
+
+                $agent = Wallet::with('getAgent')->whereHas('getAgent', function($q) use($keywords){
+                    $q->where('name', 'LIKE', "%$keywords%");
+                });
+
+                $doctor = Wallet::with('getDoctor')->whereHas('getDoctor', function($q) use($keywords){
+                    $q->where('name', 'LIKE', "%$keywords%");
+                });
+
+                $hospital = Wallet::with('getHospital')->whereHas('getHospital', function($q) use($keywords){
+                    $q->where('name', 'LIKE', "%$keywords%");
+                });
+
+                if($user->count() > 0)
+                {
+                    $user = $query->with('getUser')->whereHas('getUser', function($q) use($keywords){
+                        $q->where('name', 'LIKE', "%$keywords%");
+                    });
+
+
                 }
 
+                if($agent->count() > 0)
+                {
+                    $agent = $query->with('getAgent')->whereHas('getAgent', function($q) use($keywords){
+                        $q->where('name', 'LIKE', "%$keywords%");
+                    });
+                }
+
+                if($doctor->count() > 0)
+                {
+                    $doctor = $query->with('getDoctor')->whereHas('getDoctor', function($q) use($keywords){
+                        $q->where('name', 'LIKE', "%$keywords%");
+                    });
+                }
+
+                if($hospital->count() > 0)
+                {
+                    $hospital = $query->with('getHospital')->whereHas('getHospital', function($q) use($keywords){
+                        $q->where('name', 'LIKE', "%$keywords%");
+                    });
+                }
 
 
             })
