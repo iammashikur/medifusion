@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class TestCategoryController   extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:test-category-list|test-category-create|test-category-edit|test-category-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:test-category-create', ['only' => ['create','store']]);
+         $this->middleware('permission:test-category-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:test-category-delete', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

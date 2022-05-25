@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class PatientTestController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:patient-test-list|patient-test-edit', ['only' => ['index']]);
+         $this->middleware('permission:patient-test-edit', ['only' => ['edit','update']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

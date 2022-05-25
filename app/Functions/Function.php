@@ -67,7 +67,7 @@ function sendNotificationToSubsciber($title, $desc, $user_type, $p_cat_image = "
 
 }
 
-function sendNotificationToUser($title, $desc, $user_type, $p_cat_image = "",$include_player_ids)
+function sendNotificationToUser($title, $desc, $user_type, $include_player_ids, $p_cat_image = "")
 {
     $content      = array(
         "en" => $desc,

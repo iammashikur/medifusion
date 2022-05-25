@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class DoctorReceiveController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:doctor-receive-list', ['only' => ['index']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

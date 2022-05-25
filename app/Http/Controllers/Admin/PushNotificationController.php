@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class PushNotificationController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:push-notification-list|push-notification-create', ['only' => ['index','store']]);
+         $this->middleware('permission:push-notification-create', ['only' => ['create','store']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

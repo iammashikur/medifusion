@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class SpecializationController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:specialization-list|specialization-create|specialization-edit|specialization-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:specialization-create', ['only' => ['create','store']]);
+         $this->middleware('permission:specialization-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:specialization-delete', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

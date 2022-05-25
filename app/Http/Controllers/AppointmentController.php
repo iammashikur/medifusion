@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:appointment-list|appointment-edit', ['only' => ['index']]);
+         $this->middleware('permission:appointment-edit', ['only' => ['edit','update']]);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -90,7 +99,7 @@ class AppointmentController extends Controller
 
             $title = "Your appointment has been fixed!";
             $content = "Your serial no. $request->serial, Doctor Name: ". $appointment->getDoctor->name;
-            sendNotificationToUser($title, $content, 'USER' , null , $notification_id);
+            sendNotificationToUser($title, $content, 'USER' ,  $notification_id, null);
         }
 
         if ($request->status_id == 5) {

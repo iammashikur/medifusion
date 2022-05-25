@@ -675,6 +675,7 @@ class ComposerStaticInit9a3c50ef4f3fda77c2b38d8e762e200c
         'App\\Http\\Controllers\\Admin\\AgentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AgentController.php',
         'App\\Http\\Controllers\\Admin\\AgentPayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AgentPayController.php',
         'App\\Http\\Controllers\\Admin\\AgentSettingsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AgentSettingsController.php',
+        'App\\Http\\Controllers\\Admin\\AgentWithdrawController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/AgentWithdrawController.php',
         'App\\Http\\Controllers\\Admin\\ClientPayController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ClientPayController.php',
         'App\\Http\\Controllers\\Admin\\CompounderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CompounderController.php',
         'App\\Http\\Controllers\\Admin\\DoctorLocationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DoctorLocationController.php',

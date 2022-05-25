@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 
 class AgentController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:agent-list|agent-create|agent-edit|agent-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:agent-create', ['only' => ['create','store']]);
+         $this->middleware('permission:agent-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:agent-delete', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class AgentTestController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:agent-test-list|agent-test-edit', ['only' => ['index']]);
+         $this->middleware('permission:agent-test-edit', ['only' => ['edit','update']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

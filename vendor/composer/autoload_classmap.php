@@ -40,6 +40,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\AgentController' => $baseDir . '/app/Http/Controllers/Admin/AgentController.php',
     'App\\Http\\Controllers\\Admin\\AgentPayController' => $baseDir . '/app/Http/Controllers/Admin/AgentPayController.php',
     'App\\Http\\Controllers\\Admin\\AgentSettingsController' => $baseDir . '/app/Http/Controllers/Admin/AgentSettingsController.php',
+    'App\\Http\\Controllers\\Admin\\AgentWithdrawController' => $baseDir . '/app/Http/Controllers/Admin/AgentWithdrawController.php',
     'App\\Http\\Controllers\\Admin\\ClientPayController' => $baseDir . '/app/Http/Controllers/Admin/ClientPayController.php',
     'App\\Http\\Controllers\\Admin\\CompounderController' => $baseDir . '/app/Http/Controllers/Admin/CompounderController.php',
     'App\\Http\\Controllers\\Admin\\DoctorLocationController' => $baseDir . '/app/Http/Controllers/Admin/DoctorLocationController.php',

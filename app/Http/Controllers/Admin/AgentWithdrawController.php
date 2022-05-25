@@ -11,6 +11,15 @@ use Illuminate\Http\Request;
 
 class AgentWithdrawController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:agent-withdraw-list', ['only' => ['index']]);
+         $this->middleware('permission:agent-withdraw-edit', ['only' => ['edit','update']]);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -87,7 +96,7 @@ class AgentWithdrawController extends Controller
             $title = "Your balance withdraw is successful.";
             $content = "Text: TrxID: $request->trx_id
             Current Balance: ".currentBalance('agent', $agent_withdraw->agent_id);
-            sendNotificationToUser($title, $content, 'AGENT' , null , Agent::find($agent_withdraw->agent_id)->notification_id);
+            sendNotificationToUser($title, $content, 'AGENT' , Agent::find($agent_withdraw->agent_id)->notification_id, null );
 
             $transaction = new Wallet();
             $transaction->user_type = 'agent';

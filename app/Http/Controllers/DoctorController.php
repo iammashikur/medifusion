@@ -16,6 +16,14 @@ use PhpOffice\PhpSpreadsheet\Reader\Xls\Color\BIFF5;
 class DoctorController extends Controller
 {
 
+    function __construct()
+    {
+         $this->middleware('permission:doctor-list|doctor-create|doctor-edit|doctor-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:doctor-create', ['only' => ['create','store']]);
+         $this->middleware('permission:doctor-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:doctor-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

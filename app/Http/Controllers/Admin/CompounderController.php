@@ -12,6 +12,16 @@ use Illuminate\Http\Request;
 
 class CompounderController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:compounder-list|compounder-create|compounder-edit|compounder-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:compounder-create', ['only' => ['create','store']]);
+        $this->middleware('permission:compounder-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:compounder-delete', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:transaction-list|transaction-create', ['only' => ['index','store']]);
+         $this->middleware('permission:transaction-create', ['only' => ['create','store']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -23,11 +23,13 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientTestController;
 use App\Http\Controllers\ReferredPatientController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\TestCategoryController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestPriceController;
 use App\Http\Controllers\TestSubCategoryController;
+use App\Http\Controllers\UserController;
 use App\Models\Agent;
 use App\Models\District;
 use App\Models\Doctor;
@@ -38,6 +40,7 @@ use App\Models\TestSubcategory;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,8 +123,102 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('doctor-receive', DoctorReceiveController::class);
     Route::resource('hospital-receive', HospitalReceiveController::class);
     Route::resource('push-notification', PushNotificationController::class);
+
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 });
 
 Auth::routes();
 Route::get('/login', [AdminController::class, 'login'])->name('login');
 Route::get('/register', [AdminController::class, 'register'])->name('register');
+
+
+Route::get('hello', function(){
+
+    $data = [
+         'agent-appointment-list',
+         'agent-appointment-edit',
+         'agent-test-list',
+         'agent-test-edit',
+         'appointment-list',
+         'appointment-edit',
+         'doctor-list',
+         'doctor-create',
+         'doctor-edit',
+         'doctor-delete',
+         'hospital-list',
+         'hospital-create',
+         'hospital-edit',
+         'hospital-delete',
+         'registered-users-list',
+         'patient-test-list',
+         'patient-test-edit',
+         'referred-patients-list',
+         'role-list',
+         'role-create',
+         'role-edit',
+         'role-delete',
+         'specialization-list',
+         'specialization-create',
+         'specialization-edit',
+         'specialization-delete',
+         'test-category-list',
+         'test-category-create',
+         'test-category-edit',
+         'test-category-delete',
+         'hospital-test-list',
+         'hospital-test-create',
+         'hospital-test-edit',
+         'hospital-test-delete',
+         'test-list',
+         'test-create',
+         'test-edit',
+         'test-delete',
+         'user-list',
+         'user-create',
+         'user-edit',
+         'user-delete',
+         'agent-list',
+         'agent-create',
+         'agent-edit',
+         'agent-delete',
+         'agent-pay-list',
+         'agent-settings-edit',
+         'agent-withdraw-list',
+         'agent-withdraw-edit',
+         'patient-pay-list',
+         'compounder-list',
+         'compounder-create',
+         'compounder-edit',
+         'compounder-delete',
+         'doctor-location-list',
+         'doctor-location-create',
+         'doctor-location-edit',
+         'doctor-location-delete',
+         'doctor-receive-list',
+         'hospital-receive-list',
+         'push-notification-list',
+         'push-notification-create',
+         'transaction-list',
+         'transaction-create',
+         'settings-edit',
+
+
+    ];
+
+
+    foreach($data as $data){
+
+        DB::table('permissions')->insert(
+            [
+                'name' => $data,
+                'guard_name' => 'web',
+            ]
+
+            );
+
+    }
+
+
+
+});

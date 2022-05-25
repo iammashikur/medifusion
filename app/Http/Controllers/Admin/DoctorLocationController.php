@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class DoctorLocationController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:doctor-location-list|doctor-location-create|doctor-location-edit|doctor-location-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:doctor-location-create', ['only' => ['create','store']]);
+         $this->middleware('permission:doctor-location-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:doctor-location-delete', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class AgentAppointmentController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:agent-appointment-list|agent-appointment-edit', ['only' => ['index']]);
+         $this->middleware('permission:agent-appointment-edit', ['only' => ['edit','update']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

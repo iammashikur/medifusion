@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class AgentSettingsController extends Controller
 {
 
+    function __construct()
+    {
+         $this->middleware('permission:agent-settings-edit', ['only' => ['store']]);
+    }
+
 
     public function store(Request $request){
 

@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class TestPriceController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:hospital-test-list|hospital-test-create|hospital-test-edit|hospital-test-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:hospital-test-create', ['only' => ['create','store']]);
+         $this->middleware('permission:hospital-test-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:hospital-test-delete', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
