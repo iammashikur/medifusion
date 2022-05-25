@@ -7,7 +7,7 @@ use App\Models\TestCategory;
 use App\Models\TestSubcategory;
 use Illuminate\Http\Request;
 
-class TestSubCategoryController extends Controller
+class TestSubcategoryController extends Controller
 {
 
     function __construct()
@@ -49,7 +49,7 @@ class TestSubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new TestSubCategory();
+        $category = new TestSubcategory();
 
         if ($request->hasFile('image')) {
 
@@ -85,7 +85,7 @@ class TestSubCategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = TestSubCategory::findOrFail($id);
+        $category = TestSubcategory::findOrFail($id);
         $categories = TestCategory::where(['hospital_id' => auth()->user()->hospital_id ])->get();
         return view('admin.test_subcategory_edit', compact('category','categories'));
     }
@@ -100,7 +100,7 @@ class TestSubCategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $category = TestSubCategory::findOrFail($id);
+        $category = TestSubcategory::findOrFail($id);
 
         if ($request->hasFile('image')) {
 
