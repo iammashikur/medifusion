@@ -39,12 +39,16 @@ class AgentDataTable extends DataTable
                 }
             })
 
+            ->addColumn('percentage', function($agent){
+                return $agent->commission.' %';
+            })
+
             ->addColumn('action', function($action){
                 return '<a class="btn-sm btn-primary" href="'.route('agent.edit', $action->id).'"><i class="far fa-edit"></i></a>
                         <a class="btn-sm btn-danger delete" href="'.route('agent.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
             })
 
-           ->rawColumns(['image', 'action', 'status']);
+           ->rawColumns(['image', 'action', 'status', 'percentage']);
     }
 
     /**
@@ -92,6 +96,7 @@ class AgentDataTable extends DataTable
             Column::make('image'),
             Column::make('name'),
             Column::make('phone'),
+            Column::make('percentage'),
             Column::make('status'),
             Column::computed('action')
             ->exportable(false)
