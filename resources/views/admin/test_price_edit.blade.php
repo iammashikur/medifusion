@@ -57,8 +57,6 @@
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospital</label>
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control" name="hospital" id="" disabled>
-
-
                                     @foreach (App\Models\Hospital::all() as $item)
 
                                         <option @if ($item->id == $testPrice->hospital_id)
@@ -76,7 +74,7 @@
                                 <select class="form-control" name="category">
                                     <option> -- select -- </option>
                                     @foreach (App\Models\TestCategory::all() as $item)
-                                        <option @if ($testPrice->test_category == $item->id)
+                                        <option @if ($testPrice->category_id == $item->id)
                                             selected
                                         @endif value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
@@ -89,6 +87,11 @@
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control" name="test">
                                     <option> -- select -- </option>
+                                    @foreach (App\Models\TestSubcategory::all() as $item)
+                                        <option @if ($testPrice->test_if == $item->id)
+                                            selected
+                                        @endif value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -126,57 +129,7 @@
     <script src="{{ url('assets/admin/js/page/create-post.js') }}"></script>
     <script src="{{ url('assets/admin/js/page/ckeditor.js') }}"></script>
 
-    <script>
 
-
-        $(document).ready(function() {
-            var categoryID = $('select[name="category"] option:selected').val();
-            $.ajax({
-                url: '{{ url('test-by-category') }}/' + categoryID,
-                type: "GET",
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
-                    $('select[name="test"]').empty();
-                    $.each(data, function(key, value) {
-                        var selected = value.id == {{$testPrice->id}} ? 'selected' : '';
-                        $('select[name="test"]').append('<option '+ selected +' value="' + value.id +
-                            '">' +
-                            value.name + '</option>');
-                    });
-                }
-            });
-
-        });
-
-
-
-        $('select[name="category"]').on('change', function() {
-            var categoryID = $(this).val();
-            if (categoryID) {
-                $.ajax({
-                    url: '{{ url('test-by-category') }}/' + categoryID,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-
-                        console.log(data);
-
-                        $('select[name="test"]').empty();
-                        $.each(data, function(key, value) {
-                            $('select[name="test"]').append('<option value="' + value.id +
-                                '">' +
-                                value.name + '</option>');
-                        });
-
-
-                    }
-                });
-            } else {
-                $('select[name="test"]').empty();
-            }
-        });
-    </script>
 
 
 
