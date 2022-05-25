@@ -44,7 +44,9 @@ class PatientsDataTable extends DataTable
                 else{
                     return '<a href="'.route('user.unban',['id' => $query->id]).'" class="btn btn-success btn-sm">  Active </a>';
                 }
-            });
+            })
+
+            ->rawColumns(['status']);
     }
 
     /**
@@ -92,6 +94,7 @@ class PatientsDataTable extends DataTable
             Column::make('district'),
             Column::make('thana'),
             Column::make('blood_group'),
+            Column::make('status'),
             Column::make('created_at')->title('Registration Date'),
 
 
