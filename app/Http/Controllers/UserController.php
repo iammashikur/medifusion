@@ -131,20 +131,20 @@ class UserController extends Controller
                         ->with('success','User updated successfully');
     }
 
-    public function ban($request)
+    public function ban($id)
     {
 
-        DB::table('patients')->where(['id' => $request->id])->update([
+        DB::table('patients')->where(['id' => $id])->update([
             'status' => 0,
         ]);
 
         return redirect()->route('users.index')->with('success','User updated successfully');
     }
 
-    public function unban($request)
+    public function unban($id)
     {
 
-        DB::table('patients')->where(['id' => $request->id])->update([
+        DB::table('patients')->where(['id' => $id])->update([
             'status' => 1,
         ]);
 
