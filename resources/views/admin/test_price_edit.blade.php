@@ -76,7 +76,9 @@
                                 <select class="form-control" name="category">
                                     <option> -- select -- </option>
                                     @foreach (App\Models\TestCategory::all() as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option @if ($testPrice->test_category == $item->id)
+                                            selected
+                                        @endif value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -96,16 +98,11 @@
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Price</label>
                             <div class="col-sm-12 col-md-7">
-                                <input type="number" name="price" class="form-control" required>
+                                <input type="number" value="{{ $testPrice->price }}" name="price" class="form-control" required>
                             </div>
                         </div>
 
-                        {{-- <div class="form-group row mb-4">
-                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Discount Price</label>
-                            <div class="col-sm-12 col-md-7">
-                                <input type="number" name="discount_price" class="form-control" required>
-                            </div>
-                        </div> --}}
+
 
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
