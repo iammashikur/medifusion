@@ -68,6 +68,8 @@ class AgentAppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
+
+        $appointment = Appointment::findOrFail($appointment->id);
         return view('admin.appointment_edit', compact('appointment'));
     }
 
