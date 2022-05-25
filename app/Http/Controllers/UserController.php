@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\userDataTable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
@@ -134,9 +135,9 @@ class UserController extends Controller
     public function ban($id)
     {
 
-        DB::table('patients')->where(['id' => $id])->update([
-            'status' => 0,
-        ]);
+        $patient = Patient::find($id);
+        $patient->status = 0;
+        $patient->save();
 
         return redirect()->route('patient.index')->with('success','User updated successfully');
     }
@@ -144,9 +145,10 @@ class UserController extends Controller
     public function unban($id)
     {
 
-        DB::table('patients')->where(['id' => $id])->update([
-            'status' => 1,
-        ]);
+        $patient = Patient::find($id);
+        $patient->status = 1;
+        $patient->save();
+
 
         return redirect()->route('patient.index')->with('success','User updated successfully');
     }
