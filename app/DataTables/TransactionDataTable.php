@@ -29,84 +29,20 @@ class TransactionDataTable extends DataTable
         return datatables()
             ->eloquent($query)
 
+
+            ->filterColumn('user_type', function ($query, $keywords) {
+
+                $query->where('user_type', 'LIKE', "%$keywords%");
+
+             })
+
             ->addColumn('user_type', function ($query) {
                 return $query->user_type;
-            })
-
-            ->filterColumn('account_holder_name', function ($query, $keywords) {
-
-
-                $user = Wallet::with('getUser')->whereHas('getUser', function($q) use($keywords){
-                    $q->where('name', 'LIKE', "%$keywords%");
-                });
-
-                $agent = Wallet::with('getAgent')->whereHas('getAgent', function($q) use($keywords){
-                    $q->where('name', 'LIKE', "%$keywords%");
-                });
-
-                $doctor = Wallet::with('getDoctor')->whereHas('getDoctor', function($q) use($keywords){
-                    $q->where('name', 'LIKE', "%$keywords%");
-                });
-
-                $hospital = Wallet::with('getHospital')->whereHas('getHospital', function($q) use($keywords){
-                    $q->where('name', 'LIKE', "%$keywords%");
-                });
-
-                if($user->count() > 0)
-                {
-                    $user = $query->with('getUser')->whereHas('getUser', function($q) use($keywords){
-                        $q->where('name', 'LIKE', "%$keywords%");
-                    });
-
-
-                }
-
-                if($agent->count() > 0)
-                {
-                    $agent = $query->with('getAgent')->whereHas('getAgent', function($q) use($keywords){
-                        $q->where('name', 'LIKE', "%$keywords%");
-                    });
-                }
-
-                if($doctor->count() > 0)
-                {
-                    $doctor = $query->with('getDoctor')->whereHas('getDoctor', function($q) use($keywords){
-                        $q->where('name', 'LIKE', "%$keywords%");
-                    });
-                }
-
-                if($hospital->count() > 0)
-                {
-                    $hospital = $query->with('getHospital')->whereHas('getHospital', function($q) use($keywords){
-                        $q->where('name', 'LIKE', "%$keywords%");
-                    });
-                }
-
 
             })
 
             ->addColumn('account_holder_name', function ($query) {
-                switch ($query->user_type) {
-                    case 'medic':
-                        return 'Medic';
-                        break;
-                    case 'hospital':
-                        return @Hospital::find($query->user_id)->name;
-                        break;
-                    case 'patient':
-                        return @Patient::find($query->user_id)->name;
-                        break;
-                    case 'agent':
-                        return @Agent::find($query->user_id)->name;
-                        break;
-                    case 'doctor':
-                        return @Doctor::find($query->user_id)->name;
-                        break;
-
-                    default:
-                        # code...
-                        break;
-                }
+                return $query->account_holder_name;
             })
 
             ->addColumn('source', function ($query){
