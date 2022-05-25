@@ -1,6 +1,6 @@
 @php
 $page_type = 'Admin';
-$page_title = 'Add Hospital Test';
+$page_title = 'Edit User';
 @endphp
 @extends('admin.layouts.master')
 
@@ -24,7 +24,7 @@ $page_title = 'Add Hospital Test';
 
             <div class="card card-primary">
                 <div class="card-header" style="border-bottom-color: #d0d0d0">
-                    <h4>Add Hospital Test</h4>
+                    <h4>Edit User</h4>
                     <div class="card-header-action">
                         <a href="{{ route('test-price.index') }}" class="btn btn-warning">Go Back</a>
                     </div>
