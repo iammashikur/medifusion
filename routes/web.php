@@ -127,8 +127,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
 
-    Route::get('user-ban', [UserController::class, 'ban'])->name('user.ban');
-    Route::get('user-unban', [UserController::class, 'unban'])->name('user.ban');
+    Route::get('user-ban/{id}', [UserController::class, 'ban'])->name('user.ban');
+    Route::get('user-unban/{id}', [UserController::class, 'unban'])->name('user.ban');
 });
 
 Auth::routes();
