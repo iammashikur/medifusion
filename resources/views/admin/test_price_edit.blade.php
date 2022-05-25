@@ -61,7 +61,7 @@
                                 <select class="form-control" name="category" disabled>
                                     <option value="">---Category---</option>
                                     @foreach (App\Models\TestCategory::all() as $item)
-                                        <option @if ($item->id == App\Models\TestSubCategory::find($testPrice->id)->getParent->id) selected @endif
+                                        <option @if ($item->id == App\Models\TestSubcategory::find($testPrice->id)->getParent->id) selected @endif
                                             value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
@@ -73,7 +73,7 @@
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control" name="test" disabled>
                                     <option selected value="{{ $testPrice->thana_id }}">
-                                        {{ App\Models\TestSubCategory::find($testPrice->id)->name }}</option>
+                                        {{ App\Models\TestSubcategory::find($testPrice->id)->name }}</option>
                                 </select>
                             </div>
                         </div>
