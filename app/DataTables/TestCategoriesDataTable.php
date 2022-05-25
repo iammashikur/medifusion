@@ -45,7 +45,7 @@ class TestCategoriesDataTable extends DataTable
      */
     public function query(TestCategory $model)
     {
-        return $model->where(['hospital_id' => auth()->user()->hospital_id])->newQuery();
+        return $model->newQuery();
     }
 
     /**
