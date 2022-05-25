@@ -138,7 +138,7 @@ class UserController extends Controller
             'status' => 0,
         ]);
 
-        return redirect()->route('users.index')->with('success','User updated successfully');
+        return redirect()->route('patient.index')->with('success','User updated successfully');
     }
 
     public function unban($id)
@@ -148,7 +148,7 @@ class UserController extends Controller
             'status' => 1,
         ]);
 
-        return redirect()->route('users.index')->with('success','User updated successfully');
+        return redirect()->route('patient.index')->with('success','User updated successfully');
     }
 
     /**
