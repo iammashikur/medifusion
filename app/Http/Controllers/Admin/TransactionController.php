@@ -45,9 +45,16 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
 
+
+
+
+
+
+
         $transaction = new Wallet();
         $transaction->user_type = $request->user_type;
         $transaction->user_id = $request->user_id;
+        $transaction->account_holder = getName($request->user_type, $request->user_id);
         $transaction->transaction_type = $request->transaction_type;
         $transaction->amount = $request->amount;
         $transaction->status = 1;
@@ -59,6 +66,7 @@ class TransactionController extends Controller
                 $transaction = new Wallet();
                 $transaction->user_type = 'medic';
                 $transaction->user_id = 0;
+                $transaction->account_holder = getName('medic', 0);
                 $transaction->transaction_type = '+';
                 $transaction->amount = $request->amount;
                 $transaction->status = 1;

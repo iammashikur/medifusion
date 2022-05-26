@@ -5,6 +5,8 @@ use App\Models\AgentSetting;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\DoctorLocation;
+use App\Models\Hospital;
+use App\Models\Patient;
 use App\Models\PatientTest;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -54,7 +56,7 @@ function sendNotificationToSubsciber($title, $desc, $user_type, $p_cat_image = "
     curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json; charset=utf-8',
-        'Authorization: Basic '. env('ONESIGNAL_API_KEY') //env
+        'Authorization: Basic ' . env('ONESIGNAL_API_KEY') //env
     ));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
@@ -64,7 +66,6 @@ function sendNotificationToSubsciber($title, $desc, $user_type, $p_cat_image = "
 
     $response = curl_exec($ch);
     curl_close($ch);
-
 }
 
 function sendNotificationToUser($title, $desc, $user_type, $include_player_ids, $p_cat_image = "")
@@ -106,7 +107,7 @@ function sendNotificationToUser($title, $desc, $user_type, $include_player_ids, 
     curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json; charset=utf-8',
-        'Authorization: Basic '. env('ONESIGNAL_API_KEY') //env
+        'Authorization: Basic ' . env('ONESIGNAL_API_KEY') //env
     ));
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
@@ -116,7 +117,6 @@ function sendNotificationToUser($title, $desc, $user_type, $include_player_ids, 
 
     $response = curl_exec($ch);
     curl_close($ch);
-
 }
 
 
@@ -154,19 +154,39 @@ function MakeImage(Request $request, $fileName, $path)
 }
 
 
+function getName($type, $id)
+{
+    switch ($type) {
+        case 'medic':
+            return 'Medic';
+            break;
+        case 'agent':
+            return Agent::find($id)->name;
+            break;
+        case 'patient':
+            return Patient::find($id)->name;
+            break;
+        case 'doctor':
+            return Doctor::find($id)->name;
+            break;
+        case 'hospital':
+            return Hospital::find($id)->name;
+            break;
+    }
+}
 
 // Percentage
 $percentToAmount = fn ($amount, $percent) => ($percent / 100) * $amount;
 
 
 // Payment
-function appointmentPay($appointmentId, $location, $agent = null) {
+function appointmentPay($appointmentId, $location, $agent = null)
+{
 
 
     if ($agent !== null) {
         $agentCommission  = @Agent::find($agent)->commission ? @Agent::find($agent)->commission : AgentSetting::first()->default_commission;
-    }else
-    {
+    } else {
         $agentCommission = 0;
     }
 
@@ -191,6 +211,7 @@ function appointmentPay($appointmentId, $location, $agent = null) {
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $medicGets;
     $medicGetsInsert->user_type = 'medic';
+    $medicGetsInsert->account_holder = 'Medic';
     $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
@@ -205,6 +226,7 @@ function appointmentPay($appointmentId, $location, $agent = null) {
     $medicGetsInsert->amount = $doctorGets;
     $medicGetsInsert->user_type = 'doctor';
     $medicGetsInsert->user_id = DoctorLocation::find($location)->doctor_id;
+    $medicGetsInsert->account_holder = Doctor::find(DoctorLocation::find($location)->doctor_id)->name;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->status = 0;
@@ -215,6 +237,7 @@ function appointmentPay($appointmentId, $location, $agent = null) {
     $medicGetsInsert->amount = $appointmentFee - $amountToPay;
     $medicGetsInsert->user_type = 'patient';
     $medicGetsInsert->user_id = Appointment::find($appointmentId)->patient_id;
+    $medicGetsInsert->account_holder = Patient::find(Appointment::find($appointmentId)->patient_id)->name;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->appointment_id = $appointmentId;
     $medicGetsInsert->status = 0;
@@ -226,6 +249,7 @@ function appointmentPay($appointmentId, $location, $agent = null) {
         $medicGetsInsert->amount = $agentGets;
         $medicGetsInsert->user_type = 'agent';
         $medicGetsInsert->user_id = $agent;
+        $medicGetsInsert->account_holder = Agent::find($agent)->name;
         $medicGetsInsert->transaction_type = '+';
         $medicGetsInsert->appointment_id = $appointmentId;
         $medicGetsInsert->status = 0;
@@ -235,23 +259,21 @@ function appointmentPay($appointmentId, $location, $agent = null) {
     return [
         'main_price'   => $appointmentFee,
         'patient_paid' => $amountToPay,
-        'doctor_earned'=> $doctorGets,
+        'doctor_earned' => $doctorGets,
         'medic_earned' => $medicGets,
         'agent_earned' => $agentGets,
     ];
-
-
 }
 
 
 // Payment
-function testPay($testCategory, $test_price, $test_id, $agent = null) {
+function testPay($testCategory, $test_price, $test_id, $agent = null)
+{
 
 
     if ($agent !== null) {
         $agentCommission  = @Agent::find($agent)->commission ? @Agent::find($agent)->commission : AgentSetting::first()->default_commission;
-    }else
-    {
+    } else {
         $agentCommission = 0;
     }
 
@@ -268,11 +290,12 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $medicGets = ceil($q * 100) - $x - $agentGets;
     $hospitalGets  = $amountToPay - ($medicGets + $agentGets);
 
-     //Test to Medic
+    //Test to Medic
     $medicGetsInsert = new Wallet();
     $medicGetsInsert->amount = $medicGets;
     $medicGetsInsert->user_type = 'medic';
     $medicGetsInsert->user_id = $testCategory->hospital_id;
+    $medicGetsInsert->account_holder = 'Medic';
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->test_id = $test_id;
     $medicGetsInsert->status = 0;
@@ -283,6 +306,7 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $medicGetsInsert->amount = $hospitalGets;
     $medicGetsInsert->user_type = 'hospital';
     $medicGetsInsert->user_id = $testCategory->hospital_id;
+    $medicGetsInsert->account_holder = Hospital::find($testCategory->hospital_id)->name;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->test_id = $test_id;
     $medicGetsInsert->status = 0;
@@ -293,6 +317,7 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
     $medicGetsInsert->amount = $x;
     $medicGetsInsert->user_type = 'patient';
     $medicGetsInsert->user_id = PatientTest::find($test_id)->patient_id;
+    $medicGetsInsert->account_holder = Patient::find(PatientTest::find($test_id)->patient_id)->name;
     $medicGetsInsert->transaction_type = '+';
     $medicGetsInsert->test_id = $test_id;
     $medicGetsInsert->status = 0;
@@ -306,6 +331,7 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
         $medicGetsInsert->amount = $agentGets;
         $medicGetsInsert->user_type = 'agent';
         $medicGetsInsert->user_id = $agent;
+        $medicGetsInsert->account_holder = Agent::find($agent)->name;
         $medicGetsInsert->transaction_type = '+';
         $medicGetsInsert->test_id = $test_id;
         $medicGetsInsert->status = 0;
@@ -320,41 +346,44 @@ function testPay($testCategory, $test_price, $test_id, $agent = null) {
         'medic_earned' => $medicGets,
         'agent_earned' => $agentGets,
     ];
-
 }
 
-function withdrawBalance($type , $id){
+function withdrawBalance($type, $id)
+{
     return Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '-', 'status' => 1])->sum('amount');
 }
 
-function alltimeBalance($type , $id){
+function alltimeBalance($type, $id)
+{
     return Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
-function currentBalance($type , $id){
+function currentBalance($type, $id)
+{
 
     $credit =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '+', 'status' => 1])->sum('amount');
     $debit  =  Wallet::where(['user_type' => $type, 'user_id' => $id, 'transaction_type' => '-', 'status' => 1])->sum('amount');
     return $credit - $debit;
-
 }
 
-function medicBalance(){
+function medicBalance()
+{
     return Wallet::where(['user_type' => 'medic', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
 
-function doctorRevenue(){
+function doctorRevenue()
+{
     return Wallet::where(['user_type' => 'doctor', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
 
-function hospitalRevenue(){
+function hospitalRevenue()
+{
     return Wallet::where(['user_type' => 'hospital', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
 
-function agentRevenue(){
+function agentRevenue()
+{
     return Wallet::where(['user_type' => 'agent', 'transaction_type' => '+', 'status' => 1])->sum('amount');
 }
-
-

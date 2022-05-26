@@ -101,6 +101,7 @@ class AgentWithdrawController extends Controller
             $transaction = new Wallet();
             $transaction->user_type = 'agent';
             $transaction->user_id = $agent_withdraw->agent_id;
+            $transaction->account_holder = Agent::find($agent_withdraw->agent_id)->name;
             $transaction->transaction_type = '-';
             $transaction->amount = $agent_withdraw->amount;
             $transaction->status = 1;
