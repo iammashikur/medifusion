@@ -29,9 +29,9 @@ $page_title = 'Transactions';
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="">User Type</label>
-                                    <select class="form-control" name="user-type" id="">
+                                    <select class="form-control" name="user-type" id="" required>
 
-                                        <option value="">All</option>
+                                        <option value="all">All</option>
                                         <option value="medic">Medic</option>
                                         <option value="doctor">Doctor</option>
                                         <option value="agent">Agent</option>
@@ -45,8 +45,8 @@ $page_title = 'Transactions';
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="">Transaction Type</label>
-                                    <select class="form-control" name="transaction-type" id="">
-                                        <option value="">All</option>
+                                    <select class="form-control" name="transaction-type" id="" required>
+                                        <option value="all">All</option>
                                         <option value="debit">Debit</option>
                                         <option value="credit">Credit</option>
                                     </select>
@@ -56,14 +56,14 @@ $page_title = 'Transactions';
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Start Date</label>
-                                    <input class="form-control" type="date" name="start-date" id="">
+                                    <input class="form-control" type="date" name="start-date" id="" required>
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">End Date</label>
-                                    <input class="form-control" type="date" name="end-date" id="">
+                                    <input class="form-control" type="date" name="end-date" id="" required>
                                 </div>
                             </div>
 
