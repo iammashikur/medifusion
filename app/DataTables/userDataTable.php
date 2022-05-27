@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\user;
+use App\Models\User;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -45,7 +45,7 @@ class userDataTable extends DataTable
      * @param \App\Models\user $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(user $model)
+    public function query(User $model)
     {
         return $model->newQuery();
     }
