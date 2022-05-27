@@ -31,7 +31,7 @@ $page_title = 'Transactions';
                                     <label for="">User Type</label>
                                     <select class="form-control" name="user-type" id="">
 
-                                        <option value="all">All</option>
+                                        <option>All</option>
 
 
                                         <option value="medic">Medic</option>
@@ -48,7 +48,7 @@ $page_title = 'Transactions';
                                 <div class="form-group">
                                     <label for="">Transaction Type</label>
                                     <select class="form-control" name="transaction-type" id="">
-                                        <option value="all">All</option>
+                                        <option>All</option>
                                         <option value="-">Debit</option>
                                         <option value="+">Credit</option>
                                     </select>
