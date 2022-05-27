@@ -29,7 +29,7 @@ $page_title = 'Transactions';
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="">User Type</label>
-                                    <select class="form-control" name="user-type" id="" required>
+                                    <select class="form-control" name="user-type" id="">
 
                                         <option value="all">All</option>
 
@@ -47,7 +47,7 @@ $page_title = 'Transactions';
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="">Transaction Type</label>
-                                    <select class="form-control" name="transaction-type" id="" required>
+                                    <select class="form-control" name="transaction-type" id="">
                                         <option value="all">All</option>
                                         <option value="-">Debit</option>
                                         <option value="+">Credit</option>
@@ -58,14 +58,14 @@ $page_title = 'Transactions';
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Start Date</label>
-                                    <input class="form-control" type="date" name="start-date" id="" required>
+                                    <input class="form-control" type="date" name="start-date" id="">
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">End Date</label>
-                                    <input class="form-control" type="date" name="end-date" id="" required>
+                                    <input class="form-control" type="date" name="end-date" id="">
                                 </div>
                             </div>
 

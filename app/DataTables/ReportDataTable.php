@@ -10,6 +10,7 @@ use App\Models\Patient;
 use App\Models\PatientTest;
 use App\Models\Transaction;
 use App\Models\Wallet;
+use Carbon\Carbon;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -32,12 +33,10 @@ class ReportDataTable extends DataTable
 
             ->filterColumn('user_type', function ($query, $keywords) {
                 $query->where('user_type', 'LIKE', "%$keywords%");
-
-             })
+            })
 
             ->addColumn('user_type', function ($query) {
                 return $query->user_type;
-
             })
 
             ->filterColumn('account_holder_name', function ($query, $keywords) {
@@ -48,18 +47,18 @@ class ReportDataTable extends DataTable
                 return $query->account_holder;
             })
 
-            ->addColumn('source', function ($query){
+            ->addColumn('source', function ($query) {
                 if ($query->appointment_id) {
                     if (Appointment::find($query->appointment_id)->by_agent) {
-                        return 'Agent Appointment: '.$query->appointment_id;
+                        return 'Agent Appointment: ' . $query->appointment_id;
                     }
-                    return 'Appointment: '.$query->appointment_id;
-                }else if ($query->test_id) {
+                    return 'Appointment: ' . $query->appointment_id;
+                } else if ($query->test_id) {
                     if (PatientTest::find($query->test_id)->by_agent) {
-                        return 'Agent Test: '.$query->test_id;
+                        return 'Agent Test: ' . $query->test_id;
                     }
-                    return 'Test: '.$query->test_id;
-                }else{
+                    return 'Test: ' . $query->test_id;
+                } else {
                     return 'Agent Withdraw';
                 }
             })
@@ -86,8 +85,17 @@ class ReportDataTable extends DataTable
         if (request()->has('transaction-type')) {
             $query->where(['transaction_type' => request('transaction-type')]);
         }
+
         if (request()->has('user-type')) {
             $query->where(['user_type' => request('user-type')]);
+        }
+
+        if (request()->has('start-date') && request()->has('end-date')) {
+            $start_date = Carbon::parse(request('start-date'))
+                ->toDateTimeString();
+            $end_date = Carbon::parse(request('end-date'))
+                ->toDateTimeString();
+            $query->whereBetween('created_at', [$start_date, $end_date]);
         }
 
         return $query;
