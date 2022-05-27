@@ -82,16 +82,16 @@ class ReportDataTable extends DataTable
 
         $query =   Wallet::query();
 
-        if (request()->has('transaction-type')) {
+        if (isset($_GET['transaction-type'])) {
 
             $query->where(['transaction_type' => request('transaction-type') == 'debit' ? '-' : '+']);
         }
 
-        if (request()->has('user-type')) {
+        if (isset($_GET['user-type'])) {
             $query->where(['user_type' => request('user-type')]);
         }
 
-        if (request()->has('start-date') && request()->has('end-date')) {
+        if ( isset($_GET['start-date']) && isset($_GET['end-date'])) {
             $start_date = Carbon::parse(request('start-date'))
                 ->toDateTimeString();
             $end_date = Carbon::parse(request('end-date'))
