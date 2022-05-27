@@ -53,14 +53,14 @@ $page_title = 'Report';
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">Start Date</label>
-                                    <input class="form-control" type="date" name="start-date" id="" required>
+                                    <input class="form-control" value="{{ request('start-date') }}" type="date" name="start-date" id="" required>
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="">End Date</label>
-                                    <input class="form-control" type="date" name="end-date" id="" required>
+                                    <input class="form-control" value="{{ request('end-date') }}" type="date" name="end-date" id="" required>
                                 </div>
                             </div>
 
