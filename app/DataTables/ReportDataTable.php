@@ -83,7 +83,8 @@ class ReportDataTable extends DataTable
         $query =   Wallet::query();
 
         if (request()->has('transaction-type')) {
-            $query->where(['transaction_type' => request('transaction-type')]);
+
+            $query->where(['transaction_type' => request('transaction-type') == 'debit' ? '-' : '+']);
         }
 
         if (request()->has('user-type')) {

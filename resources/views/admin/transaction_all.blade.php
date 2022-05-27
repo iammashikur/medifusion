@@ -47,8 +47,8 @@ $page_title = 'Transactions';
                                     <label for="">Transaction Type</label>
                                     <select class="form-control" name="transaction-type" id="">
                                         <option value="">All</option>
-                                        <option value="-">Debit</option>
-                                        <option value="+">Credit</option>
+                                        <option value="debit">Debit</option>
+                                        <option value="credit">Credit</option>
                                     </select>
                                 </div>
                             </div>
