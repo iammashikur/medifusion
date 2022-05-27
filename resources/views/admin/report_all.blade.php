@@ -1,4 +1,3 @@
-
 @php
 $page_type = 'Admin';
 $page_title = 'Report';
@@ -23,12 +22,16 @@ $page_title = 'Report';
                                     <label for="">User Type</label>
                                     <select class="form-control" name="user-type" id="" required>
 
-                                        <option value="all" @if (request('user-type' == 'all')) selected @endif>All</option>
-                                        <option value="medic" @if (request('user-type' == 'medic')) selected @endif>Medic</option>
-                                        <option value="doctor" @if (request('user-type' == 'doctor')) selected @endif>Doctor</option>
-                                        <option value="agent" @if (request('user-type' == 'agent')) selected @endif>Agent</option>
-                                        <option value="user" @if (request('user-type' == 'user')) selected @endif>User</option>
-                                        <option value="hospital" @if (request('user-type' == 'hospital')) selected @endif>Hospital</option>
+                                        <option value="all" @if (request('user-type') == 'all') selected @endif>All</option>
+                                        <option value="medic" @if (request('user-type') == 'medic') selected @endif>Medic
+                                        </option>
+                                        <option value="doctor" @if (request('user-type') == 'doctor') selected @endif>Doctor
+                                        </option>
+                                        <option value="agent" @if (request('user-type') == 'agent') selected @endif>Agent
+                                        </option>
+                                        <option value="user" @if (request('user-type') == 'user') selected @endif>User</option>
+                                        <option value="hospital" @if (request('user-type') == 'hospital') selected @endif>Hospital
+                                        </option>
 
                                     </select>
                                 </div>
@@ -38,9 +41,11 @@ $page_title = 'Report';
                                 <div class="form-group">
                                     <label for="">Transaction Type</label>
                                     <select class="form-control" name="transaction-type" id="" required>
-                                        <option value="all" @if (request('transaction-type' == 'all')) selected @endif>All</option>
-                                        <option value="debit" @if (request('transaction-type' == 'debit')) selected @endif>Debit</option>
-                                        <option value="credit" @if (request('transaction-type' == 'credit')) selected @endif>Credit</option>
+                                        <option value="all" @if (request('transaction-type') == 'all') selected @endif>All</option>
+                                        <option value="debit" @if (request('transaction-type') == 'debit') selected @endif>Debit
+                                        </option>
+                                        <option value="credit" @if (request('transaction-type') == 'credit') selected @endif>Credit
+                                        </option>
                                     </select>
                                 </div>
                             </div>
