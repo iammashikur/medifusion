@@ -57,7 +57,6 @@ class SpecializationController extends Controller
         }
 
         $specialization->specialization = $request->specialization;
-        $specialization->hospital_id = auth()->user()->hospital_id;
         $specialization->save();
         toast('Specialization Created!', 'success')->width('300px')->padding('10px');
         return redirect()->route('specialization.index');
@@ -111,7 +110,6 @@ class SpecializationController extends Controller
 
 
         $specialization->specialization = $request->specialization;
-        $specialization->hospital_id = auth()->user()->hospital_id;
 
         $specialization->save();
 
