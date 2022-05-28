@@ -107,7 +107,6 @@ class ApiController extends Controller
         $appointment = new Appointment();
         $appointment->patient_id = $patient->id;
         $appointment->doctor_id = $request->doctor_id;
-        $appointment->hospital_id = 0;
         $appointment->appointment_fee = 0;
         $appointment->status_id = 1;
         $appointment->location = $request->location;
@@ -162,7 +161,6 @@ class ApiController extends Controller
         $appointment = new Appointment();
         $appointment->patient_id = $request->user()->id;
         $appointment->doctor_id = $request->doctor_id;
-        $appointment->hospital_id = 0;
         $appointment->appointment_fee = 0;
         $appointment->status_id = 1;
         $appointment->location = $request->location;
@@ -237,14 +235,11 @@ class ApiController extends Controller
             }
 
             $test->prices = $test->getPrice;
-
-            unset($test->hospital_id);
             unset($test->category_id);
             unset($test->created_at);
             unset($test->updated_at);
 
-            // unset($test->hospitals->get_hospital);
-        }
+       }
 
         return response()->json([
             'success' => true,
@@ -285,13 +280,9 @@ class ApiController extends Controller
             }
 
             $test->prices = $test->getPrice;
-
-            unset($test->hospital_id);
             unset($test->category_id);
             unset($test->created_at);
             unset($test->updated_at);
-
-            // unset($test->hospitals->get_hospital);
         }
 
         return response()->json([
@@ -396,7 +387,6 @@ class ApiController extends Controller
         $test->patient_id = $patient->id;
         $test->test_uid = round(time() / 1000) . random(5);
         $test->status_id = 1;
-        $test->hospital_id = 0;
         $test->by_agent = 1;
         $test->save();
 
@@ -452,7 +442,6 @@ class ApiController extends Controller
         $test->patient_id = $request->user()->id;
         $test->test_uid = round(time() / 1000) . random(5);
         $test->status_id = 1;
-        $test->hospital_id = 0;
         $test->by_agent = 0;
         $test->save();
 
