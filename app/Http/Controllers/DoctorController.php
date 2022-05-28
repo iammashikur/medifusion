@@ -73,7 +73,6 @@ class DoctorController extends Controller
         $doctor->phone      = $request->phone;
         $doctor->commission      = $request->commission;
         $doctor->discount      = $request->discount;
-        $doctor->hospital_id = auth()->user()->hospital_id;
         $doctor->status      = $request->status;
         $doctor->save();
 

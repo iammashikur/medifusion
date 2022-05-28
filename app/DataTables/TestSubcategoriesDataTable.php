@@ -50,7 +50,7 @@ class TestSubcategoriesDataTable extends DataTable
      */
     public function query(TestSubcategory $model)
     {
-        return $model->where(['hospital_id' => auth()->user()->hospital_id])->newQuery();
+        return $model->newQuery();
     }
 
     /**

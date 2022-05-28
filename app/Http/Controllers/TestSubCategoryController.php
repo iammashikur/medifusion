@@ -37,7 +37,7 @@ class TestSubcategoryController extends Controller
     public function create()
     {
 
-        $categories = TestCategory::where(['hospital_id' => auth()->user()->hospital_id ])->get();
+        $categories = TestCategory::get();
         return view('admin.test_subcategory_create', compact('categories'));
     }
 
@@ -60,7 +60,6 @@ class TestSubcategoryController extends Controller
 
         $category->name = $request->name;
         $category->category_id = $request->category_id;
-        $category->hospital_id = auth()->user()->hospital_id;
         $category->save();
         toast('Category Created!', 'success')->width('300px')->padding('10px');
         return redirect()->route('test-subcategory.index');
@@ -86,7 +85,7 @@ class TestSubcategoryController extends Controller
     public function edit($id)
     {
         $category = TestSubcategory::findOrFail($id);
-        $categories = TestCategory::where(['hospital_id' => auth()->user()->hospital_id ])->get();
+        $categories = TestCategory::get();
         return view('admin.test_subcategory_edit', compact('category','categories'));
     }
 
@@ -111,7 +110,6 @@ class TestSubcategoryController extends Controller
 
         $category->name = $request->name;
         $category->category_id = $request->category_id;
-        $category->hospital_id = auth()->user()->hospital_id;
         $category->save();
         toast('Test Subcategory Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('test-subcategory.index');
