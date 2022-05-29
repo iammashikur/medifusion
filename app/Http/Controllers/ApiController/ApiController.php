@@ -742,7 +742,7 @@ class ApiController extends Controller
                 $data = [];
 
                 foreach($test_items as $key => $it){
-                    $data[] = PatientTest::where('id',$key)->with('getStatus','getPatient','getItems')->first();
+                    $data[] = PatientTest::where('id',$key)->with('getStatus','getPatient','getItems','getAgent')->first();
                 }
 
                 $hs->testst = $data;
