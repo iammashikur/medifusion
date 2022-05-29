@@ -13,7 +13,7 @@ class Doctor extends Model
     use HasFactory;
 
     public function getSpecialization(){
-        return $this->hasOne(DoctorSpecialization::class, 'id', 'specialization')->withTrashed();
+        return $this->hasOne(DoctorSpecialization::class, 'id', 'specialization');
     }
 
     public function getGender(){
