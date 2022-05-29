@@ -11,11 +11,11 @@ class DoctorLocation extends Model
     use HasFactory,SoftDeletes;
 
     public function getDoctor(){
-        return $this->hasOne(Doctor::class, 'id', 'doctor_id')->withTrashed();
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
     }
 
     public function getHospital(){
-        return $this->hasOne(Hospital::class, 'id', 'hospital_id')->withTrashed();
+        return $this->hasOne(Hospital::class, 'id', 'hospital_id');
     }
 
     public function getDistrict(){
