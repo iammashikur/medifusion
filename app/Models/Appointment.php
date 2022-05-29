@@ -10,7 +10,7 @@ class Appointment extends Model
     use HasFactory;
 
     public function getDoctor(){
-        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id')->withTrashed();
     }
 
     public function getPatient(){
@@ -18,7 +18,7 @@ class Appointment extends Model
     }
 
     public function getHospital(){
-        return $this->hasOne(Hospital::class, 'id', 'hospital_id');
+        return $this->hasOne(Hospital::class, 'id', 'hospital_id')->withTrashed();
     }
 
     public function getStatus(){
@@ -26,6 +26,6 @@ class Appointment extends Model
     }
 
     public function getLocation(){
-        return $this->hasOne(DoctorLocation::class, 'id', 'location');
+        return $this->hasOne(DoctorLocation::class, 'id', 'location')->withTrashed();
     }
 }

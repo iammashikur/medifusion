@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Doctor extends Model
 {
 
     protected $hidden = ['password'];
 
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     public function getSpecialization(){
         return $this->hasOne(DoctorSpecialization::class, 'id', 'specialization')->withTrashed();
