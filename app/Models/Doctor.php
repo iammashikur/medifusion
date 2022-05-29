@@ -17,7 +17,7 @@ class Doctor extends Model
     }
 
     public function getGender(){
-        return $this->hasOne(Gender::class, 'id', 'gender')->withTrashed();
+        return $this->hasOne(Gender::class, 'id', 'gender');
     }
 
     public function getLocations(){

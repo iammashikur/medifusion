@@ -10,6 +10,6 @@ class DoctorSpecialization extends Model
 {
     use HasFactory,SoftDeletes;
     public function getDoctors(){
-        return $this->hasMany(Doctor::class, 'specialization', 'id')->withTrashed();
+        return $this->hasMany(Doctor::class, 'specialization', 'id');
     }
 }
