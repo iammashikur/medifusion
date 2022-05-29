@@ -123,4 +123,6 @@ class AuthController extends Controller
             'message' => 'Invalid Request!'
         ], 404);
     }
+
+
 }

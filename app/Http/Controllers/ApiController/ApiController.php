@@ -826,4 +826,43 @@ class ApiController extends Controller
             'message' => 'Test Updated',
         ], 200);
     }
+
+    public function hospital_compounder(Request $request)
+    {
+        $compounder = CompounderHospital::where('hospital_id' , $request->id)->first();
+        if ($compounder) {
+            return response()->json([
+                'success' => true,
+                'compounder_id' => $compounder->compounder_id,
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'success' => true,
+                'message' => 'Not Found',
+            ], 404);
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Test Updated',
+        ], 200);
+    }
+    public function doctor_compounder(Request $request)
+    {
+        $compounder = CompounderDoctor::where('doctor_id' , $request->id)->first();
+        if ($compounder) {
+            return response()->json([
+                'success' => true,
+                'compounder_id' => $compounder->compounder_id,
+            ], 200);
+        }
+        else {
+            return response()->json([
+                'success' => true,
+                'message' => 'Not Found',
+            ], 404);
+        }
+    }
 }

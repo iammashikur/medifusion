@@ -92,8 +92,6 @@ Route::get('/agent/{id}', [ApiController::class, 'agent']);
 Route::post('/compounder/login', [AuthController::class, 'compounder_login']);
 
 Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
-
-
     Route::post('/change-notification-id', [ApiController::class, 'change_notification_id_com']);
     Route::get('/doctors',[ApiController::class, 'compounder_doctors']);
     Route::get('/hospitals',[ApiController::class, 'compounder_hospitals']);
@@ -101,8 +99,9 @@ Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
     Route::get('/tests/{id}',[ApiController::class, 'compounder_tests']);
     Route::post('/update-appointment',[ApiController::class, 'compounder_appointment_update']);
     Route::post('/update-test',[ApiController::class, 'compounder_test_update']);
-
     Route::post('/logout', [AuthController::class, 'logout']);
-
-
 });
+
+Route::get('/holpital-compounder/{id}', [ApiController::class, 'hospital_compounder']);
+Route::get('/doctor-compounder/{id}', [ApiController::class, 'doctor_compounder']);
+
