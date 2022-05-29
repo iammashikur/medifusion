@@ -22,6 +22,7 @@ class CreateCompoundersTable extends Migration
             $table->string('password');
             $table->string('zilla')->nullable();
             $table->string('upazilla')->nullable();
+            $table->string('notification_id')->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Models\AgentAppointment;
 use App\Models\AgentTest;
 use App\Models\AgentWithdraw;
 use App\Models\Appointment;
+use App\Models\Compounder;
 use App\Models\CompounderDoctor;
 use App\Models\CompounderHospital;
 use App\Models\Doctor;
@@ -677,6 +678,19 @@ class ApiController extends Controller
     {
 
         $agent = Agent::find($request->user()->id);
+        $agent->notification_id = $request->notification_id;
+        $agent->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Notification ID Updated!',
+        ], 200);
+    }
+
+    public function change_notification_id_com(Request $request)
+    {
+
+        $agent = Compounder::find($request->user()->id);
         $agent->notification_id = $request->notification_id;
         $agent->save();
 

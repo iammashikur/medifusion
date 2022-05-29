@@ -94,6 +94,7 @@ Route::post('/compounder/login', [AuthController::class, 'compounder_login']);
 Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
 
 
+    Route::post('/change-notification-id', [ApiController::class, 'change_notification_id_com']);
     Route::get('/doctors',[ApiController::class, 'compounder_doctors']);
     Route::get('/hospitals',[ApiController::class, 'compounder_hospitals']);
     Route::get('/appointments/{id}',[ApiController::class, 'compounder_appointments']);
