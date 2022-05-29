@@ -17,7 +17,6 @@ class CreateTestCategoriesTable extends Migration
             $table->id();
             $table->string('image')->nullable();
             $table->string('name');
-            $table->integer('hospital_id');
             $table->timestamps();
         });
     }

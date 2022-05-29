@@ -18,7 +18,6 @@ class CreatePatientTestsTable extends Migration
             $table->integer('patient_id');
             $table->string('test_uid');
             $table->string('status_id');
-            $table->integer('hospital_id');
             $table->integer('by_agent');
             $table->timestamps();
         });

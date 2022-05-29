@@ -47,24 +47,6 @@ class DoctorLocationController extends Controller
      */
     public function store(Request $request)
     {
-        if (DoctorLocation::where(['doctor_id' => $request->doctor_id, 'name' => $request->name])->count()) {
-
-            $location = DoctorLocation::where(['doctor_id' => $request->doctor_id, 'name' => $request->name])->first();
-            $location->doctor_id = $request->doctor_id;
-
-            $location->address = $request->address;
-
-            $location->district_id = $request->district;
-            $location->thana_id = $request->thana;
-
-            $location->start_time = $request->start_time;
-            $location->end_time = $request->end_time;
-            $location->consultation_fee = $request->consultation_fee;
-            $location->save();
-
-            toast('Location Updated!', 'success')->width('300px')->padding('10px');
-            return redirect()->route('doctor-location.index');
-        }
 
         $location = new DoctorLocation();
         $location->doctor_id = $request->doctor_id;

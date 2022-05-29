@@ -17,7 +17,6 @@ class CreateTestsTable extends Migration
             $table->id();
             $table->string('test');
             $table->integer('test_fee');
-            $table->integer('hospital_id');
             $table->timestamps();
         });
     }

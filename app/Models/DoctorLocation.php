@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DoctorLocation extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     public function getDoctor(){
-        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id')->withTrashed();
     }
 
     public function getHospital(){
-        return $this->hasOne(Hospital::class, 'id', 'hospital_id');
+        return $this->hasOne(Hospital::class, 'id', 'hospital_id')->withTrashed();
     }
 
     public function getDistrict(){

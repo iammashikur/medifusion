@@ -17,7 +17,6 @@ class CreateTestSubcategoriesTable extends Migration
             $table->id();
             $table->string('image')->nullable();
             $table->string('name');
-            $table->integer('hospital_id');
             $table->integer('category_id');
             $table->timestamps();
         });

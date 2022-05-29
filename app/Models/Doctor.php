@@ -13,15 +13,15 @@ class Doctor extends Model
     use HasFactory;
 
     public function getSpecialization(){
-        return $this->hasOne(DoctorSpecialization::class, 'id', 'specialization');
+        return $this->hasOne(DoctorSpecialization::class, 'id', 'specialization')->withTrashed();
     }
 
     public function getGender(){
-        return $this->hasOne(Gender::class, 'id', 'gender');
+        return $this->hasOne(Gender::class, 'id', 'gender')->withTrashed();
     }
 
     public function getLocations(){
-        return $this->hasMany(DoctorLocation::class, 'doctor_id', 'id');
+        return $this->hasMany(DoctorLocation::class, 'doctor_id', 'id')->withTrashed();
     }
 
 

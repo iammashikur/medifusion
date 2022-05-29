@@ -17,7 +17,6 @@ class CreateDoctorSpecializationsTable extends Migration
             $table->id();
             $table->string('image')->nullable();
             $table->string('specialization');
-            $table->integer('hospital_id');
             $table->timestamps();
         });
     }
