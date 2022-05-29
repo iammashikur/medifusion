@@ -102,6 +102,6 @@ Route::middleware('auth:sanctum')->prefix('compounder')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::get('/holpital-compounder/{id}', [ApiController::class, 'hospital_compounder']);
+Route::get('/hospital-compounder/{id}', [ApiController::class, 'hospital_compounder']);
 Route::get('/doctor-compounder/{id}', [ApiController::class, 'doctor_compounder']);
 
