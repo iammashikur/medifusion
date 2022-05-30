@@ -711,7 +711,7 @@ class ApiController extends Controller
 
     foreach($doctors as $doc)
     {
-        $appointments = Appointment::where('doctor_id', $doc->id)->with('getDoctor', 'getPatient', 'getHospital', 'getStatus')->get();
+        $appointments = Appointment::where('doctor_id', $doc->id)->with('getDoctor', 'getPatient', 'getHospital', 'getStatus', 'getAgent')->get();
 
         foreach ($appointments as $value) {
             $value->location = $value->getLocation;
