@@ -13,6 +13,12 @@ class Appointment extends Model
         return $this->hasOne(Doctor::class, 'id', 'doctor_id')->withTrashed();
     }
 
+    public function getAgent(){
+        return $this->hasOne(AgentAppointment::class, 'id', 'appointment_id')->with('Data')->withTrashed();
+    }
+
+
+
     public function getPatient(){
         return $this->hasOne(Patient::class, 'id', 'patient_id');
     }

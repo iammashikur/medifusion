@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AgentAppointment extends Model
 {
     use HasFactory;
+
+    public function Data(){
+        return $this->hasOne(Agent::class, 'id', 'agent_id');
+    }
+
 }
