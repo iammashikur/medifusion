@@ -834,6 +834,7 @@ class ApiController extends Controller
             return response()->json([
                 'success' => true,
                 'compounder_id' => $compounder->compounder_id,
+                'notification_id' => Compounder::find($compounder->compounder_id)->notification_id,
             ], 200);
         }
         else {
@@ -842,12 +843,6 @@ class ApiController extends Controller
                 'message' => 'Not Found',
             ], 404);
         }
-
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Test Updated',
-        ], 200);
     }
     public function doctor_compounder(Request $request)
     {
@@ -856,6 +851,7 @@ class ApiController extends Controller
             return response()->json([
                 'success' => true,
                 'compounder_id' => $compounder->compounder_id,
+                'notification_id' => Compounder::find($compounder->compounder_id)->notification_id,
             ], 200);
         }
         else {
