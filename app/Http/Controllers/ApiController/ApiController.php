@@ -552,8 +552,17 @@ class ApiController extends Controller
             $user->gender = $request->gender;
         }
 
-        $user->notification_id = $request->notification_id;
-        $user->blood_group = $request->blood_group;
+
+        if ($request->has('notification_id')) {
+            $user->notification_id = $request->notification_id;
+        }
+
+        if ($request->has('blood_group')) {
+            $user->blood_group = $request->blood_group;
+        }
+
+
+
 
         $user->save();
 
