@@ -16,7 +16,8 @@ class PatientTest extends Model
         return $this->hasMany(PatientTestItem::class, 'patient_test_id', 'id');
     }
     public function getAgent(){
-        return $this->hasOne(AgentTest::class, 'test_id', 'id');
+
+        return $this->hasOne(AgentTest::class, 'test_id', 'id')->with('Data');
     }
 
     public function getStatus(){
