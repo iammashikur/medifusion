@@ -49,19 +49,19 @@ class TransactionDataTable extends DataTable
             })
 
             ->addColumn('source', function ($query){
-                if ($query->appointment_id) {
-                    if (Appointment::find($query->appointment_id)->by_agent) {
-                        return 'Agent Appointment: '.$query->appointment_id;
-                    }
-                    return 'Appointment: '.$query->appointment_id;
-                }else if ($query->test_id) {
-                    if (PatientTest::find($query->test_id)->by_agent) {
-                        return 'Agent Test: '.$query->test_id;
-                    }
-                    return 'Test: '.$query->test_id;
-                }else{
-                    return 'Agent Withdraw';
-                }
+                // if ($query->appointment_id) {
+                //     if (Appointment::find($query->appointment_id)->by_agent) {
+                //         return 'Agent Appointment: '.$query->appointment_id;
+                //     }
+                //     return 'Appointment: '.$query->appointment_id;
+                // }else if ($query->test_id) {
+                //     if (PatientTest::find($query->test_id)->by_agent) {
+                //         return 'Agent Test: '.$query->test_id;
+                //     }
+                //     return 'Test: '.$query->test_id;
+                // }else{
+                //     return 'Agent Withdraw';
+                // }
             })
 
             ->addColumn('transaction_type', function ($query) {
