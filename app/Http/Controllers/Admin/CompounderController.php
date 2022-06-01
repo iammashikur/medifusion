@@ -87,12 +87,12 @@ class CompounderController extends Controller
         }
 
         if ($request->has('hospitals')) {
-            foreach ($request->hospitals as $key => $hospital) {
+
                 $ComHospital = new CompounderHospital();
                 $ComHospital->compounder_id = $compounder->id;
-                $ComHospital->hospital_id = $hospital;
+                $ComHospital->hospital_id = $request->hospitals;
                 $ComHospital->save();
-            }
+
         }
 
 
@@ -168,12 +168,12 @@ class CompounderController extends Controller
         if ($request->has('hospitals')) {
             CompounderHospital::where('compounder_id', $compounder->id)->delete();
 
-            foreach ($request->hospitals as $key => $hospital) {
+
                 $ComHospital = new CompounderHospital();
                 $ComHospital->compounder_id = $compounder->id;
-                $ComHospital->hospital_id = $hospital;
+                $ComHospital->hospital_id = $request->hospitals;
                 $ComHospital->save();
-            }
+
         }
 
 
