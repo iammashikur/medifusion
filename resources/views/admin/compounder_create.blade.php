@@ -117,6 +117,7 @@ $page_title = 'Add Compounder';
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Hospital</label>
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control" name="hospitals">
+                                    <option value="">None</option>
                                     @foreach (App\Models\Hospital::all() as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
