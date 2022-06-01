@@ -15,9 +15,9 @@ class CompounderController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:compounder-list|compounder-create|compounder-edit|compounder-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:compounder-create', ['only' => ['create','store']]);
-        $this->middleware('permission:compounder-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:compounder-list|compounder-create|compounder-edit|compounder-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:compounder-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:compounder-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:compounder-delete', ['only' => ['destroy']]);
     }
 
@@ -41,7 +41,7 @@ class CompounderController extends Controller
     {
 
         $gender = Gender::get();
-        return view('admin.compounder_create',compact('gender'));
+        return view('admin.compounder_create', compact('gender'));
     }
 
     /**
@@ -76,19 +76,27 @@ class CompounderController extends Controller
         $compounder->thana = $request->thana;
         $compounder->save();
 
-        foreach($request->doctors as $key => $doctor){
-            $ComDoctor = new CompounderDoctor();
-            $ComDoctor->compounder_id = $compounder->id;
-            $ComDoctor->doctor_id = $doctor;
-            $ComDoctor->save();
+
+        if ($request->has('doctors')) {
+            foreach ($request->doctors as $key => $doctor) {
+                $ComDoctor = new CompounderDoctor();
+                $ComDoctor->compounder_id = $compounder->id;
+                $ComDoctor->doctor_id = $doctor;
+                $ComDoctor->save();
+            }
         }
 
-        foreach($request->hospitals as $key => $hospital){
-            $ComHospital = new CompounderHospital();
-            $ComHospital->compounder_id = $compounder->id;
-            $ComHospital->hospital_id = $hospital;
-            $ComHospital->save();
+        if ($request->has('hospitals')) {
+            foreach ($request->hospitals as $key => $hospital) {
+                $ComHospital = new CompounderHospital();
+                $ComHospital->compounder_id = $compounder->id;
+                $ComHospital->hospital_id = $hospital;
+                $ComHospital->save();
+            }
         }
+
+
+
 
         toast('Compounder Added!', 'success')->width('300px')->padding('10px');
         return redirect()->route('compounder.index');
@@ -114,7 +122,7 @@ class CompounderController extends Controller
     public function edit(Compounder $compounder)
     {
         $gender = Gender::get();
-        return view('admin.compounder_edit', compact('compounder','gender'));
+        return view('admin.compounder_edit', compact('compounder', 'gender'));
     }
 
     /**
@@ -147,22 +155,29 @@ class CompounderController extends Controller
         $compounder->save();
 
 
-        CompounderDoctor::where('compounder_id',$compounder->id)->delete();
-        foreach($request->doctors as $key => $doctor){
-            $ComDoctor = new CompounderDoctor();
-            $ComDoctor->compounder_id = $compounder->id;
-            $ComDoctor->doctor_id = $doctor;
-            $ComDoctor->save();
+        if ($request->has('doctors')) {
+            CompounderDoctor::where('compounder_id', $compounder->id)->delete();
+            foreach ($request->doctors as $key => $doctor) {
+                $ComDoctor = new CompounderDoctor();
+                $ComDoctor->compounder_id = $compounder->id;
+                $ComDoctor->doctor_id = $doctor;
+                $ComDoctor->save();
+            }
         }
 
-        CompounderHospital::where('compounder_id',$compounder->id)->delete();
+        if ($request->has('hospitals')) {
+            CompounderHospital::where('compounder_id', $compounder->id)->delete();
 
-        foreach($request->hospitals as $key => $hospital){
-            $ComHospital = new CompounderHospital();
-            $ComHospital->compounder_id = $compounder->id;
-            $ComHospital->hospital_id = $hospital;
-            $ComHospital->save();
+            foreach ($request->hospitals as $key => $hospital) {
+                $ComHospital = new CompounderHospital();
+                $ComHospital->compounder_id = $compounder->id;
+                $ComHospital->hospital_id = $hospital;
+                $ComHospital->save();
+            }
         }
+
+
+
 
         toast('Compounder Updated!', 'success')->width('300px')->padding('10px');
         return redirect()->route('compounder.index');
