@@ -165,9 +165,8 @@ class CompounderController extends Controller
             }
         }
 
+        CompounderHospital::where('compounder_id', $compounder->id)->delete();
         if ($request->hospitals) {
-            CompounderHospital::where('compounder_id', $compounder->id)->delete();
-
 
                 $ComHospital = new CompounderHospital();
                 $ComHospital->compounder_id = $compounder->id;
