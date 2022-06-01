@@ -55,14 +55,14 @@ class ApiController extends Controller
     {
 
         if ($request->has('other_agent_phone')) {
-           if (Agent::where('phone', $request->other_agent_phone)->count()) {
+            if (Agent::where('phone', $request->other_agent_phone)->count()) {
                 $request->user()->id = Agent::where('phone', $request->other_agent_phone)->first()->id;
-           }else{
-            return response()->json([
-                'success' => false,
-                'message' => 'Agent not exists!',
-            ], 420);
-           }
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Agent not exists!',
+                ], 420);
+            }
         }
 
 
@@ -239,8 +239,7 @@ class ApiController extends Controller
             unset($test->category_id);
             unset($test->created_at);
             unset($test->updated_at);
-
-       }
+        }
 
         return response()->json([
             'success' => true,
@@ -342,14 +341,14 @@ class ApiController extends Controller
 
         if ($request->has('other_agent_phone')) {
             if (Agent::where('phone', $request->other_agent_phone)->count()) {
-                 $request->user()->id = Agent::where('phone', $request->other_agent_phone)->first()->id;
-            }else{
-             return response()->json([
-                 'success' => false,
-                 'message' => 'Agent not exists!',
-             ], 420);
+                $request->user()->id = Agent::where('phone', $request->other_agent_phone)->first()->id;
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Agent not exists!',
+                ], 420);
             }
-         }
+        }
 
 
         $patient = Patient::where(['phone' => $request->phone])
@@ -718,16 +717,15 @@ class ApiController extends Controller
             $doctors[] = @Doctor::find($doc->doctor_id);
         }
 
-    foreach($doctors as $doc)
-    {
-        $appointments = Appointment::where('doctor_id', $doc->id)->with('getDoctor', 'getPatient', 'getHospital', 'getStatus', 'getAgent')->get();
+        foreach ($doctors as $doc) {
+            $appointments = Appointment::where('doctor_id', $doc->id)->with('getDoctor', 'getPatient', 'getHospital', 'getStatus', 'getAgent')->get();
 
-        foreach ($appointments as $value) {
-            $value->location = $value->getLocation;
+            foreach ($appointments as $value) {
+                $value->location = $value->getLocation;
+            }
+
+            $doc->appointments = $appointments;
         }
-
-        $doc->appointments = $appointments;
-    }
 
         return response()->json([
             'success' => true,
@@ -746,15 +744,15 @@ class ApiController extends Controller
         foreach ($hospitals as $hs) {
 
 
-                $test_items = PatientTestItem::where('hospital_id', $hs->id)->get()->groupBy('patient_test_id');
+            $test_items = PatientTestItem::where('hospital_id', $hs->id)->get()->groupBy('patient_test_id');
 
-                $data = [];
+            $data = [];
 
-                foreach($test_items as $key => $it){
-                    $data[] = PatientTest::where('id',$key)->with('getStatus','getPatient','getItems','getAgent')->first();
-                }
+            foreach ($test_items as $key => $it) {
+                $data[] = PatientTest::where('id', $key)->with('getStatus', 'getPatient', 'getItems', 'getAgent')->first();
+            }
 
-                $hs->testst = $data;
+            $hs->testst = $data;
         }
 
         return response()->json([
@@ -805,7 +803,14 @@ class ApiController extends Controller
         }
 
         if ($request->status) {
+
             $appointment->status_id = $request->status;
+
+            if ($request->status == 5) {
+                DB::table('wallets')->where(['appointment_id' => $appointment->id])->update([
+                    'status' => 1,
+                ]);
+            }
         }
         if ($request->serial) {
             $appointment->serial = $request->serial;
@@ -830,6 +835,12 @@ class ApiController extends Controller
         $test->status_id = $request->status;
         $test->save();
 
+        if ($request->status == 2) {
+            DB::table('wallets')->where(['test_id' => $test->id])->update([
+                'status' => 1,
+            ]);
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Test Updated',
@@ -838,15 +849,14 @@ class ApiController extends Controller
 
     public function hospital_compounder(Request $request)
     {
-        $compounder = CompounderHospital::where('hospital_id' , $request->id)->first();
+        $compounder = CompounderHospital::where('hospital_id', $request->id)->first();
         if ($compounder) {
             return response()->json([
                 'success' => true,
                 'compounder_id' => $compounder->compounder_id,
                 'notification_id' => Compounder::find($compounder->compounder_id)->notification_id,
             ], 200);
-        }
-        else {
+        } else {
             return response()->json([
                 'success' => true,
                 'message' => 'Not Found',
@@ -855,15 +865,14 @@ class ApiController extends Controller
     }
     public function doctor_compounder(Request $request)
     {
-        $compounder = CompounderDoctor::where('doctor_id' , $request->id)->first();
+        $compounder = CompounderDoctor::where('doctor_id', $request->id)->first();
         if ($compounder) {
             return response()->json([
                 'success' => true,
                 'compounder_id' => $compounder->compounder_id,
                 'notification_id' => Compounder::find($compounder->compounder_id)->notification_id,
             ], 200);
-        }
-        else {
+        } else {
             return response()->json([
                 'success' => true,
                 'message' => 'Not Found',
