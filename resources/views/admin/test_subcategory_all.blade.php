@@ -1,6 +1,6 @@
 @php
     $page_type = 'Admin';
-        $page_title = 'Test Subategories';
+        $page_title = 'Test Names';
 @endphp
 @extends('admin.layouts.master')
 
