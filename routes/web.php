@@ -67,8 +67,30 @@ Route::get('user-by-type/{type}', function (Request $request) {
         case 'medic':
             return response()->json([
                 [
-                    'name' => 'Medic',
+                    'name' => 'Revenue',
                     'id' =>   0
+                ],
+                [
+                    'name' => 'Fund',
+                    'id' =>   5
+                ],
+                [
+                    'name' => 'Office',
+                    'id' =>   6
+                ]
+                ,
+                [
+                    'name' => 'Marketing',
+                    'id' =>   7
+                ]
+                ,
+                [
+                    'name' => 'Investment',
+                    'id' =>   8
+                ],
+                [
+                    'name' => 'Others',
+                    'id' =>   9
                 ]
             ]);
             break;
