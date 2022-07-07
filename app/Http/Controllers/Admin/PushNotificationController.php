@@ -58,9 +58,8 @@ class PushNotificationController extends Controller
         $notification->link = $request->link;
         $notification->user_id = $request->user_id;
         $notification->agent_id = $request->agent_id;
+        $notification->type = $request->user_type;
         $notification->save();
-
-
 
         sendNotificationToSubsciber($request->title, $request->description, $request->user_type, @$imagePath);
 

@@ -11,7 +11,6 @@
         <div class="card card-primary">
             <div class="card-header" style="border-bottom-color: #d0d0d0">
                 <h4>Push Notifications</h4>
-
             </div>
             <div class="card-body" style="overflow-x: auto">
                 {{ $dataTable->table() }}

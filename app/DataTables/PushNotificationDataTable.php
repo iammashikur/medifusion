@@ -72,7 +72,9 @@ class PushNotificationDataTable extends DataTable
             Column::make('id'),
             Column::make('title'),
             Column::make('description'),
+            Column::make('type'),
             Column::make('date')->width('200'),
+            
         ];
     }
 
