@@ -25,9 +25,15 @@ class PatientTestsDataTable extends DataTable
             ->addColumn('created_at', function ($query) {
                 return Carbon::parse($query->created_at)->format('l jS \of F Y h:i:s A');
             })
+
             ->addColumn('patient', function ($query) {
-                return $query->getPatient->name;
+                return $query?->getPatient?->name;
             })
+
+            ->addColumn('phone', function ($query) {
+                return $query?->getPatient?->phone;
+            })
+
 
             ->addColumn('tests', function ($query) {
 
@@ -51,7 +57,7 @@ class PatientTestsDataTable extends DataTable
                 return '<a class="btn-sm btn-primary" href="' . route('patient-test.edit', $action->id) . '"><i class="fas fa-eye    "></i> View</a>';
             })
 
-            ->rawColumns(['created_at', 'status',  'patient',  'tests', 'action']);
+            ->rawColumns(['created_at', 'status',  'patient', 'phone', 'tests', 'action']);
     }
 
 
@@ -98,6 +104,7 @@ class PatientTestsDataTable extends DataTable
 
             Column::make('id'),
             Column::make('patient'),
+            Column::make('phone'),
             Column::make('tests'),
             Column::make('test_uid'),
             Column::make('status'),
