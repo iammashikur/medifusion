@@ -27,11 +27,11 @@ class PatientTestsDataTable extends DataTable
             })
 
             ->addColumn('patient', function ($query) {
-                return $query?->getPatient?->name;
+                return $query->getPatient?->name;
             })
 
             ->addColumn('phone', function ($query) {
-                return $query?->getPatient?->phone;
+                return $query->getPatient?->phone;
             })
 
 
