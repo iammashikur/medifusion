@@ -21,15 +21,24 @@ class TestPricesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+
             ->addColumn('hospital', function($testPrice){
                 return @$testPrice->getHospital->name;
               })
             ->addColumn('category', function($testPrice){
                 return $testPrice->getParent->getParent->name;
             })
+
+            ->filterColumn('test', function ($testPrice, $keywords) {
+                $testPrice->testPrice->getParent->where('name', 'LIKE', "%$keywords%");
+
+             })
+
             ->addColumn('test', function($testPrice){
                 return $testPrice->getParent->name;
             })
+
+
             ->addColumn('action', function($action){
                 return '<a class="btn-sm btn-primary" href="'.route('test-price.edit', $action->id).'"><i class="far fa-edit"></i></a>
                         <a class="btn-sm btn-danger delete" href="'.route('test-price.destroy', $action->id).'"><i class="far fa-trash-alt"></i></a>';
