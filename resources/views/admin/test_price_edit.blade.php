@@ -49,7 +49,6 @@
                                         <option @if ($item->id == $testPrice->hospital_id)
                                             selected
                                         @endif value="{{ $item->id }}">{{ $item->name }} </option>
-
                                     @endforeach
                                 </select>
                             </div>
@@ -61,7 +60,7 @@
                                 <select class="form-control" name="category" disabled>
                                     <option value="">---Category---</option>
                                     @foreach (App\Models\TestCategory::all() as $item)
-                                        <option @if ($item->id == App\Models\TestSubcategory::find($testPrice->test_id)->id) selected @endif
+                                        <option @if ($item->id == $testPrice->getParent()->id) selected @endif
                                             value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
