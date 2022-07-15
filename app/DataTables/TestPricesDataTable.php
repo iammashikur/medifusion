@@ -30,7 +30,7 @@ class TestPricesDataTable extends DataTable
             })
 
             ->filterColumn('test', function ($testPrice, $keywords) {
-                $testPrice->testPrice->getParent->where('name', 'LIKE', "%$keywords%");
+                $testPrice->getParent->where('name', 'LIKE', "%$keywords%");
 
              })
 
