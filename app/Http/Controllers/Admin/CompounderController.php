@@ -146,7 +146,7 @@ class CompounderController extends Controller
         $compounder->gender = $request->gender;
         $compounder->phone = $request->phone;
 
-        if ($request->has('password')) {
+        if ($request->password) {
             $compounder->password = bcrypt($request->password);
         }
 
@@ -166,6 +166,7 @@ class CompounderController extends Controller
         }
 
         CompounderHospital::where('compounder_id', $compounder->id)->delete();
+
         if ($request->hospitals) {
 
                 $ComHospital = new CompounderHospital();
@@ -174,8 +175,6 @@ class CompounderController extends Controller
                 $ComHospital->save();
 
         }
-
-
 
 
         toast('Compounder Updated!', 'success')->width('300px')->padding('10px');
