@@ -26,6 +26,12 @@ class AgentAppointmentDataTable extends DataTable
 
                 return $appointment->getPatient->name;
             })
+
+            ->addColumn('phone', function (Appointment $appointment) {
+
+                return $appointment->getPatient->phone;
+            })
+
             ->addColumn('doctor', function (Appointment $appointment) {
                 return $appointment->getDoctor->name;
             })
@@ -112,6 +118,7 @@ class AgentAppointmentDataTable extends DataTable
             Column::make('id')->width('70'),
             Column::make('doctor')->width('70'),
             Column::make('patient')->width('70'),
+            Column::make('phone')->width('70'),
             Column::make('location')->width('100'),
             Column::make('appointment_date')->width('70')->title('Date'),
             Column::make('appointment_time')->width('70')->title('Time'),
