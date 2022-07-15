@@ -32,7 +32,7 @@ class TestPricesDataTable extends DataTable
             ->filterColumn('test', function ($testPrice, $keywords) {
                 $testPrice->with('getParent')->whereHas('getParent', function($q , $keywords){
                     $q->where('name', 'LIKE', "%$keywords%");
-                })->get();
+                });
              })
 
             ->addColumn('test', function($testPrice){
